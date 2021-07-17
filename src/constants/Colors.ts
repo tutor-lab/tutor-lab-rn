@@ -5,11 +5,12 @@ const colors = {
   gray1: '#667089',
   gray2: '#94A3AD',
   gray3: '#D1D8DC',
-  grey: '#767676',
+  gray: '#878787',
   white: '#FFFFFF',
   tap: '#939393',
   btnCpl: '#2354D4',
   btnUnCpl: '#C5C5C5',
+  loginBtn: '#3389FF',
 };
 
 export default colors;
