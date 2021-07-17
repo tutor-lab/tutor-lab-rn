@@ -1,3 +1,5 @@
-import Font from './Font';
+import fonts from './Fonts';
+import colors from './Colors';
+import {height, width} from './Sizes';
 
-export {Font};
+export {fonts, colors, height, width};
