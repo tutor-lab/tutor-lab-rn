@@ -1,5 +1,5 @@
 import fonts from './Fonts';
 import colors from './Colors';
 import {height, width} from './Sizes';
-
-export {fonts, colors, height, width};
+import icons from './icons';
+export {fonts, colors, height, width, icons};
