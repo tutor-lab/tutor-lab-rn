@@ -3,13 +3,15 @@ import {Text, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {fonts, colors, width} from '../../constants';
 
-const LoginBtn = () => {
+type Props = {
+  title: String;
+  onPress: () => void;
+};
+
+const LoginBtn = ({title, onPress}: Props) => {
   return (
-    <TouchableOpacity
-      activeOpacity={1}
-      style={styles.btn}
-      onPress={() => console.log('튜티로그인')}>
-      <Text style={styles.btnText}>튜티로 로그인하기</Text>
+    <TouchableOpacity activeOpacity={1} style={styles.btn} onPress={onPress}>
+      <Text style={styles.btnText}>{title}</Text>
     </TouchableOpacity>
   );
 };

@@ -4,14 +4,14 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {fonts, colors} from '../../constants';
 
 type Props = {
-  text: String;
+  title: String;
   onPress: () => void;
 };
 
-const LoginIntroBtn = ({text, onPress}: Props) => {
+const LoginIntroBtn = ({title, onPress}: Props) => {
   return (
     <TouchableOpacity activeOpacity={1} onPress={onPress}>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
 };
