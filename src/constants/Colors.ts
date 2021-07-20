@@ -8,9 +8,10 @@ const colors = {
   gray: '#878787',
   white: '#FFFFFF',
   tap: '#939393',
-  btnCpl: '#2354D4',
-  btnUnCpl: '#C5C5C5',
+  blue: '#2354D4',
+  unCpl: '#C5C5C5',
   loginBtn: '#3389FF',
+  skyBlue: '#E1ECFE',
 };
 
 export default colors;
