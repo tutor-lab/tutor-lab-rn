@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import LoginIntroScreen from '../screens/login/LoginIntroScreen';
-import LoginScreen from '../screens/login/LoginScreen';
+import LoginMainScreen from '../screens/login/LoginScreen';
 import FindIdScreen from '../screens/login/FindIdScreen';
 import FindPwdScreen from '../screens/login/FindPwdScreen';
 
@@ -14,7 +14,7 @@ const Login = () => {
       initialRouteName="LoginIntro"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="LoginIntro" component={LoginIntroScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="LoginMain" component={LoginMainScreen} />
       <Stack.Screen name="FindId" component={FindIdScreen} />
       <Stack.Screen name="FindPwd" component={FindPwdScreen} />
     </Stack.Navigator>
