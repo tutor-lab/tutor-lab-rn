@@ -20,8 +20,8 @@ export default LoginBtn;
 
 const styles = StyleSheet.create({
   btn: {
-    height: 52,
-    borderRadius: 5,
+    height: 55,
+    borderRadius: 10,
     width: width * 290,
     backgroundColor: colors.loginBtn,
     justifyContent: 'center',

@@ -1,7 +1,7 @@
 import LoginBtn from './LoginBtn';
-import LoginIntroBtn from './LoginIntroBtn';
 import TradeMark from './TradeMark';
 import SubBtn from './SubBtn';
-import Input from './Input';
+import Title from './Title';
+import SubTitle from './SubTitle';
 
-export {LoginBtn, LoginIntroBtn, TradeMark, SubBtn, Input};
+export {LoginBtn, TradeMark, SubBtn, Title, SubTitle};
