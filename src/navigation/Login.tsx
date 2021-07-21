@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import LoginIntroScreen from '../screens/login/LoginIntroScreen';
-import LoginMainScreen from '../screens/login/LoginScreen';
+import LoginMainScreen from '../screens/login/LoginMainScreen';
 import FindIdScreen from '../screens/login/FindIdScreen';
 import FindPwdScreen from '../screens/login/FindPwdScreen';
 
