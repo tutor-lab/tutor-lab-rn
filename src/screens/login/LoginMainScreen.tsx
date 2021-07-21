@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {View, SafeAreaView, Text, StyleSheet} from 'react-native';
+import {View, SafeAreaView, StyleSheet} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
-import {fonts, height, colors} from '../../constants';
-import {LoginBtn, TradeMark, SubBtn, Input} from '../../components/login';
+import {height, colors} from '../../constants';
+import {TradeMark, SubBtn, Title} from '../../components/login';
+import {Button, TextInput} from '../../components/common';
 
 interface Props {
   navigation: StackNavigationProp<LoginStackParamList>;
@@ -25,20 +26,20 @@ const LoginMainScreen = ({route, navigation}: Props) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView>
         <View style={styles.container}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>{route.params.user} 로그인</Text>
+            <Title text={`${route.params.user} 로그인`} />
           </View>
           <View style={styles.inputContainer}>
-            <Input
+            <TextInput
               backgroundColor={colors.skyBlue}
               value={id}
               placeholder={'ID(Email)'}
               onChangeText={(e: string) => idOnChange(e)}
             />
-            <Input
+            <TextInput
               backgroundColor={colors.skyBlue}
               value={pwd}
               placeholder={'Password'}
@@ -46,19 +47,19 @@ const LoginMainScreen = ({route, navigation}: Props) => {
             />
           </View>
           <View style={styles.btnContainer}>
-            <LoginBtn
+            <Button.Button
               title={'로그인 하기'}
               onPress={() => console.log('로그인')}
             />
           </View>
           <View style={styles.subBtnContaier}>
-            <View style={styles.subBtnBox1}>
+            <View style={styles.subBtnBox01}>
               <SubBtn
                 title={'아이디 찾기'}
                 onPress={() => navigation.navigate('FindId')}
               />
             </View>
-            <View style={styles.subBtnBox2}>
+            <View style={styles.subBtnBox02}>
               <SubBtn
                 title={'비밀번호 찾기'}
                 onPress={() => navigation.navigate('FindPwd')}
@@ -77,12 +78,8 @@ const LoginMainScreen = ({route, navigation}: Props) => {
 export default LoginMainScreen;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, alignItems: 'center'},
+  container: {flex: 1, backgroundColor: colors.white, alignItems: 'center'},
   titleContainer: {marginTop: height * 128, marginBottom: height * 127},
-  title: {
-    fontFamily: fonts.regular,
-    fontSize: 24,
-  },
   inputContainer: {
     height: 106,
     justifyContent: 'space-between',
@@ -92,8 +89,8 @@ const styles = StyleSheet.create({
   subBtnContaier: {
     flexDirection: 'row',
   },
-  subBtnBox1: {flex: 1, alignItems: 'flex-end', marginRight: 15},
-  subBtnBox2: {flex: 1, alignItems: 'flex-start', marginLeft: 15},
+  subBtnBox01: {flex: 1, alignItems: 'flex-end', marginRight: 15},
+  subBtnBox02: {flex: 1, alignItems: 'flex-start', marginLeft: 15},
   footer: {
     paddingTop: height * 160,
   },
