@@ -13,6 +13,7 @@ const Input = ({backgroundColor, value, placeholder, onChangeText}: Props) => {
   return (
     <View style={[styles.container, {backgroundColor: backgroundColor}]}>
       <TextInput
+        placeholderTextColor={colors.gray}
         style={styles.input}
         placeholder={placeholder}
         value={value}
@@ -31,5 +32,10 @@ const styles = StyleSheet.create({
     width: width * 290,
     justifyContent: 'center',
   },
-  input: {paddingLeft: 10, fontFamily: fonts.regular, fontSize: 16},
+  input: {
+    color: colors.black,
+    paddingLeft: 10,
+    fontFamily: fonts.regular,
+    fontSize: 16,
+  },
 });

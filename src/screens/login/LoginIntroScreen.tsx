@@ -2,7 +2,7 @@ import React from 'react';
 import {SafeAreaView, View, Image, StyleSheet} from 'react-native';
 
 import {colors, height, width, icons} from '../../constants';
-import {LoginIntroBtn, TradeMark, SubBtn} from '../../components/login';
+import {LoginBtn, TradeMark, SubBtn} from '../../components/login';
 import {LoginStackProp} from '../../types/navigation';
 
 interface Props {
@@ -16,16 +16,16 @@ const LoginIntroScreen = ({navigation}: Props) => {
         <Image style={styles.logo} source={icons.logo} resizeMode="contain" />
       </View>
       <View style={styles.btnContainer}>
-        <LoginIntroBtn
+        <LoginBtn
           title={'튜티로 로그인하기'}
           onPress={() => {
             navigation.navigate('LoginMain', {user: '튜티'});
           }}
         />
-        <LoginIntroBtn
-          title={'튜터로 로그인하기'}
+        <LoginBtn
+          title={'튜티로 로그인하기'}
           onPress={() => {
-            navigation.navigate('LoginMain', {user: '튜터'});
+            navigation.navigate('LoginMain', {user: '튜티'});
           }}
         />
       </View>
