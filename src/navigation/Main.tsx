@@ -1,11 +1,11 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {WithLocalSvg} from 'react-native-svg';
-import {colors, height, width, icons} from '../../constants';
+import {colors, icons} from '../constants';
 
-import LectureScreen from '../../screens/main/LectureScreen';
-import FreeBoardScreen from '../../screens/main/FreeBoardScreen';
-import MypageScreen from '../../screens/main/MypageScreen';
+import Lecture from './Lecture';
+import FreeBoardScreen from '../screens/main/FreeBoardScreen';
+import MypageScreen from '../screens/main/MypageScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +19,7 @@ const Main = () => {
       sceneContainerStyle={{height: 100}}>
       <Tab.Screen
         name="Lecture"
-        component={LectureScreen}
+        component={Lecture}
         options={{
           tabBarLabel: '강의',
           tabBarIcon: ({color}) => (
