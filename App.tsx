@@ -3,15 +3,17 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Login from './src/navigation/Login';
+import Main from './src/navigation/main/Main';
 
-const LoginStack = createStackNavigator<LoginStackParamList>();
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <LoginStack.Navigator screenOptions={{headerShown: false}}>
-        <LoginStack.Screen name="Login" component={Login} />
-      </LoginStack.Navigator>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
