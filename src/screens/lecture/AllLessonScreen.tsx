@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 
 import {width, colors} from '../../constants';
-import {Chip, ChipListData} from '../../components/lecture';
+import {Chip, ChipListData, Category} from '../../components/lecture';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 interface Props {
@@ -21,6 +21,24 @@ const AllLessonScreen = ({}: Props) => {
           ))}
         </ScrollView>
       </View>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.category}>
+          <View style={styles.categoryLeft}>
+            <Category
+              explain={'강의 종류'}
+              text={'개발'}
+              onPress={() => console.log('개발')}
+            />
+          </View>
+          <View style={styles.categoryRight}>
+            <Category
+              explain={'강의 종류'}
+              text={'개발'}
+              onPress={() => console.log('개발')}
+            />
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -35,7 +53,7 @@ const styles = StyleSheet.create({
   },
   chipContainer: {height: 69},
   chips: {justifyContent: 'center', paddingRight: 10},
-
+  scrollView: {flexGrow: 1},
   category: {height: 88, flexDirection: 'row'},
   categoryLeft: {flex: 1, alignItems: 'flex-start'},
   categoryRight: {flex: 1, alignItems: 'flex-end'},
