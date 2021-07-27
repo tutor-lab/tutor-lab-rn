@@ -16,7 +16,7 @@ const Chip = ({text, onPress}: Props) => {
       style={styles.container}
       activeOpacity={1}
       onPress={onPress}>
-      <WithLocalSvg asset={icons.menu} />
+      <WithLocalSvg asset={icons.category_menu} />
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
@@ -38,6 +38,5 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontFamily: fonts.medium,
     color: '#6A6A6A',
-    fontWeight: '700',
   },
 });
