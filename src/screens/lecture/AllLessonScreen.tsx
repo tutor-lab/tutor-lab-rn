@@ -41,144 +41,54 @@ const AllLessonScreen = ({}: Props) => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{paddingVertical: 15}}>
-          <TouchableOpacity
-            activeOpacity={1}
-            style={{
-              height: 295,
-              width: '47%',
-              borderWidth: 1,
-              borderRadius: 10,
-              borderColor: '#6A6A6A',
-            }}>
-            <View style={{flex: 2}}>
+        <View style={styles.cardSection}>
+          <TouchableOpacity activeOpacity={1} style={styles.cardContainer}>
+            <View style={styles.cardImageContainer}>
               <Image
                 source={require('../../assets/images/card_image.png')}
                 resizeMode="stretch"
-                style={{
-                  height: '100%',
-                  width: '100%',
-                }}
+                style={styles.cardImage}
               />
             </View>
-            <View
-              style={{
-                flex: 3.2,
-                paddingTop: 6,
-                paddingBottom: 11,
-                paddingHorizontal: 12,
-              }}>
-              <View>
-                <View
-                  style={{
-                    borderColor: '#979797',
-                    borderRadius: 21,
-                    borderWidth: 0.5,
-                    height: 18,
-                    justifyContent: 'center',
-                    paddingHorizontal: 5,
-                    width: undefined,
-                  }}>
-                  <Text
-                    style={{
-                      fontFamily: fonts.medium,
-                      fontSize: 9,
-                      color: '#8E8E8E',
-                    }}>
-                    Python
-                  </Text>
+            <View style={styles.cardTextContainer}>
+              <View style={styles.cardChipsContainer}>
+                <View style={styles.cardChipsBox}>
+                  <Text style={styles.cardChipsText}>Python</Text>
                 </View>
               </View>
-              <View>
-                <Text
-                  style={{
-                    fontFamily: fonts.Bold,
-                    fontSize: 14,
-                    color: '#6A6A6A',
-                  }}>
+              <View style={styles.cardTitleBox}>
+                <Text style={styles.cardTitleText}>
                   취업이 빨라지는 개발 교육 첫단계
                 </Text>
               </View>
-              <View style={{flexDirection: 'row'}}>
-                <Text
-                  style={{
-                    fontFamily: fonts.Bold,
-                    fontSize: 12,
-                    color: '#6A6A6A',
-                  }}>
-                  튜터
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: fonts.medium,
-                    fontSize: 12,
-                    color: '#6A6A6A',
-                  }}>
+              <View style={styles.cardTutorBox}>
+                <Text style={styles.cardText}>튜터{'  '}</Text>
+                <Text style={[styles.cardText, {fontFamily: fonts.medium}]}>
                   김하나
                 </Text>
               </View>
-              <View style={{flexDirection: 'row'}}>
-                <Text
-                  style={{
-                    fontFamily: fonts.Bold,
-                    fontSize: 12,
-                    color: '#6A6A6A',
-                  }}>
-                  33,000원 /{' '}
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: fonts.medium,
-                    fontSize: 12,
-                    color: '#6A6A6A',
-                  }}>
+              <View style={styles.cardTimeBox}>
+                <Text style={styles.cardText}>33,000원 / </Text>
+                <Text style={[styles.cardText, {fontFamily: fonts.medium}]}>
                   시간당
                 </Text>
               </View>
-              <View style={{flexDirection: 'row'}}>
-                <Text
-                  style={{
-                    fontFamily: fonts.regular,
-                    fontSize: 9,
-                    color: '#A9A9A9',
-                  }}>
-                  # 회사 10년 근무
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: fonts.regular,
-                    fontSize: 9,
-                    color: '#A9A9A9',
-                  }}>
+              <View style={styles.cardHashTagBox}>
+                <Text style={styles.cardHashTagText}># 회사 10년 근무</Text>
+                <Text style={styles.cardHashTagText}>
                   # sw개발 및 품질 경력
                 </Text>
               </View>
-              <View style={{flexDirection: 'row'}}>
-                <WithLocalSvg asset={icons.heart} />
-                <Text
-                  style={{
-                    fontFamily: fonts.medium,
-                    fontSize: 12,
-                    color: '#939393',
-                  }}>
-                  1995
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: fonts.medium,
-                    fontSize: 12,
-                    color: '#939393',
-                  }}>
-                  리뷰
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: fonts.medium,
-                    fontSize: 12,
-                    color: '#939393',
-                  }}>
-                  100+
-                </Text>
+              <View style={styles.cardFooter}>
+                <View style={styles.cardFooterBox}>
+                  <WithLocalSvg asset={icons.heart} />
+                  <Text>{'  '}</Text>
+                  <Text style={styles.cardFooterText}>1995</Text>
+                </View>
+                <View style={styles.cardFooterBox}>
+                  <Text style={styles.cardFooterText}>리뷰{'  '}</Text>
+                  <Text style={styles.cardFooterText}>100+</Text>
+                </View>
               </View>
             </View>
           </TouchableOpacity>
@@ -201,11 +111,7 @@ const styles = StyleSheet.create({
   scrollView: {flexGrow: 1},
   middle: {flexDirection: 'row', alignItems: 'center'},
   countBox: {flex: 1, flexDirection: 'row', alignItems: 'flex-end'},
-  countText: {
-    fontFamily: fonts.medium,
-    fontSize: 14,
-    color: '#6A6A6A',
-  },
+  countText: {fontFamily: fonts.medium, fontSize: 14, color: '#6A6A6A'},
   sortContainer: {flex: 1, alignItems: 'flex-end'},
   sortBox: {
     flexDirection: 'row',
@@ -217,9 +123,48 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 92,
   },
-  sortText: {
-    marginLeft: 10,
-    fontFamily: fonts.medium,
+  sortText: {marginLeft: 10, fontFamily: fonts.medium, color: '#6A6A6A'},
+  cardSection: {paddingVertical: 15},
+  cardContainer: {
+    height: 300,
+    width: '47%',
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#6A6A6A',
+  },
+  cardImageContainer: {flex: 2},
+  cardImage: {height: '100%', width: '100%'},
+  cardTextContainer: {
+    flex: 3.2,
+    paddingHorizontal: 12,
+  },
+  cardChipsContainer: {flex: 1.5, justifyContent: 'center'},
+  cardChipsBox: {
+    borderColor: '#979797',
+    borderRadius: 21,
+    borderWidth: 0.5,
+    height: 18,
+    justifyContent: 'center',
+    paddingHorizontal: 5,
+  },
+  cardChipsText: {fontFamily: fonts.medium, fontSize: 9, color: '#8E8E8E'},
+  cardTitleBox: {flex: 3, justifyContent: 'center'},
+  cardTitleText: {
+    fontFamily: fonts.Bold,
+    fontSize: 14,
     color: '#6A6A6A',
+    lineHeight: 20,
+  },
+  cardTutorBox: {flexDirection: 'row', flex: 1.2, alignItems: 'center'},
+  cardText: {fontFamily: fonts.Bold, fontSize: 12, color: '#6A6A6A'},
+  cardTimeBox: {flexDirection: 'row', flex: 1.2, alignItems: 'center'},
+  cardHashTagBox: {flexDirection: 'row', flex: 1.5, alignItems: 'flex-end'},
+  cardHashTagText: {fontFamily: fonts.regular, fontSize: 9, color: '#A9A9A9'},
+  cardFooter: {flexDirection: 'row', flex: 2, alignItems: 'center'},
+  cardFooterBox: {flexDirection: 'row', alignItems: 'center', flex: 1},
+  cardFooterText: {
+    fontFamily: fonts.medium,
+    fontSize: 12,
+    color: '#939393',
   },
 });
