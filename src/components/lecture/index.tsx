@@ -1,5 +1,6 @@
 import Chip from './Chip';
 import Data from './Data';
-import CategoryDetail from './CategoryDetail';
-import CategoryList from './CategoryList';
-export {Chip, Data, CategoryDetail, CategoryList};
+import Category from './Category';
+import Card from './Card';
+
+export {Chip, Data, Category, Card};
