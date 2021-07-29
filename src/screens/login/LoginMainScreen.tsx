@@ -8,22 +8,39 @@ import {height, colors} from '../../constants';
 import {TradeMark, SubBtn, Title} from '../../components/login';
 import {Button, TextInput} from '../../components/common';
 
+import axios from 'axios'
+
 interface Props {
   navigation: StackNavigationProp<LoginStackParamList>;
   route: RouteProp<LoginStackParamList, 'LoginMain'>;
 }
 
 const LoginMainScreen = ({route, navigation}: Props) => {
-  const [id, setId] = useState('');
-  const [pwd, setPwd] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const idOnChange = (text: string) => {
-    setId(text);
+    setUsername(text);
   };
 
   const pwdOnChange = (text: string) => {
-    setPwd(text);
+    setPassword(text);
   };
+  const onLogin = () =>{
+
+    axios.post("http://192.168.0.10:8080/login", {
+        username: username,
+        password: password      
+    })
+    .then(function (response) {
+      console.log(response.headers.authorization);
+      // console.log(Object.keys(response.headers))
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,13 +52,13 @@ const LoginMainScreen = ({route, navigation}: Props) => {
           <View style={styles.inputContainer}>
             <TextInput
               backgroundColor={colors.skyBlue}
-              value={id}
+              value={username}
               placeholder={'ID(Email)'}
               onChangeText={(e: string) => idOnChange(e)}
             />
             <TextInput
               backgroundColor={colors.skyBlue}
-              value={pwd}
+              value={password}
               placeholder={'Password'}
               onChangeText={(e: string) => pwdOnChange(e)}
             />
@@ -49,7 +66,7 @@ const LoginMainScreen = ({route, navigation}: Props) => {
           <View style={styles.btnContainer}>
             <Button.Button
               title={'로그인 하기'}
-              onPress={() => console.log('로그인')}
+              onPress={() => onLogin()}
             />
           </View>
           <View style={styles.subBtnContaier}>
