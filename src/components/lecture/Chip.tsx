@@ -3,7 +3,7 @@ import {Text, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {WithLocalSvg} from 'react-native-svg/src';
 
-import {fonts, icons} from '../../constants';
+import {fonts, colors, icons} from '../../constants';
 
 type Props = {
   text: String;
@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     alignItems: 'center',
     paddingHorizontal: 11,
-    borderColor: '#C2C2C2',
+    borderColor: colors.silver,
     borderWidth: 1,
   },
   text: {
     marginLeft: 10,
     fontFamily: fonts.medium,
-    color: '#6A6A6A',
+    color: colors.dim_gray,
   },
 });

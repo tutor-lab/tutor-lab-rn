@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {WithLocalSvg} from 'react-native-svg/src';
-import {fonts, icons, width} from '../../constants';
+import {fonts, icons, colors, width} from '../../constants';
 
 type Props = {
   data: {
@@ -60,7 +60,9 @@ const Card = ({data}: Props) => {
           </View>
           <View style={styles.cardHashTagBox}>
             {data.hashTag.map(text => (
-              <Text style={styles.cardHashTagText}>{text}</Text>
+              <Text key={text} style={styles.cardHashTagText}>
+                {text}
+              </Text>
             ))}
           </View>
           <View style={styles.cardFooter}>
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
     width: width * 158,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#6A6A6A',
+    borderColor: colors.dim_gray,
   },
   cardImageContainer: {flex: 2},
   cardImage: {height: '100%', width: '100%'},
@@ -118,11 +120,11 @@ const styles = StyleSheet.create({
   cardTitleText: {
     fontFamily: fonts.Bold,
     fontSize: 14,
-    color: '#6A6A6A',
+    color: colors.dim_gray,
     lineHeight: 20,
   },
   cardTutorBox: {flexDirection: 'row', flex: 1.2, alignItems: 'center'},
-  cardText: {fontFamily: fonts.Bold, fontSize: 12, color: '#6A6A6A'},
+  cardText: {fontFamily: fonts.Bold, fontSize: 12, color: colors.dim_gray},
   cardTimeBox: {flexDirection: 'row', flex: 1.2, alignItems: 'center'},
   cardHashTagBox: {flexDirection: 'row', flex: 1.5, alignItems: 'flex-end'},
   cardHashTagText: {fontFamily: fonts.regular, fontSize: 9, color: '#A9A9A9'},

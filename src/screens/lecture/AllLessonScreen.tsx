@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   scrollView: {flexGrow: 1},
   middle: {flexDirection: 'row', alignItems: 'center'},
   countBox: {flex: 1, flexDirection: 'row', alignItems: 'flex-end'},
-  countText: {fontFamily: fonts.medium, fontSize: 14, color: '#6A6A6A'},
+  countText: {fontFamily: fonts.medium, fontSize: 14, color: colors.dim_gray},
   sortContainer: {flex: 1, alignItems: 'flex-end'},
   sortBox: {
     flexDirection: 'row',
@@ -80,10 +80,10 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     alignItems: 'center',
     paddingHorizontal: 11,
-    borderColor: '#C2C2C2',
+    borderColor: colors.silver,
     borderWidth: 1,
     width: 92,
   },
-  sortText: {marginLeft: 10, fontFamily: fonts.medium, color: '#6A6A6A'},
+  sortText: {marginLeft: 10, fontFamily: fonts.medium, color: colors.dim_gray},
   cardSection: {paddingTop: 15, flexDirection: 'row', flexWrap: 'wrap'},
 });

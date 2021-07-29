@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: colors.white,
     borderRadius: 3,
-    borderColor: '#C2C2C2',
+    borderColor: colors.silver,
     borderWidth: 1,
     paddingHorizontal: width * 12,
     paddingVertical: width * 9,
@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
   textBox: {flex: 2},
   explain: {
     fontFamily: fonts.medium,
-    color: '#6A6A6A',
+    color: colors.dim_gray,
     fontSize: 12,
   },
   text: {
     fontFamily: fonts.Bold,
-    color: '#6A6A6A',
+    color: colors.dim_gray,
     fontSize: 14,
   },
   iconBox: {

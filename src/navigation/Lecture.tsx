@@ -1,6 +1,7 @@
 import React from 'react';
+import 'react-native-gesture-handler';
+import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
 import {StackNavigationProp} from '@react-navigation/stack';
 
 import AllLessonScreen from '../screens/lecture/AllLessonScreen';
