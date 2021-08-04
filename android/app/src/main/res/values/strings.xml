@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">tutorlab</string>
+    <string name="kakao_app_key">a422787fc30d23ba9a5cd92cf581318c</string>
 </resources>
