@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 10,
     width: width * 290,
-    backgroundColor: colors.loginBtn,
+    backgroundColor: colors.login_btn,
     justifyContent: 'center',
     alignItems: 'center',
   },

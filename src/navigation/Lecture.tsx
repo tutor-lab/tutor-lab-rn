@@ -1,10 +1,10 @@
 import React from 'react';
+import 'react-native-gesture-handler';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
 import {StackNavigationProp} from '@react-navigation/stack';
-
 import AllLessonScreen from '../screens/lecture/AllLessonScreen';
 import CustomLessonScreen from '../screens/lecture/CustomLessonScreen';
+import {TabBar} from '../components/main';
 
 interface Props {
   navigation: StackNavigationProp<LoginStackParamList>;
@@ -14,7 +14,7 @@ const LectureScreen = ({}: Props) => {
   const Tab = createMaterialTopTabNavigator();
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator tabBar={props => <TabBar {...props} />}>
       <Tab.Screen
         name="AllLesson"
         component={AllLessonScreen}
