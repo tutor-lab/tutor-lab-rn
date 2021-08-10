@@ -6,6 +6,7 @@ import {colors, icons} from '../constants';
 import Lecture from './Lecture';
 import FreeBoardScreen from '../screens/main/FreeBoardScreen';
 import MypageScreen from '../screens/main/MypageScreen';
+import ChatScreen from '../screens/main/ChatScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,6 +33,16 @@ const Main = () => {
         component={FreeBoardScreen}
         options={{
           tabBarLabel: '자유게시판',
+          tabBarIcon: ({color}) => (
+            <WithLocalSvg fill={color} asset={icons.free_board} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          tabBarLabel: '체팅',
           tabBarIcon: ({color}) => (
             <WithLocalSvg fill={color} asset={icons.free_board} />
           ),
