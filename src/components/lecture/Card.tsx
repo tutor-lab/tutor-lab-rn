@@ -5,6 +5,7 @@ import {WithLocalSvg} from 'react-native-svg/src';
 import {fonts, icons, colors, width} from '../../constants';
 
 type Props = {
+  navigation: any;
   data: {
     id: number;
     stack: string[];
@@ -17,7 +18,7 @@ type Props = {
   };
 };
 
-const Card = ({data}: Props) => {
+const Card = ({navigation, data}: Props) => {
   return (
     <View
       style={[
@@ -26,7 +27,10 @@ const Card = ({data}: Props) => {
           ? {alignItems: 'flex-start'}
           : {alignItems: 'flex-end'},
       ]}>
-      <TouchableOpacity activeOpacity={1} style={styles.cardContainer}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('LectureDetail')}
+        activeOpacity={1}
+        style={styles.cardContainer}>
         <View style={styles.cardImageContainer}>
           <Image
             source={require('../../assets/images/card_image.png')}
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: '100%',
     width: width * 158,
-    borderWidth: 1,
+    borderWidth: 0.25,
     borderRadius: 10,
     borderColor: colors.dim_gray,
   },
