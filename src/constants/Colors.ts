@@ -1,4 +1,12 @@
 const colors = {
+  main: '#6595F4',
+  sub: '#2C343F',
+  line: '#E8EAEF',
+  rhino: '#434A58',
+  light_gray: '#949BAD',
+  bg_color: '#F3F5F8',
+  red: '#EE5A5A',
+  yellow: '#FFD704',
   main1: '#3568EE',
   main2: '332A3A',
   black: '#283237',

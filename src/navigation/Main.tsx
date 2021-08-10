@@ -1,62 +1,35 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {WithLocalSvg} from 'react-native-svg';
-import {colors, icons} from '../constants';
 
-import Lecture from './Lecture';
-import FreeBoardScreen from '../screens/main/FreeBoardScreen';
-import MypageScreen from '../screens/main/MypageScreen';
-import ChatScreen from '../screens/main/ChatScreen';
+import Home from './Home';
+import FreeBoard from './FreeBoard';
+import MyPage from './MyPage';
+import Chat from './Chat';
+import {TabBar} from '../components/main';
 
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Lecture"
-      tabBarOptions={{
-        activeTintColor: colors.main1,
-      }}
-      sceneContainerStyle={{height: 100}}>
-      <Tab.Screen
-        name="Lecture"
-        component={Lecture}
-        options={{
-          tabBarLabel: '강의',
-          tabBarIcon: ({color}) => (
-            <WithLocalSvg fill={color} asset={icons.lecture} />
-          ),
-        }}
-      />
+      initialRouteName="Home"
+      backBehavior="initialRoute"
+      tabBar={props => <TabBar {...props} />}>
+      <Tab.Screen name="Home" component={Home} options={{tabBarLabel: '홈'}} />
       <Tab.Screen
         name="FreeBoard"
-        component={FreeBoardScreen}
-        options={{
-          tabBarLabel: '자유게시판',
-          tabBarIcon: ({color}) => (
-            <WithLocalSvg fill={color} asset={icons.free_board} />
-          ),
-        }}
+        component={FreeBoard}
+        options={{tabBarLabel: '자유게시판'}}
       />
       <Tab.Screen
         name="Chat"
-        component={ChatScreen}
-        options={{
-          tabBarLabel: '체팅',
-          tabBarIcon: ({color}) => (
-            <WithLocalSvg fill={color} asset={icons.free_board} />
-          ),
-        }}
+        component={Chat}
+        options={{tabBarLabel: '채팅'}}
       />
       <Tab.Screen
         name="MyPage"
-        component={MypageScreen}
-        options={{
-          tabBarLabel: '마이페이지',
-          tabBarIcon: ({color}) => (
-            <WithLocalSvg fill={color} stroke={color} asset={icons.my_page} />
-          ),
-        }}
+        component={MyPage}
+        options={{tabBarLabel: '마이페이지'}}
       />
     </Tab.Navigator>
   );

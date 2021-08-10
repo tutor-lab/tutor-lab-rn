@@ -1,8 +1,8 @@
 import {Dimensions} from 'react-native';
 
 export const basicDimensions = {
-  height: 720,
-  width: 360,
+  height: 812,
+  width: 375,
 };
 
 export const height: number = (
