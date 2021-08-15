@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'react-native-gesture-handler';
 import {
   View,
@@ -9,14 +9,22 @@ import {
   TouchableOpacity,
   ImageStore,
   Platform,
+  TextInput,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {WithLocalSvg} from 'react-native-svg/src';
 
 import {colors, height, width, icons, fonts} from '../constants';
-import {Card} from '../components/home';
+import {Card, SearchBar} from '../components/home';
+// import {TextInput} from '../components/common';
 
 const Home = () => {
+  const [search, setSearch] = useState('');
+
+  const onChange = (text: string) => {
+    setSearch(text);
+  };
+
   return (
     // <View style={{height: '100%'}}>
     //   <LinearGradient
@@ -24,15 +32,14 @@ const Home = () => {
     //     style={styles.linearGradient}></LinearGradient>
     // </View>
     <SafeAreaView style={styles.container}>
-      <View style={{paddingHorizontal: width * 20, flex: 1, paddingTop: 20}}>
+      <View style={styles.padding}>
+        <SearchBar value={search} onChangeText={(e: string) => onChange(e)} />
         <Card />
       </View>
     </SafeAreaView>
   );
 };
-/*
- linear-gradient(180deg, rgba(101, 149, 244, 0.008) -14.72%, rgba(255, 255, 255, 0.4) 29.09%);
-*/
+
 export default Home;
 
 var styles = StyleSheet.create({
@@ -40,10 +47,24 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
+  padding: {paddingHorizontal: width * 22, flex: 1, paddingTop: 20},
   linearGradient: {
     flex: 1,
     paddingLeft: 15,
     paddingRight: 15,
     borderRadius: 5,
+  },
+  box: {
+    height: 52,
+    borderRadius: 5,
+    width: width * 290,
+    justifyContent: 'center',
+  },
+  input: {
+    color: colors.black,
+    paddingLeft: 10,
+    fontSize: 16,
+    textAlignVertical: 'center',
+    alignItems: 'center',
   },
 });
