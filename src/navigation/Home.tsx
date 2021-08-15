@@ -39,6 +39,7 @@ const Home = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.padding}>
         <Header alert={alert} />
+        <Select lecture={lecture} setLecture={setLecture} />
         <SearchBar value={search} onChangeText={(e: string) => onChange(e)} />
         <Card />
       </View>
