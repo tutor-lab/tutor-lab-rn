@@ -1,21 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
-import {
-  View,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-  ImageStore,
-  Platform,
-  TextInput,
-} from 'react-native';
+import {View, SafeAreaView, ScrollView, Image, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {WithLocalSvg} from 'react-native-svg/src';
 
-import {colors, height, width, icons, fonts} from '../constants';
-import {Header, Select, Card, SearchBar, Filter} from '../components/home';
+import {colors, width, images} from '../constants';
+import {
+  Header,
+  Lecture,
+  Card,
+  SearchBar,
+  Filter,
+  Count,
+  Sort,
+} from '../components/home';
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
@@ -36,13 +34,32 @@ const Home = () => {
     //     style={styles.linearGradient}></LinearGradient>
     // </View>
     <SafeAreaView style={styles.container}>
-      <View style={styles.padding}>
-        <Header alert={alert} />
-        <Select lecture={lecture} setLecture={setLecture} />
-        <SearchBar value={search} onChangeText={(e: string) => onChange(e)} />
-        <Filter />
-        <Card />
-      </View>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <View style={styles.padding}>
+          <View style={styles.header}>
+            <Header alert={alert} />
+          </View>
+          <View style={styles.lecture}>
+            <Lecture lecture={lecture} setLecture={setLecture} />
+          </View>
+          <View style={styles.searchBar}>
+            <SearchBar
+              value={search}
+              onChangeText={(e: string) => onChange(e)}
+            />
+          </View>
+          <View style={styles.filter}>
+            <Filter />
+          </View>
+          <View style={styles.middle}>
+            <Count count={10} />
+            <Sort />
+          </View>
+          <View style={styles.card}>
+            <Card />
+          </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -55,7 +72,12 @@ var styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   padding: {paddingHorizontal: width * 22, flex: 1, paddingTop: 10},
-
+  header: {},
+  lecture: {marginTop: 30, zIndex: 3, position: 'relative'},
+  searchBar: {marginTop: -50},
+  filter: {marginTop: 22},
+  middle: {flexDirection: 'row', alignItems: 'center', marginTop: 40},
+  card: {marginTop: 22.5},
   linearGradient: {
     flex: 1,
     paddingLeft: 15,
