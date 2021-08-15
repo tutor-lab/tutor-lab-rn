@@ -7,10 +7,12 @@ export const logo_text = require('../assets/icons/logo_text.svg');
 
 export const heart_red = require('../assets/icons/heart_red.png');
 export const alert = require('../assets/icons/alert.svg');
+export const alert_dot = require('../assets/icons/alert_dot.svg');
 export const refresh = require('../assets/icons/refresh.svg');
 export const search = require('../assets/icons/search.svg');
 export const star = require('../assets/icons/star.svg');
 export const line_vertical = require('../assets/icons/line_vertical.svg');
+export const down = require('../assets/icons/down.svg');
 
 export const home_selected = require('../assets/icons/home_selected.svg');
 export const home_unselected = require('../assets/icons/home_unselected.svg');
@@ -30,6 +32,7 @@ export default {
   logo_icon,
   logo_text,
   alert,
+  alert_dot,
   refresh,
   search,
   star,
@@ -42,4 +45,5 @@ export default {
   my_page_selected,
   my_page_unselected,
   line_vertical,
+  down,
 };

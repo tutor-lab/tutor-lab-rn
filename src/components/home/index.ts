@@ -1,4 +1,6 @@
-import Card from './card/Card';
+import Header from './Header';
+import Select from './select/Select';
 import SearchBar from './SearchBar';
+import Card from './card/Card';
 
-export {Card, SearchBar};
+export {Card, Select, SearchBar, Header};

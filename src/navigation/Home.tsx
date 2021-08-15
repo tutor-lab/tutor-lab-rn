@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {
   View,
@@ -15,11 +15,16 @@ import LinearGradient from 'react-native-linear-gradient';
 import {WithLocalSvg} from 'react-native-svg/src';
 
 import {colors, height, width, icons, fonts} from '../constants';
-import {Card, SearchBar} from '../components/home';
+import {Header, Select, Card, SearchBar} from '../components/home';
 // import {TextInput} from '../components/common';
 
 const Home = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState<string>('');
+  const [alert, setAlert] = useState<boolean>(false);
+  const [lecture, setLecture] = useState<{
+    all: boolean;
+    custom: boolean;
+  }>({all: true, custom: false});
 
   const onChange = (text: string) => {
     setSearch(text);
@@ -33,6 +38,7 @@ const Home = () => {
     // </View>
     <SafeAreaView style={styles.container}>
       <View style={styles.padding}>
+        <Header alert={alert} />
         <SearchBar value={search} onChangeText={(e: string) => onChange(e)} />
         <Card />
       </View>
@@ -47,24 +53,12 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
-  padding: {paddingHorizontal: width * 22, flex: 1, paddingTop: 20},
+  padding: {paddingHorizontal: width * 22, flex: 1, paddingTop: 10},
+
   linearGradient: {
     flex: 1,
     paddingLeft: 15,
     paddingRight: 15,
     borderRadius: 5,
-  },
-  box: {
-    height: 52,
-    borderRadius: 5,
-    width: width * 290,
-    justifyContent: 'center',
-  },
-  input: {
-    color: colors.black,
-    paddingLeft: 10,
-    fontSize: 16,
-    textAlignVertical: 'center',
-    alignItems: 'center',
   },
 });
