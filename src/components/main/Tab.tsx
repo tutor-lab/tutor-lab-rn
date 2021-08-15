@@ -1,63 +1,60 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {colors, fonts} from '../../constants';
+import React from 'react';
+import {Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {WithLocalSvg} from 'react-native-svg/src';
+import {colors, fonts, icons} from '../../constants';
+
 interface ITab {
   isFocused: boolean;
-  label:
-    | string
-    | ((props: {focused: boolean; color: string}) => React.ReactNode)
-    | undefined;
+  index: number;
+  label: any;
   onPress: () => void;
-  setToValue: (params: number) => void;
-  setWidth: (params: number) => void;
 }
 
-export default function Tab({
-  isFocused,
-  label,
-  onPress,
-  setToValue,
-  setWidth,
-}: ITab) {
-  const [layout, setLayout] = useState<any>(null);
-  useEffect(() => {
-    if (isFocused && layout) {
-      setToValue(layout.x);
-      setWidth(layout.width);
-    }
-  }, [isFocused, layout, setToValue, setWidth]);
-
-  const onLayout = (e: any) => {
-    const {x, width} = e.nativeEvent.layout;
-    setLayout({x, width});
-  };
+export default function BottomTab({isFocused, index, label, onPress}: ITab) {
+  const icon = [
+    {index: 0, icon: isFocused ? icons.home_selected : icons.home_unselected},
+    {
+      index: 1,
+      icon: isFocused ? icons.free_board_selected : icons.free_board_unselected,
+    },
+    {index: 2, icon: isFocused ? icons.chat_selected : icons.chat_unselected},
+    {
+      index: 3,
+      icon: isFocused ? icons.my_page_selected : icons.my_page_unselected,
+    },
+  ];
 
   return (
     <TouchableOpacity
       activeOpacity={1}
-      onPress={onPress}
-      style={styles.container}>
-      <View style={styles.tab}>
-        <Text
-          style={[
-            styles.tabText,
-            isFocused ? {color: colors.main1} : {color: '#949BAD'},
-          ]}
-          onLayout={onLayout}>
-          {label}
-        </Text>
-      </View>
-      <View style={styles.bottom}>
-        {isFocused ? <View style={styles.bottomLine} /> : <></>}
-      </View>
+      style={styles.container}
+      onPress={() => onPress()}>
+      <WithLocalSvg asset={icon[index].icon} />
+      <Text style={[isFocused ? styles.focus : styles.unfocus, styles.text]}>
+        {label}
+      </Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
-  tab: {height: 46, alignItems: 'center', justifyContent: 'center'},
-  tabText: {fontFamily: fonts.medium, fontSize: 16},
-  bottom: {alignItems: 'flex-end'},
-  bottomLine: {backgroundColor: colors.main1, height: 2, width: '100%'},
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+  },
+  focus: {
+    fontFamily: fonts.medium,
+    color: colors.main,
+  },
+  unfocus: {
+    fontFamily: fonts.regular,
+    color: colors.light_gray,
+  },
+  text: {
+    fontSize: 12,
+    marginTop: 1,
+    includeFontPadding: false,
+  },
 });
