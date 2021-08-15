@@ -19,5 +19,5 @@ const LoginIntroBtn = ({title, onPress}: Props) => {
 export default LoginIntroBtn;
 
 const styles = StyleSheet.create({
-  text: {fontFamily: fonts.medium, color: colors.gray, fontSize: 14},
+  text: {fontFamily: fonts.medium, color: colors.grey, fontSize: 14},
 });

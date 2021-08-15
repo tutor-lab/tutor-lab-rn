@@ -7,11 +7,7 @@ import {Chip, Data, Category, Card} from '../../components/lecture';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {WithLocalSvg} from 'react-native-svg/src';
 
-interface Props {
-  navigation: StackNavigationProp<LoginStackParamList>;
-}
-
-const AllLessonScreen = ({}: Props) => {
+const AllLessonScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.chipContainer}>
@@ -49,7 +45,7 @@ const AllLessonScreen = ({}: Props) => {
         </View>
         <View style={styles.cardSection}>
           {Data.CardData.map(data => (
-            <Card key={data.id} data={data} />
+            <Card key={data.id} data={data} navigation={navigation} />
           ))}
         </View>
       </ScrollView>

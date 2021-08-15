@@ -10,15 +10,15 @@ interface Props {
   navigation: StackNavigationProp<LoginStackParamList>;
 }
 
-const AllLessonScreen = ({}: Props) => {
+const CustomLessonScreen = ({}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text>FreeBoardScreen</Text>
+      <Text>CustomLessonScreen</Text>
     </SafeAreaView>
   );
 };
 
-export default AllLessonScreen;
+export default CustomLessonScreen;
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.white, alignItems: 'center'},
