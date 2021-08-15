@@ -13,6 +13,7 @@ export const search = require('../assets/icons/search.svg');
 export const star = require('../assets/icons/star.svg');
 export const line_vertical = require('../assets/icons/line_vertical.svg');
 export const down = require('../assets/icons/down.svg');
+export const sort = require('../assets/icons/sort.svg');
 
 export const home_selected = require('../assets/icons/home_selected.svg');
 export const home_unselected = require('../assets/icons/home_unselected.svg');
@@ -46,4 +47,5 @@ export default {
   my_page_unselected,
   line_vertical,
   down,
+  sort,
 };

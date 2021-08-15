@@ -1,7 +1,9 @@
 import Header from './Header';
-import Select from './select/Select';
+import Lecture from './lecture/Lecture';
 import SearchBar from './SearchBar';
 import Card from './card/Card';
 import Filter from './filter/Filter';
+import Count from './Count';
+import Sort from './Sort';
 
-export {Card, Select, SearchBar, Header, Filter};
+export {Card, Lecture, SearchBar, Header, Filter, Count, Sort};
