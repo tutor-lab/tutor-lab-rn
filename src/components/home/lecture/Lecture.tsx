@@ -16,7 +16,7 @@ type Props = {
   >;
 };
 
-const Select = ({lecture, setLecture}: Props) => {
+const Lecture = ({lecture, setLecture}: Props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -43,7 +43,7 @@ const Select = ({lecture, setLecture}: Props) => {
     </View>
   );
 };
-export default Select;
+export default Lecture;
 
 const styles = StyleSheet.create({
   container: {flexDirection: 'row'},
