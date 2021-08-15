@@ -15,8 +15,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {WithLocalSvg} from 'react-native-svg/src';
 
 import {colors, height, width, icons, fonts} from '../constants';
-import {Header, Select, Card, SearchBar} from '../components/home';
-// import {TextInput} from '../components/common';
+import {Header, Select, Card, SearchBar, Filter} from '../components/home';
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
@@ -41,6 +40,7 @@ const Home = () => {
         <Header alert={alert} />
         <Select lecture={lecture} setLecture={setLecture} />
         <SearchBar value={search} onChangeText={(e: string) => onChange(e)} />
+        <Filter />
         <Card />
       </View>
     </SafeAreaView>

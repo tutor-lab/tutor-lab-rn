@@ -12,6 +12,6 @@ const styles = StyleSheet.create({
   tradeMark: {
     fontFamily: fonts.medium,
     fontSize: 14,
-    color: colors.gray,
+    color: colors.grey,
   },
 });

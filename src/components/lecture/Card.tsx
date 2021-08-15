@@ -71,7 +71,7 @@ const Card = ({navigation, data}: Props) => {
           </View>
           <View style={styles.cardFooter}>
             <View style={styles.cardFooterBox}>
-              <WithLocalSvg asset={icons.heart} />
+              <WithLocalSvg asset={icons.heart_red} />
               <Text style={styles.cardFooterText}>
                 {'  '}
                 {data.heart}
