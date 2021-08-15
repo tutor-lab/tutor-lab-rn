@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {WithLocalSvg} from 'react-native-svg/src';
-import {colors, icons} from '../../constants';
+import {colors, fonts, icons} from '../../constants';
 
 interface ITab {
   isFocused: boolean;
@@ -30,11 +30,7 @@ export default function BottomTab({isFocused, index, label, onPress}: ITab) {
       style={styles.container}
       onPress={() => onPress()}>
       <WithLocalSvg asset={icon[index].icon} />
-      <Text
-        style={[
-          styles.text,
-          isFocused ? {color: colors.main} : {color: colors.light_gray},
-        ]}>
+      <Text style={[isFocused ? styles.focus : styles.unfocus, styles.text]}>
         {label}
       </Text>
     </TouchableOpacity>
@@ -48,5 +44,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: '100%',
   },
-  text: {fontSize: 12, marginTop: 1},
+  focus: {
+    fontFamily: fonts.medium,
+    color: colors.main,
+  },
+  unfocus: {
+    fontFamily: fonts.regular,
+    color: colors.light_gray,
+  },
+  text: {
+    fontSize: 12,
+    marginTop: 1,
+    includeFontPadding: false,
+  },
 });
