@@ -4,16 +4,21 @@ import {View, Text, StyleSheet} from 'react-native';
 
 import {fonts} from '../../../constants';
 
-const Tag = () => {
+type Props = {remote: string[]};
+
+const Remote = ({remote}: Props) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.tag}>
-        <Text style={styles.text}>ONLINE</Text>
-      </View>
-    </View>
+    <>
+      {remote.map(text => (
+        <View key={text} style={styles.tag}>
+          <Text style={styles.text}>{text}</Text>
+        </View>
+      ))}
+    </>
   );
 };
-export default Tag;
+
+export default Remote;
 
 const styles = StyleSheet.create({
   container: {

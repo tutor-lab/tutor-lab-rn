@@ -1,25 +1,26 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, Image, StyleSheet, Text} from 'react-native';
+import {Image, StyleSheet, Text} from 'react-native';
 
 import {colors, icons, fonts} from '../../../constants';
 
-const Heart = () => {
+type Props = {heart: number};
+
+const Heart = ({heart}: Props) => {
   return (
-    <View style={styles.container}>
+    <>
       <Image
         source={icons.heart_red}
         resizeMode="contain"
         style={styles.heart}
       />
-      <Text style={styles.count}> 56</Text>
-    </View>
+      <Text style={styles.count}> {heart}</Text>
+    </>
   );
 };
 export default Heart;
 
 const styles = StyleSheet.create({
-  container: {flexDirection: 'row', alignItems: 'center'},
   heart: {height: 13, width: 13},
   count: {
     fontFamily: fonts.montserrat_400,

@@ -1,20 +1,25 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import Chip from './Chip';
-import {Data} from './Data';
 
-type Props = {};
+type Props = {
+  data: {
+    id: number;
+    text: string;
+    isSelected: boolean;
+  }[];
+};
 
-const Filter = ({}: Props) => {
+const Filter = ({data}: Props) => {
   return (
-    <View style={styles.container}>
-      {Data.map(data => (
-        <View key={data.id}>
-          <Chip data={data} />
+    <ScrollView horizontal>
+      {data.map(chip => (
+        <View key={chip.id}>
+          <Chip data={chip} />
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 };
 export default Filter;
