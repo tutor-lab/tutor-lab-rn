@@ -1,14 +1,15 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, Text, StyleSheet} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
 import {colors, fonts} from '../../../constants';
 
-const Percent = () => {
+type Props = {discount: number};
+const Percent = ({discount}: Props) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.priceText}>20</Text>
+    <>
+      <Text style={styles.priceText}>{discount}</Text>
       <Text style={styles.priceText}>%{'  '}</Text>
-    </View>
+    </>
   );
 };
 export default Percent;

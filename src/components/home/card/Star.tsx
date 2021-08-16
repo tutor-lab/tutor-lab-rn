@@ -1,18 +1,27 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {WithLocalSvg} from 'react-native-svg/src';
 import {icons} from '../../../constants';
 
-const Star = () => {
+type Props = {rating: number};
+
+const Star = ({rating}: Props) => {
+  const star = () => {
+    let rate = rating;
+    while (rate > 0) {
+      //
+      rate = rate - 1;
+    }
+  };
   return (
-    <View style={styles.container}>
+    <>
       <WithLocalSvg asset={icons.star} />
       <WithLocalSvg asset={icons.star} />
       <WithLocalSvg asset={icons.star} />
       <WithLocalSvg asset={icons.star} />
       <WithLocalSvg asset={icons.star} />
-    </View>
+    </>
   );
 };
 export default Star;
