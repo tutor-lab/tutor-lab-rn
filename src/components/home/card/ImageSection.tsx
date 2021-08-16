@@ -5,7 +5,7 @@ import {View, StyleSheet, Text, Image} from 'react-native';
 import {colors, fonts} from '../../../constants';
 
 type Props = {
-  tag: string;
+  tag: string[];
 };
 
 const ImageSection = ({tag}: Props) => {
@@ -19,23 +19,21 @@ const ImageSection = ({tag}: Props) => {
         />
       </View>
       <View style={styles.tagBox}>
-        <View style={styles.tag}>
-          <Text style={[fonts[500], styles.tagText]}>{tag}</Text>
-        </View>
+        {tag.map(text => (
+          <View key={text} style={styles.tag}>
+            <Text style={[fonts[500], styles.tagText]}>{text}</Text>
+          </View>
+        ))}
       </View>
     </View>
   );
 };
-/*
- linear-gradient(180deg, rgba(101, 149, 244, 0.008) -14.72%, rgba(255, 255, 255, 0.4) 29.09%);
-*/
+
 export default ImageSection;
 
 var styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: 115,
-    position: 'relative',
+    flex: 1,
   },
   imageBox: {
     position: 'relative',
@@ -50,7 +48,7 @@ var styles = StyleSheet.create({
   },
   tagBox: {
     width: '100%',
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
     position: 'relative',
     zIndex: 2,
     marginTop: -35,
@@ -61,7 +59,7 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.white,
     height: 22,
-    marginHorizontal: 8,
+    marginRight: 8,
     paddingHorizontal: 8,
     justifyContent: 'center',
   },

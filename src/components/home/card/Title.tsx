@@ -1,19 +1,20 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 
 import {colors, fonts} from '../../../constants';
 
-const Title = () => {
+type Props = {title: string};
+const Title = ({title}: Props) => {
   return (
-    <View style={styles.container}>
+    <>
       <Text
         numberOfLines={2}
         ellipsizeMode="tail"
         style={[fonts[500], styles.text]}>
-        금융권 취업을 위한 데이터 분석 및 모델링 SQL, R, Python
+        {title}
       </Text>
-    </View>
+    </>
   );
 };
 export default Title;
