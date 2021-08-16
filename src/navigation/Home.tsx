@@ -13,6 +13,7 @@ import {
   Filter,
   Count,
   Sort,
+  Data,
 } from '../components/home';
 
 const Home = () => {
@@ -49,14 +50,18 @@ const Home = () => {
             />
           </View>
           <View style={styles.filter}>
-            <Filter />
+            <Filter data={Data.Filter} />
           </View>
           <View style={styles.middle}>
             <Count count={10} />
             <Sort />
           </View>
           <View style={styles.card}>
-            <Card />
+            {Data.Card.map(data => (
+              <View key={data.id}>
+                <Card data={data} />
+              </View>
+            ))}
           </View>
         </View>
       </ScrollView>

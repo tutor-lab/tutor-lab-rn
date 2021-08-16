@@ -1,15 +1,16 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 
 import {colors, fonts} from '../../../constants';
 
-const Review = () => {
+type Props = {review: number};
+const Review = ({review}: Props) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.count}>20</Text>
+    <>
+      <Text style={styles.count}>{review}</Text>
       <Text style={[styles.count, fonts[400]]}>개 후기</Text>
-    </View>
+    </>
   );
 };
 export default Review;
