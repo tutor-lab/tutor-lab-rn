@@ -9,7 +9,18 @@ import Percent from './Percent';
 import Price from './Price';
 import HashTag from './HashTag';
 
-export {Remote};
+export {
+  Remote,
+  Step,
+  Title,
+  Explain,
+  Heart,
+  Star,
+  Review,
+  Percent,
+  Price,
+  HashTag,
+};
 const Detail = {
   Step,
   Remote,
