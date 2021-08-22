@@ -6,6 +6,22 @@ import Filter from './filter/Filter';
 import Count from './Count';
 import Sort from './Sort';
 import Data from './Data';
-import Detail from './detail/index';
+import Detail from './detail/Detail';
+import Tutor from './tutor/Tutor';
+import Selected from './select/Selected';
+import UnSelected from './select/UnSelected';
 
-export {Card, Lecture, SearchBar, Header, Filter, Count, Sort, Data, Detail};
+export {
+  Card,
+  Lecture,
+  Tutor,
+  SearchBar,
+  Header,
+  Filter,
+  Count,
+  Sort,
+  Data,
+  Detail,
+  Selected,
+  UnSelected,
+};
