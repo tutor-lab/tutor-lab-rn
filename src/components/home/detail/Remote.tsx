@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   tag: {
     height: '100%',
     justifyContent: 'center',
-    borderRadius: 21,
+    borderRadius: 6,
     paddingHorizontal: 7,
     marginRight: 8,
     backgroundColor: 'rgba(89, 195, 99, 0.15)',
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: fonts.montserrat_600,
     color: '#59C463',
-    fontSize: 11,
+    fontSize: 12,
     textAlignVertical: 'center',
   },
 });
