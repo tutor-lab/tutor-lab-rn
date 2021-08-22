@@ -118,6 +118,6 @@ var styles = StyleSheet.create({
   count: {flexDirection: 'row', alignItems: 'center', marginTop: 10},
   divider: {marginHorizontal: 8},
   bottom: {flexDirection: 'row', alignItems: 'center', marginTop: 8},
-  percent: {flexDirection: 'row', alignItems: 'center'},
+  percent: {flexDirection: 'row', alignItems: 'center', width: 35},
   price: {flexDirection: 'row', alignItems: 'center'},
 });
