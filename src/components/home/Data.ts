@@ -117,7 +117,6 @@ export const Card = [
 ];
 
 export const Detail = {
-  id: 0,
   tag: ['무료', '그룹'],
   remote: ['ONLINE', 'OFFLINE'],
   title: '금융권 취업을 위한 데이터 분석 및 모델링 SQL, R, Python',
