@@ -116,21 +116,4 @@ export const Card = [
   },
 ];
 
-export const Detail = {
-  tag: ['무료', '그룹'],
-  remote: ['ONLINE', 'OFFLINE'],
-  title: '금융권 취업을 위한 데이터 분석 및 모델링 SQL, R, Python',
-  explain: '기초부터 실무에서 사용하는 데이터 분석 기술 파헤치기',
-  tutor: '김하나',
-  hashtag: ['SQL', 'Python', 'SQLLite', 'S사 10년근무', 'SW개발및품질경력'],
-  heart: 56,
-  rating: 5,
-  review: 28,
-  discount: 20,
-  price: '197,000',
-  lecture_count: 4,
-  review_count: 67,
-  store_count: 122,
-};
-
-export default {Filter, Card, Detail};
+export default {Filter, Card};
