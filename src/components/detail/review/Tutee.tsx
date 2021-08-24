@@ -14,7 +14,7 @@ type Props = {
     text: string;
   };
 };
-const Tuti = ({data}: Props) => {
+const Tutee = ({data}: Props) => {
   return (
     <View>
       <View style={styles.header_box}>
@@ -26,8 +26,8 @@ const Tuti = ({data}: Props) => {
             <View style={styles.img}></View>
           </TouchableOpacity>
           <View style={styles.text_box}>
-            <View style={styles.tuti_name_box}>
-              <Text style={[fonts[500], styles.tuti_name]}>{data.name}</Text>
+            <View style={styles.tutee_name_box}>
+              <Text style={[fonts[500], styles.tutee_name]}>{data.name}</Text>
             </View>
             <View style={styles.rating_box}>
               <WithLocalSvg asset={icons.star} height={11.5} width={11.5} />
@@ -53,7 +53,7 @@ const Tuti = ({data}: Props) => {
   );
 };
 
-export default Tuti;
+export default Tutee;
 
 var styles = StyleSheet.create({
   header_box: {
@@ -76,11 +76,11 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(101, 149, 244, 0.2)',
   },
   text_box: {height: '100%', marginLeft: 12},
-  tuti_name_box: {
+  tutee_name_box: {
     justifyContent: 'center',
     height: '50%',
   },
-  tuti_name: {color: colors.sub, fontSize: 12.5},
+  tutee_name: {color: colors.sub, fontSize: 12.5},
   rating_box: {
     flexDirection: 'row',
     alignItems: 'center',

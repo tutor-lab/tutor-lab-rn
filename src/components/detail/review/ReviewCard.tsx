@@ -2,13 +2,13 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {View, StyleSheet} from 'react-native';
 
-import {Tuti, Answer} from './index';
+import {Tutee, Answer} from './index';
 import {Line} from '../../../components/common';
 
 type Props = {
   data: {
     id: number;
-    tuti: {
+    tutee: {
       name: string;
       image: string;
       date: string;
@@ -34,7 +34,7 @@ const ReviewCard = ({data}: Props) => {
           <Line />
         </View>
       )}
-      <Tuti data={data.tuti} />
+      <Tutee data={data.tutee} />
       {data.tutor ? <Answer data={data.tutor} /> : <></>}
     </View>
   );

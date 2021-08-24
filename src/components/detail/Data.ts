@@ -35,7 +35,7 @@ export const Count = {
 export const Review = [
   {
     id: 0,
-    tuti: {
+    tutee: {
       name: '박민지',
       image: '',
       date: '2021.07.01',
@@ -51,7 +51,7 @@ export const Review = [
   },
   {
     id: 1,
-    tuti: {
+    tutee: {
       name: '박민지',
       image: '',
       date: '2021.07.01',
@@ -62,7 +62,7 @@ export const Review = [
   },
   {
     id: 2,
-    tuti: {
+    tutee: {
       name: '박민지',
       image: '',
       date: '2021.07.01',
@@ -73,7 +73,7 @@ export const Review = [
   },
   {
     id: 3,
-    tuti: {
+    tutee: {
       name: '박민지',
       image: '',
       date: '2021.07.01',
@@ -89,7 +89,7 @@ export const Review = [
   },
   {
     id: 4,
-    tuti: {
+    tutee: {
       name: '박민지',
       image: '',
       date: '2021.07.01',
