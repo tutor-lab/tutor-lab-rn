@@ -1,17 +1,8 @@
 import React, {useState} from 'react';
 import 'react-native-gesture-handler';
-import {
-  View,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Image,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-import {WithLocalSvg} from 'react-native-svg';
+import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 
-import {colors, width, icons, fonts} from '../../constants';
+import {colors, width} from '../../constants';
 import {
   Data,
   Detail,
@@ -21,7 +12,7 @@ import {
   Sort,
   ReviewCard,
 } from '../../components/detail';
-import {Line} from '../../components/common';
+import {Line, Bottom} from '../../components/common';
 
 const MainScreen = () => {
   const [selection, setSelection] = useState<{
@@ -36,14 +27,10 @@ const MainScreen = () => {
         <View style={styles.line} />
         <Tutor data={Data.Detail} />
         <View style={[styles.line, {height: 5}]} />
-        <View
-          style={{
-            paddingTop: 28,
-            paddingHorizontal: width * 20,
-            paddingBottom: 9,
-          }}>
+        <View style={styles.selection_box}>
           <Selection selection={selection} setSelection={setSelection} />
           {selection.review ? (
+            // 후기
             <View style={{paddingTop: 32}}>
               <Count />
               <View style={{marginVertical: 25}}>
@@ -57,10 +44,15 @@ const MainScreen = () => {
               ))}
             </View>
           ) : (
+            // 강의 소개
             <></>
           )}
         </View>
       </ScrollView>
+      <Bottom.Detail
+        heart={() => console.log('좋아요')}
+        btn={() => console.log('강의 신청')}
+      />
     </SafeAreaView>
   );
 };
@@ -72,15 +64,15 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
+  selection_box: {
+    paddingTop: 28,
+    paddingHorizontal: width * 20,
+    paddingBottom: 9,
+  },
   line: {
     height: 1,
     backgroundColor: colors.line,
     width: '100%',
-  },
-  text: {
-    fontFamily: fonts.montserrat_500,
-    fontSize: 13,
-    color: colors.light_gray,
   },
   total: {
     height: 150,
@@ -88,15 +80,5 @@ var styles = StyleSheet.create({
     backgroundColor: colors.bg_color,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  totalCount: {
-    fontFamily: fonts.montserrat_700,
-    fontSize: 40,
-    color: colors.main,
-  },
-  count: {
-    fontFamily: fonts.montserrat_500,
-    fontSize: 13,
-    color: colors.light_gray,
   },
 });
