@@ -1,4 +1,4 @@
-import Tuti from './Tuti';
+import Tutee from './Tutee';
 import Answer from './Answer';
 
-export {Tuti, Answer};
+export {Tutee, Answer};
