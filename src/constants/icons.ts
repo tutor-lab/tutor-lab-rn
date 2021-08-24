@@ -11,6 +11,8 @@ export const alert_dot = require('../assets/icons/alert_dot.svg');
 export const refresh = require('../assets/icons/refresh.svg');
 export const search = require('../assets/icons/search.svg');
 export const star = require('../assets/icons/star.svg');
+export const star_blank = require('../assets/icons/star_blank.svg');
+export const star_half = require('../assets/icons/star_half.svg');
 export const line_vertical = require('../assets/icons/line_vertical.svg');
 export const down = require('../assets/icons/down.svg');
 export const sort = require('../assets/icons/sort.svg');
@@ -39,6 +41,8 @@ export default {
   refresh,
   search,
   star,
+  star_blank,
+  star_half,
   home_selected,
   home_unselected,
   free_board_selected,
