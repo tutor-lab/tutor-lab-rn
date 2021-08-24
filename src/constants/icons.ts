@@ -6,6 +6,7 @@ export const logo_icon = require('../assets/icons/logo_icon.svg');
 export const logo_text = require('../assets/icons/logo_text.svg');
 
 export const heart_red = require('../assets/icons/heart_red.png');
+export const heart_blank = require('../assets/icons/heart_blank.png');
 export const alert = require('../assets/icons/alert.svg');
 export const alert_dot = require('../assets/icons/alert_dot.svg');
 export const refresh = require('../assets/icons/refresh.svg');
@@ -31,6 +32,7 @@ export const my_page_unselected = require('../assets/icons/my_page_unselected.sv
 export default {
   logo,
   heart_red,
+  heart_blank,
   category_menu,
   category_arrow,
   lecture_back_arrow,
