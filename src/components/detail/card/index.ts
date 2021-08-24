@@ -8,8 +8,10 @@ import Step from './Step';
 import Percent from './Percent';
 import Price from './Price';
 import HashTag from './HashTag';
+import Detail from './Detail';
 
 export {
+  Detail,
   Remote,
   Step,
   Title,
@@ -21,17 +23,3 @@ export {
   Price,
   HashTag,
 };
-const Detail = {
-  Step,
-  Remote,
-  Title,
-  Explain,
-  Heart,
-  Star,
-  Review,
-  Percent,
-  Price,
-  HashTag,
-};
-
-export default Detail;
