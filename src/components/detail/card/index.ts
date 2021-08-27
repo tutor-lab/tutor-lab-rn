@@ -1,25 +1,25 @@
-import Card from './Card';
-import ImageSection from './ImageSection';
+import Remote from './Remote';
 import Title from './Title';
-import Tutor from './Tutor';
+import Explain from './Explain';
 import Heart from './Heart';
 import Star from './Star';
 import Review from './Review';
-import Remote from './Remote';
+import Step from './Step';
 import Percent from './Percent';
 import Price from './Price';
-import Tag from './Tag';
+import HashTag from './HashTag';
+import Detail from './Detail';
 
 export {
-  Card,
-  ImageSection,
+  Detail,
+  Remote,
+  Step,
   Title,
-  Tutor,
+  Explain,
   Heart,
   Star,
   Review,
-  Remote,
   Percent,
   Price,
-  Tag,
+  HashTag,
 };
