@@ -17,18 +17,22 @@ import {
 } from './index';
 
 type Props = {
-  data: {
-    id: number;
-    tag: string[];
-    remote: string[];
-    title: string;
-    tutor: string;
-    heart: number;
-    rating: number;
-    review: number;
-    discount: number;
-    price: string;
-  };
+  // data: {
+  //   id: number;
+  //   tag: string[];
+  //   remote: string[];
+  //   title: string;
+  //   tutor: string;
+  //   heart: number;
+  //   rating: number;
+  //   review: number;
+  //   discount: number;
+  //   price: string;
+  // };
+  data:{
+    thumbnail:"",
+    title:""
+  }
 };
 
 const Card = ({data}: Props) => {
@@ -49,19 +53,19 @@ const Card = ({data}: Props) => {
         },
       ]}>
       <View style={styles.imageSection}>
-        <ImageSection tag={data.tag} />
+        <ImageSection title={data.title} thumbnail={data.thumbnail} />
       </View>
       <View style={styles.detail}>
-        <View style={styles.class}>
+        {/* <View style={styles.class}>
           <Remote remote={data.remote} />
-        </View>
+        </View> */}
         <View style={styles.title}>
           <Title title={data.title} />
         </View>
         <View style={styles.tutor}>
           <Tutor />
         </View>
-        <View style={styles.count}>
+        {/* <View style={styles.count}>
           <View style={styles.heart}>
             <Heart heart={data.heart} />
           </View>
@@ -74,15 +78,15 @@ const Card = ({data}: Props) => {
           <View style={styles.review}>
             <Review review={data.review} />
           </View>
-        </View>
-        <View style={styles.bottom}>
+        </View> */}
+        {/* <View style={styles.bottom}>
           <View style={styles.percent}>
             <Percent discount={data.discount} />
           </View>
           <View style={styles.price}>
             <Price price={data.price} />
           </View>
-        </View>
+        </View> */}
       </View>
     </TouchableOpacity>
   );
@@ -93,7 +97,7 @@ export default Card;
 var styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 310,
+    height: 370,
     borderRadius: 8,
     backgroundColor: colors.white,
     marginBottom: 16,
@@ -103,7 +107,11 @@ var styles = StyleSheet.create({
     height: 115,
     position: 'relative',
   },
-  detail: {paddingHorizontal: 16.5, height: 295},
+  detail: {
+    paddingHorizontal: 16.5, 
+    height: 295,
+    marginTop:90
+  },
   class: {
     alignItems: 'center',
     flexDirection: 'row',

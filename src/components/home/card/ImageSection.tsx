@@ -1,30 +1,33 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet, Text, Image} from 'react-native';
+import {View, StyleSheet, Text, Image,ImageBackground} from 'react-native';
 
 import {colors, fonts} from '../../../constants';
 
 type Props = {
-  tag: string[];
+  // tag: string[];
+  thumbnail:string,
+  title:string
 };
 
-const ImageSection = ({tag}: Props) => {
+const ImageSection = ({title,thumbnail}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageBox}>
-        <Image
-          source={require('../../../assets/images/card.png')}
-          resizeMode="cover"
-          style={styles.image}
-        />
+       
+        <ImageBackground source={{uri:thumbnail}} style={{width: '100%', height: '100%',flex:1,}} resizeMode="cover">
+          <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
+            <Text style={styles.title}>{title}</Text>
+          </View>
+      </ImageBackground>
       </View>
-      <View style={styles.tagBox}>
+      {/* <View style={styles.tagBox}>
         {tag.map(text => (
           <View key={text} style={styles.tag}>
             <Text style={[fonts[500], styles.tagText]}>{text}</Text>
           </View>
         ))}
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -37,8 +40,9 @@ var styles = StyleSheet.create({
   },
   imageBox: {
     position: 'relative',
-    zIndex: 1,
-    height: 115,
+    zIndex: 0,
+    height: 175,
+
   },
   image: {
     height: '100%',
@@ -67,4 +71,10 @@ var styles = StyleSheet.create({
     fontSize: 12,
     color: colors.white,
   },
+  title:{
+    fontSize:20,
+    color: colors.white,
+    marginLeft:10,
+    marginTop:30
+  }
 });

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -14,6 +14,7 @@ import {
   Sort,
   Data,
 } from '../../components/home';
+import axios from 'axios';
 
 const MainScreen = () => {
   const [search, setSearch] = useState<string>('');
@@ -22,10 +23,19 @@ const MainScreen = () => {
     all: boolean;
     custom: boolean;
   }>({all: true, custom: false});
-
+  const [lectureList,setLectureList] = useState<any[]>([]);
+  
   const onChange = (text: string) => {
     setSearch(text);
   };
+  useEffect(() => {
+    axios.get('/lectures')
+         .then(function (response) { 
+           console.log(response.data)
+          setLectureList(response.data)
+         })
+         .catch(function (error) { console.log(error); })
+  }, [])
 
   return (
     // <View style={{height: '100%'}}>
@@ -56,7 +66,7 @@ const MainScreen = () => {
             <Sort />
           </View>
           <View style={styles.card}>
-            {Data.Card.map(data => (
+            {lectureList.map(data => (
               <View key={data.id}>
                 <Card data={data} />
               </View>
