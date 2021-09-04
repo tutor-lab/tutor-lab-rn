@@ -116,4 +116,16 @@ export const Card = [
   },
 ];
 
-export default {Filter, Card};
+export const DifficultyData = [
+  {id: 0, title: 'BASIC', text: '기초'},
+  {id: 1, title: 'BEGINNER', text: '초급'},
+  {id: 2, title: 'INTERMEDIATE', text: '중급'},
+  {id: 3, title: 'ADVANCED', text: '고급'},
+];
+
+export const GroupData = [
+  {id: 0, boolean: true, text: '그룹'},
+  {id: 1, boolean: false, text: '개인'},
+];
+
+export default {Filter, Card, DifficultyData, GroupData};

@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
-import 'react-native-gesture-handler';
+import React, {useState, useEffect} from 'react';
 import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
-
 import {colors, width} from '../../constants';
 import {
   Data,
@@ -11,14 +9,26 @@ import {
   Count,
   Sort,
   ReviewCard,
+  TutorIntroduction,
 } from '../../components/detail';
 import {Line, Bottom} from '../../components/common';
+import axios from 'axios';
 
 const MainScreen = () => {
   const [selection, setSelection] = useState<{
     introduction: boolean;
     review: boolean;
   }>({introduction: true, review: false});
+
+  //const [htmlContent,setHtmlContent] = useState("")
+  const [content, setContent] = useState('');
+
+  useEffect(() => {
+    axios.get('/lectures/30').then(res => {
+      console.log('res===', res.data);
+      setContent(res.data.content);
+    });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -45,7 +55,7 @@ const MainScreen = () => {
             </View>
           ) : (
             // 강의 소개
-            <></>
+            <>{/* <TutorIntroduction content={content} /> */}</>
           )}
         </View>
       </ScrollView>
