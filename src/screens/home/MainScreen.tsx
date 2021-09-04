@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,6 +16,10 @@ import {
 } from '../../components/home';
 import axios from 'axios';
 
+type Props = {
+  navigation: any;
+};
+
 const MainScreen = () => {
   const [search, setSearch] = useState<string>('');
   const [alert, setAlert] = useState<boolean>(false);
@@ -23,19 +27,23 @@ const MainScreen = () => {
     all: boolean;
     custom: boolean;
   }>({all: true, custom: false});
-  const [lectureList,setLectureList] = useState<any[]>([]);
-  
+  const [lectureList, setLectureList] = useState<any[]>([]);
+  const [lectureCount, setLectureCount] = useState<number>(0);
+
   const onChange = (text: string) => {
     setSearch(text);
   };
   useEffect(() => {
-    axios.get('/lectures')
-         .then(function (response) { 
-           console.log(response.data)
-          setLectureList(response.data)
-         })
-         .catch(function (error) { console.log(error); })
-  }, [])
+    axios
+      .get('/lectures')
+      .then(function (response) {
+        setLectureList(response.data);
+        setLectureCount(response.data.length);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   return (
     // <View style={{height: '100%'}}>
@@ -62,7 +70,7 @@ const MainScreen = () => {
             <Filter data={Data.Filter} />
           </View>
           <View style={styles.middle}>
-            <Count count={10} />
+            <Count count={lectureCount} />
             <Sort />
           </View>
           <View style={styles.card}>
@@ -90,7 +98,12 @@ var styles = StyleSheet.create({
   lecture: {marginTop: 30, zIndex: 3, position: 'relative'},
   searchBar: {marginTop: -50},
   filter: {marginTop: 22},
-  middle: {flexDirection: 'row', alignItems: 'center', marginTop: 40},
+  middle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 40,
+    height: 30,
+  },
   card: {marginTop: 22.5},
   linearGradient: {
     flex: 1,

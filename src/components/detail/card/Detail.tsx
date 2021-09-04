@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   percent: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: 35,
+    width: 40,
     justifyContent: 'flex-start',
   },
   price: {

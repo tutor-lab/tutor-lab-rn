@@ -19,6 +19,15 @@ const Count = ({count}: Props) => {
 export default Count;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, flexDirection: 'row'},
-  text: {fontFamily: fonts.montserrat_500, fontSize: 14, color: colors.sub},
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    height: '100%',
+    alignItems: 'center',
+  },
+  text: {
+    fontFamily: fonts.montserrat_500,
+    fontSize: 14,
+    color: colors.sub,
+  },
 });

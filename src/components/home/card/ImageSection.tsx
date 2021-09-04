@@ -1,33 +1,66 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet, Text, Image,ImageBackground} from 'react-native';
-
+import {View, StyleSheet, Text, ImageBackground} from 'react-native';
 import {colors, fonts} from '../../../constants';
+import {DifficultyData, GroupData} from '../Data';
 
 type Props = {
-  // tag: string[];
-  thumbnail:string,
-  title:string
+  thumbnail: string;
+  difficultyType: string;
+  isGroup: boolean;
 };
 
-const ImageSection = ({title,thumbnail}: Props) => {
+const ImageSection = ({isGroup, difficultyType, thumbnail}: Props) => {
+  const [difficulty, setDifficulty] = useState<string>('');
+  const [group, setGroup] = useState<string>('');
+
+  const chkDifficult = (text: string) => {
+    const findIdx = DifficultyData.findIndex(curr => curr.title === text);
+    const type = findIdx ? DifficultyData[findIdx].text : '';
+    setDifficulty(type);
+  };
+
+  const chkGroup = (boolean: boolean) => {
+    const findIdx = GroupData.findIndex(curr => curr.boolean === boolean);
+    const type = findIdx ? GroupData[findIdx].text : '';
+    setGroup(type);
+  };
+
+  useEffect(() => {
+    chkDifficult(difficultyType);
+    chkGroup(isGroup);
+  }, [difficultyType, isGroup]);
+
   return (
     <View style={styles.container}>
-      <View style={styles.imageBox}>
-       
-        <ImageBackground source={{uri:thumbnail}} style={{width: '100%', height: '100%',flex:1,}} resizeMode="cover">
-          <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
-            <Text style={styles.title}>{title}</Text>
-          </View>
-      </ImageBackground>
+      <View style={styles.header}>
+        <View style={styles.header_box}>
+          <ImageBackground
+            source={{uri: thumbnail}}
+            style={styles.image}
+            resizeMode="cover"
+            imageStyle={{opacity: 0.6}}
+            borderTopLeftRadius={8}
+            borderTopRightRadius={8}
+          />
+        </View>
+        <View style={styles.tag_box}>
+          {difficulty !== '' ? (
+            <View style={styles.tag}>
+              <Text style={[fonts[500], styles.tag_text]}>{difficulty}</Text>
+            </View>
+          ) : (
+            <></>
+          )}
+          {group !== '' ? (
+            <View style={styles.tag}>
+              <Text style={[fonts[500], styles.tag_text]}>{group}</Text>
+            </View>
+          ) : (
+            <></>
+          )}
+        </View>
       </View>
-      {/* <View style={styles.tagBox}>
-        {tag.map(text => (
-          <View key={text} style={styles.tag}>
-            <Text style={[fonts[500], styles.tagText]}>{text}</Text>
-          </View>
-        ))}
-      </View> */}
     </View>
   );
 };
@@ -38,23 +71,34 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  imageBox: {
+  header: {
     position: 'relative',
-    zIndex: 0,
-    height: 175,
-
-  },
-  image: {
-    height: '100%',
-    width: '100%',
+    height: 115,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
-  tagBox: {
+  header_box: {
+    height: '100%',
     width: '100%',
+    position: 'relative',
+    zIndex: 0,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  image: {
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+  },
+  tag_box: {
+    width: '100%',
+    height: 22,
     paddingHorizontal: 16,
     position: 'relative',
-    zIndex: 2,
+    zIndex: 3,
     marginTop: -35,
     flexDirection: 'row',
   },
@@ -62,19 +106,13 @@ var styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: colors.white,
-    height: 22,
+    height: '100%',
     marginRight: 8,
     paddingHorizontal: 8,
     justifyContent: 'center',
   },
-  tagText: {
+  tag_text: {
     fontSize: 12,
     color: colors.white,
   },
-  title:{
-    fontSize:20,
-    color: colors.white,
-    marginLeft:10,
-    marginTop:30
-  }
 });
