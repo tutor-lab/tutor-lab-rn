@@ -9,7 +9,7 @@ const Title = ({title}: Props) => {
   return (
     <>
       <Text
-        numberOfLines={2}
+        numberOfLines={1}
         ellipsizeMode="tail"
         style={[fonts[500], styles.text]}>
         {title}

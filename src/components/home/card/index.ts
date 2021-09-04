@@ -5,10 +5,11 @@ import Tutor from './Tutor';
 import Heart from './Heart';
 import Star from './Star';
 import Review from './Review';
-import Remote from './Remote';
+import SystemTypes from './SystemTypes';
 import Percent from './Percent';
-import Price from './Price';
-
+import LecturePrices from './LecturePrices';
+import Tag from './Tag';
+import LectureSubjects from './LectureSubjects';
 export {
   Card,
   ImageSection,
@@ -17,7 +18,9 @@ export {
   Heart,
   Star,
   Review,
-  Remote,
+  SystemTypes,
   Percent,
-  Price,
+  LecturePrices,
+  Tag,
+  LectureSubjects,
 };

@@ -4,29 +4,23 @@ import {View, Text, StyleSheet} from 'react-native';
 
 import {fonts} from '../../../constants';
 
-type Props = {remote: string[]};
+type Props = {systemTypes: {name: string; type: string}[]};
 
-const Remote = ({remote}: Props) => {
+const SystemTypes = ({systemTypes}: Props) => {
   return (
     <>
-      {remote.map(text => (
-        <View key={text} style={styles.tag}>
-          <Text style={styles.text}>{text}</Text>
+      {systemTypes.map(data => (
+        <View key={data.name} style={styles.tag}>
+          <Text style={styles.text}>{data.type}</Text>
         </View>
       ))}
     </>
   );
 };
 
-export default Remote;
+export default SystemTypes;
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    height: 19,
-    marginTop: 16,
-  },
   tag: {
     height: '100%',
     justifyContent: 'center',

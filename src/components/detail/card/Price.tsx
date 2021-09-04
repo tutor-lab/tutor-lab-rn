@@ -9,24 +9,23 @@ const Price = ({price}: Props) => {
   return (
     <>
       <Text style={styles.price}>{price}</Text>
-      <Text style={[styles.price, styles.text]}> 원</Text>
-      <Text style={styles.divider}>{'  '}/ 1개월 기준</Text>
+      <Text style={[fonts[700], styles.text]}> 원</Text>
+      <Text style={[fonts[400], styles.divider]}>{'  '}/ 1개월 기준</Text>
     </>
   );
 };
 export default Price;
 
 const styles = StyleSheet.create({
-  container: {flexDirection: 'row', alignItems: 'center'},
   price: {
     fontFamily: fonts.montserrat_600,
-    fontSize: 18,
+    fontSize: 20,
     color: colors.sub,
   },
-  text: {fontSize: 13},
+  text: {color: colors.sub, fontSize: 12},
   divider: {
     fontFamily: fonts.montserrat_400,
-    fontSize: 13,
+    fontSize: 12,
     color: colors.light_gray,
   },
 });
