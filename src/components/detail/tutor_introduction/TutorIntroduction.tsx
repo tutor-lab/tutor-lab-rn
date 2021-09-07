@@ -10,7 +10,6 @@ const TutorIntroduction = ({content}: Props) => {
   // const source = {
   //     html: content
   //   };
-  console.log('content=', content);
 
   const source = {
     html: `
