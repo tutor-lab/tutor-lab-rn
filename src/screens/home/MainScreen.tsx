@@ -20,7 +20,7 @@ type Props = {
   navigation: any;
 };
 
-const MainScreen = () => {
+const MainScreen = ({navigation}: Props) => {
   const [search, setSearch] = useState<string>('');
   const [alert, setAlert] = useState<boolean>(false);
   const [lecture, setLecture] = useState<{
@@ -76,7 +76,7 @@ const MainScreen = () => {
           <View style={styles.card}>
             {lectureList.map(data => (
               <View key={data.id}>
-                <Card data={data} />
+                <Card data={data} navigation={navigation} />
               </View>
             ))}
           </View>

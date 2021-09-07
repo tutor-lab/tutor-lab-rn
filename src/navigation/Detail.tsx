@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import MainScreen from '../screens/detail/MainScreen';
+import PaymentScreen from '../screens/detail/PaymentScreen';
 
 const Detail = () => {
   const Stack = createStackNavigator();
@@ -12,6 +13,7 @@ const Detail = () => {
       initialRouteName="Main"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Screen name="Payment" component={PaymentScreen} />
     </Stack.Navigator>
   );
 };

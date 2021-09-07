@@ -20,31 +20,13 @@ import {LectureList} from '../../../types/data';
 
 type Props = {
   data: LectureList;
-  /*
-  {"content": "<p>에디터 입력</p>", 
-"difficultyName": "", 
-"difficultyType": "INTERMEDIATE", 
-"id": 25, 
-"introduce": "소개글 입력", 
-"lecturePrices": [
-  {"groupNumber": 0, 
-  "isGroup": false, 
-  "pertimeCost": 3000, 
-  "pertimeLecture": 4, 
-  "totalCost": 48000,
-   "totalTime": 16}
-  ], 
-"lectureSubjects": [{"krSubject": "Java", "parent": "1"}, {"krSubject": "JavaScript", "parent": "1"}],
- "subTitle": "HTML&CSS를 한번에! 탄탄한 개념이해부터 실습까지 한 강의로 끝내기, 실무 가능한 실력으로 😎
-", "systemTypes": [{"name": "온라인", "type": "ONLINE"}, {"name": "오프라인", "type": "OFFLINE"}], 
-"thumbnail": "https://tutorlab.s3.ap-northeast-2.amazonaws.com/7683d70e-518d-4aaf-8b99-b7b465aa3003", 
-"title": "김버그의 HTML&CSS는 재밌다"}
-   */
+  navigation: any;
 };
-const Card = ({data}: Props) => {
+const Card = ({data, navigation}: Props) => {
   return (
     <TouchableOpacity
       activeOpacity={1}
+      onPress={() => navigation.navigate('Detail', {screen: 'Main'})}
       style={[
         styles.container,
         {
