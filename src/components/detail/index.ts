@@ -16,6 +16,7 @@ import Count from './count/Count';
 import Sort from './Sort';
 import ReviewCard from './review/ReviewCard';
 import TutorIntroduction from './tutor_introduction/TutorIntroduction';
+import PaymentInfo from './PaymentInfo';
 
 export {
   Detail,
@@ -35,5 +36,6 @@ export {
   Count,
   Sort,
   ReviewCard,
+  PaymentInfo,
   TutorIntroduction,
 };
