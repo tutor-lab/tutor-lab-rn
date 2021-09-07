@@ -1,7 +1,11 @@
 export const Detail = {
   tag: ['무료', '그룹'],
   remote: ['ONLINE', 'OFFLINE'],
-  title: '금융권 취업을 위한 데이터 분석 및 모델링 SQL, R, Python',
+  title: '금융권 취업을 위한 데이터 분석 및 모델링',
+  lectureSubjects: [
+    {id: 0, krSubject: 'Python', parent: 1},
+    {id: 1, krSubject: 'crawling', parent: 1},
+  ],
   explain: '기초부터 실무에서 사용하는 데이터 분석 기술 파헤치기',
   tutor: '김하나',
   hashtag: ['SQL', 'Python', 'SQLLite', 'S사 10년근무', 'SW개발및품질경력'],
