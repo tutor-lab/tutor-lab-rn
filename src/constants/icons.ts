@@ -28,6 +28,9 @@ export const chat_selected = require('../assets/icons/chat_selected.svg');
 export const chat_unselected = require('../assets/icons/chat_unselected.svg');
 export const my_page_selected = require('../assets/icons/my_page_selected.svg');
 export const my_page_unselected = require('../assets/icons/my_page_unselected.svg');
+export const close = require('../assets/icons/close.svg');
+export const paymentList_checked = require('../assets/icons/paymentList_checked.svg');
+export const paymentList_unchecked = require('../assets/icons/paymentList_unchecked.svg');
 
 export default {
   logo,
@@ -58,4 +61,7 @@ export default {
   arrow_right,
   sort,
   arrow_right_main,
+  close,
+  paymentList_checked,
+  paymentList_unchecked,
 };
