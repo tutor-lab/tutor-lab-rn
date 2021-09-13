@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 import {Button} from '../../../components/common';
 import Container from './Container';
@@ -14,17 +14,13 @@ const Detail = ({heart, btn}: Props) => {
   return (
     <Container>
       <Button.Heart onPress={heart} />
-      <View style={styles.divider} />
-      <View style={styles.btn_box}>
+      <Button.Container divider={10} maxWidth={279}>
         <Button.Button_48 text={'강의 신청'} onPress={btn} />
-      </View>
+      </Button.Container>
     </Container>
   );
 };
 
 export default Detail;
 
-var styles = StyleSheet.create({
-  divider: {width: 10},
-  btn_box: {flex: 1},
-});
+var styles = StyleSheet.create({});

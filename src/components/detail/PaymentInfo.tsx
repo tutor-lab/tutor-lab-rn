@@ -21,7 +21,7 @@ const PaymentInfo = ({info}: Props) => {
           style={styles.image}
         />
       </View>
-      <View style={styles.textWrapper}>
+      <View style={styles.textContainer}>
         <View style={styles.titleWrapper}>
           <Text style={[fonts[400], styles.text]}>{info.title}</Text>
         </View>
@@ -32,7 +32,7 @@ const PaymentInfo = ({info}: Props) => {
             </Text>
           ))}
         </View>
-        <View style={styles.tutorWrapper}>
+        <View style={styles.tutorContainer}>
           <View style={styles.tutorTag}>
             <Text style={[fonts[500], styles.tutorText]}>튜터</Text>
           </View>
@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
   },
   imageWrapper: {height: 64, width: 64},
   image: {width: '100%', height: '100%', borderRadius: 8},
-  textWrapper: {height: 64, justifyContent: 'flex-start', paddingLeft: 12},
+  textContainer: {height: 64, justifyContent: 'flex-start', paddingLeft: 12},
   titleWrapper: {flex: 1, height: '100%'},
   text: {fontSize: 14, color: colors.sub},
-  tutorWrapper: {
+  tutorContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,

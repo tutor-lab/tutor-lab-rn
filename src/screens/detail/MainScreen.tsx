@@ -35,10 +35,10 @@ const MainScreen = ({navigation}: Props) => {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <Detail data={Data.Detail} />
-        <View style={styles.line} />
+        <Line />
         <Tutor data={Data.Detail} />
-        <View style={[styles.line, {height: 5}]} />
-        <View style={styles.selection_box}>
+        <Line height={5} />
+        <View style={styles.selection}>
           <Selection selection={selection} setSelection={setSelection} />
           {selection.review ? (
             // 후기
@@ -73,22 +73,7 @@ const MainScreen = ({navigation}: Props) => {
     </SafeAreaView>
   );
 };
-/*
-  tag: ['무료', '그룹'],
-  remote: ['ONLINE', 'OFFLINE'],
-  title: '금융권 취업을 위한 데이터 분석 및 모델링 SQL, R, Python',
-  explain: '기초부터 실무에서 사용하는 데이터 분석 기술 파헤치기',
-  tutor: '김하나',
-  hashtag: ['SQL', 'Python', 'SQLLite', 'S사 10년근무', 'SW개발및품질경력'],
-  heart: 56,
-  rating: 5,
-  review: 28,
-  discount: 20,
-  price: '197,000',
-  lecture_count: 4,
-  review_count: 67,
-  store_count: 122,
-*/
+
 export default MainScreen;
 
 var styles = StyleSheet.create({
@@ -96,15 +81,10 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
-  selection_box: {
+  selection: {
     paddingTop: 28,
     paddingHorizontal: width * 20,
     paddingBottom: 9,
-  },
-  line: {
-    height: 1,
-    backgroundColor: colors.line,
-    width: '100%',
   },
   total: {
     height: 150,

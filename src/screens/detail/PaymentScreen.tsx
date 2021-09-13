@@ -1,10 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import 'react-native-gesture-handler';
-import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import {colors, fonts, icons, width} from '../../constants';
 import {WithLocalSvg} from 'react-native-svg/src';
+import {Line} from '../../components/common';
 
-import {PaymentInfo} from '../../components/detail';
+import {PaymentInfo, PaymentList} from '../../components/detail';
 
 type Props = {
   navigation: any;
@@ -20,24 +28,27 @@ type Props = {
 const PaymentScreen = ({navigation, route}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        activeOpacity={1}
-        onPress={() => navigation.goBack()}
-        style={{
-          paddingLeft: width * 20,
-          height: 50,
-          width: 100,
-        }}>
-        <View
-          style={{
-            height: '100%',
-            justifyContent: 'center',
-          }}>
-          <WithLocalSvg asset={icons.close} />
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => navigation.goBack()}
+            style={styles.close}>
+            <WithLocalSvg asset={icons.close} />
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
-      <PaymentInfo info={route.params} />
-      <View style={{height: 8, width: '100%', backgroundColor: colors.line}} />
+        <PaymentInfo info={route.params} />
+        <Line height={8} />
+        <View style={{paddingHorizontal: width * 20}}>
+          <View style={{marginTop: 20, marginBottom: 13}}>
+            <Text style={[fonts[700], {fontSize: 16, color: colors.sub}]}>
+              옵션 선택
+            </Text>
+          </View>
+          <PaymentList checked={true} />
+          <PaymentList checked={false} />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -49,10 +60,14 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
-  close_box: {
-    marginTop: 10,
+  close: {
+    paddingLeft: width * 20,
+    height: 50,
+    width: 100,
     justifyContent: 'center',
-    height: 36,
-    backgroundColor: 'red',
+  },
+  header: {
+    height: 50,
+    width: '100%',
   },
 });
