@@ -17,6 +17,7 @@ import Sort from './Sort';
 import ReviewCard from './review/ReviewCard';
 import TutorIntroduction from './tutor_introduction/TutorIntroduction';
 import PaymentInfo from './PaymentInfo';
+import PaymentList from './PaymentList';
 
 export {
   Detail,
@@ -38,4 +39,5 @@ export {
   ReviewCard,
   PaymentInfo,
   TutorIntroduction,
+  PaymentList,
 };
