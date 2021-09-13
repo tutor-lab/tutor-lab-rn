@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {colors, fonts, icons, width} from '../../constants';
 import {WithLocalSvg} from 'react-native-svg/src';
-import {Line} from '../../components/common';
+import {Line, Bottom} from '../../components/common';
 
 import {PaymentInfo, PaymentList} from '../../components/detail';
 
@@ -49,6 +49,7 @@ const PaymentScreen = ({navigation, route}: Props) => {
           <PaymentList checked={false} />
         </View>
       </ScrollView>
+      <Bottom.Payment price={179000} onPress={() => console.log('')} />
     </SafeAreaView>
   );
 };
