@@ -18,7 +18,7 @@ const SearchBar = ({value, onChangeText}: Props) => {
       </View>
       <View style={styles.container}>
         <View style={styles.icon}>
-          <WithLocalSvg asset={icons.search} />
+          <WithLocalSvg asset={icons.search_main} />
         </View>
         <View style={styles.text}>
           <TextInput
