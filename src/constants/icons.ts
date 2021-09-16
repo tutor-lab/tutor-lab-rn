@@ -11,6 +11,7 @@ export const alert = require('../assets/icons/alert.svg');
 export const alert_dot = require('../assets/icons/alert_dot.svg');
 export const refresh = require('../assets/icons/refresh.svg');
 export const search = require('../assets/icons/search.svg');
+export const search_main = require('../assets/icons/search_main.svg');
 export const star = require('../assets/icons/star.svg');
 export const star_blank = require('../assets/icons/star_blank.svg');
 export const star_half = require('../assets/icons/star_half.svg');
@@ -19,6 +20,8 @@ export const down = require('../assets/icons/down.svg');
 export const sort = require('../assets/icons/sort.svg');
 export const arrow_right = require('../assets/icons/arrow_right.svg');
 export const arrow_right_main = require('../assets/icons/arrow_right_main.svg');
+export const more = require('../assets/icons/more.svg');
+export const plus = require('../assets/icons/plus.svg');
 
 export const home_selected = require('../assets/icons/home_selected.svg');
 export const home_unselected = require('../assets/icons/home_unselected.svg');
@@ -45,6 +48,7 @@ export default {
   alert_dot,
   refresh,
   search,
+  search_main,
   star,
   star_blank,
   star_half,
@@ -64,4 +68,6 @@ export default {
   close,
   paymentList_checked,
   paymentList_unchecked,
+  more,
+  plus,
 };
