@@ -1,20 +1,37 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {View, StyleSheet, Text} from 'react-native';
-import {colors, fonts} from '../../constants';
+import {colors, fonts, utils} from '../../constants';
+import {MessageList} from '../../types/data';
 
-type Props = {};
+type Props = {
+  list: MessageList;
+};
 
-const ChattingScreen = ({}: Props) => {
+const ChattingScreen = ({list}: Props) => {
+  const [meridiem, setMeridiem] = useState<string>('');
+  const [hour, setHour] = useState<string>('');
+  const [minutes, setMinutes] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+
+  useEffect(() => {
+    utils.chkMeridiem(list.hour, setMeridiem);
+    utils.convertHours(list.hour, setHour);
+    setMinutes(list.minutes);
+    setMessage(list.message);
+  }, [list]);
+
   return (
     <View style={styles.container}>
       <View style={styles.chatBox}>
-        <Text style={[fonts[400], styles.chatText]}>기간 알려주세요</Text>
+        <Text style={[fonts[400], styles.chatText]}>{message}</Text>
       </View>
       <View style={styles.timeBox}>
-        <Text style={[fonts[400], styles.meridiemText]}>오후</Text>
+        <Text style={[fonts[400], styles.meridiemText]}>{meridiem}</Text>
         <View style={styles.divider} />
-        <Text style={styles.timeText}>08:36</Text>
+        <Text style={styles.timeText}>
+          {hour}:{minutes}
+        </Text>
       </View>
     </View>
   );

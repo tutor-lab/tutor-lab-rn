@@ -18,3 +18,24 @@ export type LectureList = {
   thumbnail: string;
   title: string;
 };
+
+export type PaymentList = {
+  id: number;
+  lecturePrices: {
+    groupNumber: number;
+    isGroup: boolean;
+    pertimeCost: number;
+    pertimeLecture: number;
+    totalCost: number;
+    totalTime: number;
+  };
+  introduce: string;
+}[];
+
+export type MessageList = {
+  id: number;
+  message: string;
+  date: string;
+  hour: string;
+  minutes: string;
+};
