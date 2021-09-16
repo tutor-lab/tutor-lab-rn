@@ -21,6 +21,7 @@ export const sort = require('../assets/icons/sort.svg');
 export const arrow_right = require('../assets/icons/arrow_right.svg');
 export const arrow_right_main = require('../assets/icons/arrow_right_main.svg');
 export const more = require('../assets/icons/more.svg');
+export const plus = require('../assets/icons/plus.svg');
 
 export const home_selected = require('../assets/icons/home_selected.svg');
 export const home_unselected = require('../assets/icons/home_unselected.svg');
@@ -68,4 +69,5 @@ export default {
   paymentList_checked,
   paymentList_unchecked,
   more,
+  plus,
 };
