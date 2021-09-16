@@ -36,6 +36,33 @@ export const Count = {
   store_count: 122,
 };
 
+export const PaymentListData = [
+  {
+    id: 0,
+    lecturePrices: {
+      groupNumber: 1,
+      isGroup: false,
+      pertimeCost: 1548120,
+      pertimeLecture: 4,
+      totalCost: 197000,
+      totalTime: 16,
+    },
+    introduce: '기초부터 실무에서 사용하는 데이터 분석 기술 파헤치기',
+  },
+  {
+    id: 1,
+    lecturePrices: {
+      groupNumber: 3,
+      isGroup: true,
+      pertimeCost: 1548120,
+      pertimeLecture: 4,
+      totalCost: 197000,
+      totalTime: 16,
+    },
+    introduce: '기초부터 실무에서 사용하는 데이터 분석 기술 파헤치기',
+  },
+];
+
 export const Review = [
   {
     id: 0,
