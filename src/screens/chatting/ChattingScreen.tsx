@@ -12,6 +12,7 @@ import {colors, fonts, icons, width, utils} from '../../constants';
 import {ChatMine, TextInput} from '../../components/chatting';
 import {WithLocalSvg} from 'react-native-svg/src';
 import {MessageList} from '../../types/data';
+import axios from 'axios'
 
 // textinput line 최대 몇 줄? 나중에 채팅 올때 알람 어떻게? 읽었는지 안읽었는지 표시?
 // 스크롤 수정 필요
@@ -20,24 +21,25 @@ const ChattingScreen = () => {
   const [input, setInput] = useState({text: '', height: 40});
   const [messageList, setMessageList] = useState<MessageList[]>([]);
   const [items, setItems]:any = useState([]);
+  const [user, setUser] = useState("");
 
-  const sendMessage = (msg: string) => {
-    const today = new Date();
+  // const sendMessage = (msg: string) => {
+  //   const today = new Date();
 
-    const message = {
-      id: messageList.length,
-      message: msg,
-      date: `${today.getFullYear()}-${utils.parseToday(
-        today.getMonth() + 1,
-      )}-${utils.parseToday(today.getDate())}`,
-      hour: `${utils.parseToday(today.getHours())}`,
-      minutes: `${utils.parseToday(today.getMinutes())}`,
-      // 그외.. 유저토큰? 아이디?
-    };
-    setInput({text: '', height: 0});
-    setMessageList([...messageList, message]);
-  };
-
+  //   const message = {
+  //     id: messageList.length,
+  //     message: msg,
+  //     date: `${today.getFullYear()}-${utils.parseToday(
+  //       today.getMonth() + 1,
+  //     )}-${utils.parseToday(today.getDate())}`,
+  //     hour: `${utils.parseToday(today.getHours())}`,
+  //     minutes: `${utils.parseToday(today.getMinutes())}`,
+  //     // 그외.. 유저토큰? 아이디?
+  //   };
+  //   setInput({text: '', height: 0});
+  //   setMessageList([...messageList, message]);
+  // };
+ 
   const chatID = 1
   const ws = new WebSocket(`ws://3.35.255.192:8081/ws/chat/${chatID}`)
   useEffect(() => {
@@ -75,6 +77,32 @@ const ChattingScreen = () => {
     );
     // setSendMsg(sendMsg + 1);
   };
+  const getMy = async () => {
+    try {
+      await axios.get(`/users/my-info`).then((response:any) => {
+        setUser(response.data);        
+        return response;
+      });
+    } catch (error) {
+      return error;
+    }
+  };
+  const getPrevChat = async () => {
+    try {
+      await axios.get(`/tutors/my-chatrooms/${chatID}`).then((response) => {
+        setMessageList(response.data);
+        console.log('chat',response.data)
+        return response;
+      });
+    } catch (error) {
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    getMy()
+    getPrevChat()
+  },[])
 
   return (
     <SafeAreaView style={styles.container}>
