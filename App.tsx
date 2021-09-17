@@ -12,15 +12,17 @@ import axios from 'axios';
 const Stack = createStackNavigator();
 
 const App = () => {
-  axios.defaults.baseURL = 'http://3.35.255.192:8081/';
+  axios.defaults.baseURL = 'http://192.168.0.10:9090/';
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
+
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="Chatting" component={Chatting} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

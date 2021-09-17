@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {
   View,
@@ -19,6 +19,7 @@ import {MessageList} from '../../types/data';
 const ChattingScreen = () => {
   const [input, setInput] = useState({text: '', height: 40});
   const [messageList, setMessageList] = useState<MessageList[]>([]);
+  const [items, setItems]:any = useState([]);
 
   const sendMessage = (msg: string) => {
     const today = new Date();
@@ -35,6 +36,44 @@ const ChattingScreen = () => {
     };
     setInput({text: '', height: 0});
     setMessageList([...messageList, message]);
+  };
+
+  const chatID = 1
+  const ws = new WebSocket(`ws://3.35.255.192:8081/ws/chat/${chatID}`)
+  useEffect(() => {
+    // 메세지 수신
+    ws.onmessage = evt => {
+      // console.log('edata',e.data)
+      const data = JSON.parse(evt.data);
+      console.log(data)
+      setMessageList((prevItems:any) => [...prevItems, data]);
+
+      // console.log(e.data.message);
+      // sendMessage(e.data.message)
+    };
+
+    // 에러 발생시
+    ws.onerror = e => {
+      console.log(e.message);
+    };
+
+    // 소켓 연결 해제
+    ws.onclose = e => {
+      console.log(e.code, e.reason);
+    };
+  }, [])
+
+  const sendMsgEnter = (data:string) => {
+    ws.send(
+      JSON.stringify({
+        username: "rntest",
+        message: data,
+        sessionId: "30ae0b1d-45bc-ed13-2f3a-ee5c402725c7",
+        chatroomId: 1,
+        type: "message",
+      })
+    );
+    // setSendMsg(sendMsg + 1);
   };
 
   return (
@@ -85,7 +124,8 @@ const ChattingScreen = () => {
             <TouchableOpacity
               activeOpacity={1}
               onPress={() =>
-                input.text.trim() !== '' ? sendMessage(input.text) : ''
+                //input.text.trim() !== '' ? sendMessage(input.text) : ''
+                sendMsgEnter(input.text)
               }
               style={[styles.sendIcon, {height: input.height}]}>
               <WithLocalSvg asset={icons.search_main} />
