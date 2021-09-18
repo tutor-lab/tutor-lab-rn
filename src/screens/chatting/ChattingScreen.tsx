@@ -97,7 +97,7 @@ const ChattingScreen = () => {
   };
   const getPrevChat = async () => {
     try {
-      await axios.get(`/tutors/my-chatrooms/${chatID}`).then((response) => {
+      await axios.get(`/tutees/my-chatrooms/${chatID}`).then((response) => {
         setMessageList(response.data);
         console.log('chat',response.data)
         return response;
@@ -120,7 +120,7 @@ const ChattingScreen = () => {
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.padding}>
           
-            {messageList.map((list) => {
+            {messageList.length > 0 && messageList.map((list) => {
               return user.name === list.username? (
                 <>
                   <ChatMine list={list} />
