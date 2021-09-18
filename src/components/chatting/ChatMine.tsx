@@ -15,16 +15,16 @@ const ChattingScreen = ({list}: Props) => {
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
-    utils.chkMeridiem(list.hour, setMeridiem);
-    utils.convertHours(list.hour, setHour);
-    setMinutes(list.minutes);
-    setMessage(list.message);
+    // utils.chkMeridiem(list.hour, setMeridiem);
+    // utils.convertHours(list.hour, setHour);
+    // setMinutes(list.minutes);
+    // setMessage(list.message);
   }, [list]);
 
   return (
     <View style={styles.container}>
       <View style={styles.chatBox}>
-        <Text style={[fonts[400], styles.chatText]}>{message}</Text>
+        <Text style={[fonts[400], styles.chatText]}>{list.message}</Text>
       </View>
       <View style={styles.timeBox}>
         <Text style={[fonts[400], styles.meridiemText]}>{meridiem}</Text>

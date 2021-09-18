@@ -38,4 +38,10 @@ export type MessageList = {
   date: string;
   hour: string;
   minutes: string;
+  username:string;
 };
+
+export type User = {
+  name: string;
+}
+ 

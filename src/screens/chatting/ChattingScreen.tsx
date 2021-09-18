@@ -6,12 +6,13 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
+  Text
 } from 'react-native';
 import {colors, fonts, icons, width, utils} from '../../constants';
 
-import {ChatMine, TextInput} from '../../components/chatting';
+import {ChatMine, TextInput,ChatOther} from '../../components/chatting';
 import {WithLocalSvg} from 'react-native-svg/src';
-import {MessageList} from '../../types/data';
+import {MessageList,User} from '../../types/data';
 import axios from 'axios'
 
 // textinput line 최대 몇 줄? 나중에 채팅 올때 알람 어떻게? 읽었는지 안읽었는지 표시?
@@ -21,7 +22,8 @@ const ChattingScreen = () => {
   const [input, setInput] = useState({text: '', height: 40});
   const [messageList, setMessageList] = useState<MessageList[]>([]);
   const [items, setItems]:any = useState([]);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState<any>([]);
+  const [sendMsgCnt, setSendMsgCnt] = useState(0);
 
   // const sendMessage = (msg: string) => {
   //   const today = new Date();
@@ -43,16 +45,6 @@ const ChattingScreen = () => {
   const chatID = 1
   const ws = new WebSocket(`ws://3.35.255.192:8081/ws/chat/${chatID}`)
   useEffect(() => {
-    // 메세지 수신
-    ws.onmessage = evt => {
-      // console.log('edata',e.data)
-      const data = JSON.parse(evt.data);
-      console.log(data)
-      setMessageList((prevItems:any) => [...prevItems, data]);
-
-      // console.log(e.data.message);
-      // sendMessage(e.data.message)
-    };
 
     // 에러 발생시
     ws.onerror = e => {
@@ -64,11 +56,24 @@ const ChattingScreen = () => {
       console.log(e.code, e.reason);
     };
   }, [])
+  useEffect(()=>{
+
+      // 메세지 수신
+      ws.onmessage = evt => {
+        // console.log('edata',e.data)
+        const data = JSON.parse(evt.data);
+        setMessageList((prevItems:any) => [...prevItems, data]);
+
+        // console.log(e.data.message);
+        // sendMessage(e.data.message)
+      };
+    
+  },[])
 
   const sendMsgEnter = (data:string) => {
     ws.send(
       JSON.stringify({
-        username: "rntest",
+        username: user.name,
         message: data,
         sessionId: "30ae0b1d-45bc-ed13-2f3a-ee5c402725c7",
         chatroomId: 1,
@@ -76,10 +81,13 @@ const ChattingScreen = () => {
       })
     );
     // setSendMsg(sendMsg + 1);
+    setSendMsgCnt(sendMsgCnt + 1);
   };
   const getMy = async () => {
     try {
       await axios.get(`/users/my-info`).then((response:any) => {
+        console.log(response.data.name.replace(" ",""));
+        
         setUser(response.data);        
         return response;
       });
@@ -102,23 +110,28 @@ const ChattingScreen = () => {
   useEffect(() => {
     getMy()
     getPrevChat()
+    
   },[])
+
+  
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.padding}>
-          {messageList.length !== 0 ? (
-            <>
-              {messageList.map(list => (
-                <View key={list.id}>
+          
+            {messageList.map((list) => {
+              return user.name === list.username? (
+                <>
                   <ChatMine list={list} />
-                </View>
-              ))}
-            </>
-          ) : (
-            <></>
-          )}
+                </>
+              ) : (
+                <>
+                  <ChatOther list={list} />
+                </>
+              );
+            })}
+            
         </View>
       </ScrollView>
       <View style={styles.bottomContainer}>
