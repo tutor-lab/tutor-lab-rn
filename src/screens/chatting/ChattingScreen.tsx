@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {
   View,
@@ -6,12 +6,14 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
+  Text
 } from 'react-native';
 import {colors, fonts, icons, width, utils} from '../../constants';
 
-import {ChatMine, TextInput} from '../../components/chatting';
+import {ChatMine, TextInput,ChatOther} from '../../components/chatting';
 import {WithLocalSvg} from 'react-native-svg/src';
-import {MessageList} from '../../types/data';
+import {MessageList,User} from '../../types/data';
+import axios from 'axios'
 
 // textinput line 최대 몇 줄? 나중에 채팅 올때 알람 어떻게? 읽었는지 안읽었는지 표시?
 // 스크롤 수정 필요
@@ -19,39 +21,117 @@ import {MessageList} from '../../types/data';
 const ChattingScreen = () => {
   const [input, setInput] = useState({text: '', height: 40});
   const [messageList, setMessageList] = useState<MessageList[]>([]);
+  const [items, setItems]:any = useState([]);
+  const [user, setUser] = useState<any>([]);
+  const [sendMsgCnt, setSendMsgCnt] = useState(0);
 
-  const sendMessage = (msg: string) => {
-    const today = new Date();
+  // const sendMessage = (msg: string) => {
+  //   const today = new Date();
 
-    const message = {
-      id: messageList.length,
-      message: msg,
-      date: `${today.getFullYear()}-${utils.parseToday(
-        today.getMonth() + 1,
-      )}-${utils.parseToday(today.getDate())}`,
-      hour: `${utils.parseToday(today.getHours())}`,
-      minutes: `${utils.parseToday(today.getMinutes())}`,
-      // 그외.. 유저토큰? 아이디?
+  //   const message = {
+  //     id: messageList.length,
+  //     message: msg,
+  //     date: `${today.getFullYear()}-${utils.parseToday(
+  //       today.getMonth() + 1,
+  //     )}-${utils.parseToday(today.getDate())}`,
+  //     hour: `${utils.parseToday(today.getHours())}`,
+  //     minutes: `${utils.parseToday(today.getMinutes())}`,
+  //     // 그외.. 유저토큰? 아이디?
+  //   };
+  //   setInput({text: '', height: 0});
+  //   setMessageList([...messageList, message]);
+  // };
+ 
+  const chatID = 1
+  const ws = new WebSocket(`ws://3.35.255.192:8081/ws/chat/${chatID}`)
+  useEffect(() => {
+
+    // 에러 발생시
+    ws.onerror = e => {
+      console.log(e.message);
     };
-    setInput({text: '', height: 0});
-    setMessageList([...messageList, message]);
+
+    // 소켓 연결 해제
+    ws.onclose = e => {
+      console.log(e.code, e.reason);
+    };
+  }, [])
+  useEffect(()=>{
+
+      // 메세지 수신
+      ws.onmessage = evt => {
+        // console.log('edata',e.data)
+        const data = JSON.parse(evt.data);
+        setMessageList((prevItems:any) => [...prevItems, data]);
+
+        // console.log(e.data.message);
+        // sendMessage(e.data.message)
+      };
+    
+  },[])
+
+  const sendMsgEnter = (data:string) => {
+    ws.send(
+      JSON.stringify({
+        username: user.name,
+        message: data,
+        sessionId: "30ae0b1d-45bc-ed13-2f3a-ee5c402725c7",
+        chatroomId: 1,
+        type: "message",
+      })
+    );
+    // setSendMsg(sendMsg + 1);
+    setSendMsgCnt(sendMsgCnt + 1);
   };
+  const getMy = async () => {
+    try {
+      await axios.get(`/users/my-info`).then((response:any) => {
+        console.log(response.data.name.replace(" ",""));
+        
+        setUser(response.data);        
+        return response;
+      });
+    } catch (error) {
+      return error;
+    }
+  };
+  const getPrevChat = async () => {
+    try {
+      await axios.get(`/tutees/my-chatrooms/${chatID}`).then((response) => {
+        setMessageList(response.data);
+        console.log('chat',response.data)
+        return response;
+      });
+    } catch (error) {
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    getMy()
+    getPrevChat()
+    
+  },[])
+
+  
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.padding}>
-          {messageList.length !== 0 ? (
-            <>
-              {messageList.map(list => (
-                <View key={list.id}>
+          
+            {messageList.length > 0 && messageList.map((list) => {
+              return user.name === list.username? (
+                <>
                   <ChatMine list={list} />
-                </View>
-              ))}
-            </>
-          ) : (
-            <></>
-          )}
+                </>
+              ) : (
+                <>
+                  <ChatOther list={list} />
+                </>
+              );
+            })}
+            
         </View>
       </ScrollView>
       <View style={styles.bottomContainer}>
@@ -85,7 +165,8 @@ const ChattingScreen = () => {
             <TouchableOpacity
               activeOpacity={1}
               onPress={() =>
-                input.text.trim() !== '' ? sendMessage(input.text) : ''
+                //input.text.trim() !== '' ? sendMessage(input.text) : ''
+                sendMsgEnter(input.text)
               }
               style={[styles.sendIcon, {height: input.height}]}>
               <WithLocalSvg asset={icons.search_main} />

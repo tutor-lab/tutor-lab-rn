@@ -1,5 +1,6 @@
 import React, {useState,useCallback,useEffect} from 'react';
 import {View, SafeAreaView, StyleSheet,Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -109,12 +110,14 @@ const handleAuthorize = useCallback(
   };
   const onLogin = () =>{
 
-    axios.post("http://192.168.0.10:8080/login", {
+    axios.post("/login", {
         username: username,
         password: password      
     })
     .then(function (response) {
-      console.log(response.headers.authorization);
+  
+      AsyncStorage.setItem("accessToken",response.data.split(" ")[1])
+      navigation.navigate("Chatting")
       // console.log(Object.keys(response.headers))
     })
     .catch(function (error) {
@@ -122,6 +125,8 @@ const handleAuthorize = useCallback(
     })
 
   }
+
+  
   const signInWithKakao = async (): Promise<void> => {
     const token: KakaoOAuthToken = await login();
 
