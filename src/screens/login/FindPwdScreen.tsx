@@ -1,17 +1,18 @@
 import React, {useState} from 'react';
 import {View, SafeAreaView, StyleSheet} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
+import {StackNavigationProp} from '@react-navigation/stack';
 import {height, colors} from '../../constants';
 import {LoginBtn, TradeMark, Title, SubTitle} from '../../components/login';
 import {Modal, TextInput} from '../../components/common';
-import {StackNavigationProp} from '@react-navigation/stack';
+import EmailValidator from 'aj-email-validator';
+import FindAccountInfo from './FindAccountInfo';
 
 interface Props {
   navigation: StackNavigationProp<LoginStackParamList>;
 }
 
-const FindPwdScreen = ({}: Props) => {
+const FindPwdScreen = ({navigation}: Props) => {
   const [id, setId] = useState('');
   const [email, setEmail] = useState('');
   const [visible, setVisible] = useState(false);
@@ -22,6 +23,30 @@ const FindPwdScreen = ({}: Props) => {
 
   const onChangeEmail = (text: string) => {
     setEmail(text);
+  };
+
+  const checkInputValue = () => {
+
+    if(email === '') alert('이메일을 입력해주세요.');
+    else if(!EmailValidator(email)) alert('이메일 형식이 올바르지 않습니다.');
+    else {
+        const isUserExist = checkIsUserExistByEmail(email);
+        if(!isUserExist) alert('등록된 회원 정보가 없습니다.');
+        else setVisible(true);
+    }
+  }
+
+  const checkIsUserExistByEmail = (value: string) => {
+     if(value === 'nouser@gmail.com') {
+       return (false);
+     } else {
+       return (true);
+     }
+  }
+
+  const onPressModal = () => {
+    setVisible(false);
+    navigation.replace('Login');
   };
 
   return (
@@ -50,18 +75,12 @@ const FindPwdScreen = ({}: Props) => {
               onChangeText={(e: string) => onChangeEmail(e)}
             />
           </View>
-          <LoginBtn title={'확인'} onPress={() => setVisible(true)} />
+          <LoginBtn title={'확인'} onPress={() => checkInputValue()} />
           <View style={styles.footer}>
             <TradeMark />
           </View>
-          {/* 모달 */}
-          <Modal.Container visible={visible} height={170}>
-            <Modal.Header onPress={() => setVisible(false)} />
-            <View style={styles.modalTitleContainer}>
-              <Modal.Title text={'입력한 정보와 일치하는 계정이 없습니다.'} />
-            </View>
-            <Modal.OneBtn text={'확인'} onPress={() => setVisible(false)} />
-          </Modal.Container>
+          {/* 팝업 모달 - FindAccountInfo */}
+          <FindAccountInfo email={email} visible={visible} setVisible={setVisible} onPressModal={onPressModal}/>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

@@ -1,17 +1,21 @@
 import React, {useState} from 'react';
 import {View, SafeAreaView, StyleSheet} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
 import {height, colors} from '../../constants';
 import {LoginBtn, TradeMark, Title, SubTitle} from '../../components/login';
 import {Modal, TextInput} from '../../components/common';
 import {StackNavigationProp} from '@react-navigation/stack';
+import axios from 'axios';
+import EmailValidator from 'aj-email-validator';
+import FindAccountInfo from './FindAccountInfo';
 
 interface Props {
   navigation: StackNavigationProp<LoginStackParamList>;
 }
 
 const FindIdScreen = ({navigation}: Props) => {
+  axios.defaults.baseURL = "http://3.35.255.192:8081/";
+
   const [email, setEmail] = useState('');
   const [visible, setVisible] = useState(false);
 
@@ -19,10 +23,30 @@ const FindIdScreen = ({navigation}: Props) => {
     setEmail(text);
   };
 
+  const checkInputValue = () => {
+
+    if(email === '') alert('이메일을 입력해주세요.');
+    else if(!EmailValidator(email)) alert('이메일 형식이 올바르지 않습니다.');
+    else {
+        const isUserExist = checkIsUserExistByEmail(email);
+        if(!isUserExist) alert('등록된 회원 정보가 없습니다.');
+        else setVisible(true);
+    }
+  }
+
+  const checkIsUserExistByEmail = (value: string) => {
+     if(value === 'nouser@gmail.com') {
+       return (false);
+     } else {
+       return (true);
+     }
+  }
+
   const onPressModal = () => {
     setVisible(false);
     navigation.replace('Login');
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView>
@@ -43,18 +67,12 @@ const FindIdScreen = ({navigation}: Props) => {
               onChangeText={(e: string) => onChangeEmail(e)}
             />
           </View>
-          <LoginBtn title={'확인'} onPress={() => setVisible(true)} />
+          <LoginBtn title={'확인'} onPress={() => checkInputValue() } />
           <View style={styles.footer}>
             <TradeMark />
           </View>
-          {/* 모달 */}
-          <Modal.Container visible={visible} height={170}>
-            <Modal.Title text={'아래 이메일로 계정 정보를 보냈습니다.'} />
-            <View style={styles.modalDescriptionContainer}>
-              <Modal.Description text={email} />
-            </View>
-            <Modal.OneBtn text={'확인'} onPress={() => onPressModal()} />
-          </Modal.Container>
+          {/* 팝업 모달 - FindAccountInfo */}
+         <FindAccountInfo email={email} visible={visible} setVisible={setVisible} onPressModal={onPressModal}/>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
@@ -64,16 +82,19 @@ const FindIdScreen = ({navigation}: Props) => {
 export default FindIdScreen;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: colors.white, alignItems: 'center'},
-  titleContainer: {paddingTop: height * 219, marginBottom: height * 22},
+
+  container: {flex: 1, backgroundColor: colors.white, alignItems: 'center' },
+  titleContainer: { paddingTop: height * 219, marginBottom: height * 22 },
   inputContainer: {
     marginBottom: height * 27,
   },
-  btnContainer: {marginBottom: height * 14},
+  btnContainer: { marginBottom: height * 14 },
   footer: {
     paddingTop: height * 156,
   },
   modalDescriptionContainer: {
-    marginBottom: 27,
+
+    paddingTop: height * 8,
+    marginBottom: height * 12,
   },
 });

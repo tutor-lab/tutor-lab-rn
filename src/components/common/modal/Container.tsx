@@ -39,25 +39,27 @@ const Container = ({visible, height, children}: Props) => {
   return (
     <Modal transparent visible={showModal}>
       <View style={styles.container}>
-        <Animated.View
-          style={[
-            styles.animation,
-            {transform: [{scale: scaleValue}]},
-            {height: height},
-            {
-              ...Platform.select({
-                ios: {
-                  shadowColor: 'rgba(136, 136, 136, 0.22)',
-                  shadowOffset: {width: 8, height: 8},
-                  shadowOpacity: 0.3,
-                  shadowRadius: 5,
+         <View style={styles.modalView}>
+            <Animated.View
+              style={[
+                styles.animation,
+                {transform: [{scale: scaleValue}]},
+                {height: height},
+                {
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: 'rgba(136, 136, 136, 0.22)',
+                      shadowOffset: {width: 8, height: 8},
+                      shadowOpacity: 0.3,
+                      shadowRadius: 5,
+                    },
+                    android: {elevation: 5},
+                  }),
                 },
-                android: {elevation: 5},
-              }),
-            },
-          ]}>
-          <View style={styles.card}>{children}</View>
-        </Animated.View>
+              ]}>
+              <View style={styles.card}>{children}</View>
+            </Animated.View>
+         </View>
       </View>
     </Modal>
   );
@@ -71,6 +73,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.2)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  modalView: {
+    borderRadius: 13,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5,
+    elevation: 5,
+    overflow: 'hidden',
   },
   animation: {
     width: width * 296,

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 
-import {colors, fonts} from '../../../constants';
+import {colors, fonts, height} from '../../../constants';
 
 type Props = {
   text: string;
@@ -15,8 +15,9 @@ export default Title;
 
 const styles = StyleSheet.create({
   text: {
+    paddingTop: height * 10,
     color: colors.charcoal,
-    fontSize: 16,
+    fontSize: height * 18,
     fontFamily: fonts.regular,
     fontWeight: '500',
   },
