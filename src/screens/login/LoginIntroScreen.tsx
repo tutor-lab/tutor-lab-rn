@@ -23,9 +23,9 @@ const LoginIntroScreen = ({navigation}: Props) => {
           }}
         />
         <LoginBtn
-          title={'튜티로 로그인하기'}
+          title={'튜터로 로그인하기'}
           onPress={() => {
-            navigation.navigate('LoginMain', {user: '튜티'});
+            navigation.navigate('LoginMain', {user: '튜터'});
           }}
         />
       </View>

@@ -24,7 +24,7 @@ export default OneBtn;
 const styles = StyleSheet.create({
   modalBtn: {
     height: 52,
-    borderRadius: 5,
+    borderRadius: 10,
     width: width * 233,
     backgroundColor: colors.login_btn,
     justifyContent: 'center',
