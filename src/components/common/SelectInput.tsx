@@ -33,7 +33,7 @@ const SelectInput = ({backgroundColor, selected, values, placeholder, onChangeVa
                   label: placeholder,
                   value: '',
                 }}
-                fixAndroidTouchableBug={true}
+//                 fixAndroidTouchableBug={true}
                 value={selectedValue}
                 onValueChange={ (e:string) => onValueSelected(e) }
                 items={[...values]}

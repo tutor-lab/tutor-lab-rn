@@ -17,7 +17,8 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
     const [mobile, setMobile] = useState('');
     const [birthYear, setBirthYear] = useState('');
     const [gender, setGender] = useState('');
-    //const [, setName] = useState('');
+    const [region, setRegion] = useState('');
+    const [city, setCity] = useState('');
 
     const onNameChange = (value: string) => {
         setName(value);
@@ -90,6 +91,39 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                             { label: '2019', value: '2019' },
                         ]}
                         onChangeValue={ (e:string) => onBirthYearSelected(e) }
+                    />
+                    <View style={styles.vertical_divider} />
+                    <SelectInput
+                        backgroundColor={colors.input}
+                        selected={gender}
+                        placeholder={'  성별'}
+                        values={[
+                            { label: '남', value: 'male' },
+                            { label: '여', value: 'female' },
+                        ]}
+                        onChangeValue={ (e:string) => setGender(e) }
+                    />
+                </View>
+                <View style={styles.select}>
+                    <SelectInput
+                        backgroundColor={colors.input}
+                        selected={region}
+                        placeholder={'  지역'}
+                        values={[
+                            { label: '경기도', value: '2021' },
+                        ]}
+                        onChangeValue={ (e:string) => setRegion(e) }
+                    />
+                    <View style={styles.vertical_divider} />
+                    <SelectInput
+                        backgroundColor={colors.input}
+                        selected={city}
+                        placeholder={'  시/군/구'}
+                        values={[
+                            { label: '고양시', value: 'male' },
+                            { label: '과천시', value: 'female' },
+                        ]}
+                        onChangeValue={ (e:string) => setCity(e) }
                     />
                 </View>
             </View>
@@ -171,11 +205,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btn_text: { color: colors.white, fontSize: height * 15.5 },
-  divider: {paddingTop: height * 40,},
+  divider: { paddingTop: height * 40, },
   select: {
     width: width * 290,
-    marginBottom: height * 10,
     flexDirection: "row",
     alignContent: "space-between",
-  }
+  },
+  vertical_divider: { paddingRight: width * 10 },
 });
