@@ -30,7 +30,7 @@ const LoginIntroScreen = ({navigation}: Props) => {
         />
       </View>
       <View>
-        <SubBtn title={'회원가입'} onPress={() => console.log('회원가입')} />
+        <SubBtn title={'회원가입'} onPress={() => navigation.navigate('Signup')} />
       </View>
       <View style={styles.footer}>
         <TradeMark />

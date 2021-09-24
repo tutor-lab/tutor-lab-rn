@@ -9,7 +9,7 @@ type Props = {
   onChangeText: (text: string) => void;
 };
 
-const Input = ({backgroundColor, value, placeholder, onChangeText}: Props) => {
+const FormInput = ({backgroundColor, value, placeholder, onChangeText}: Props) => {
   return (
     <View style={[styles.container, {backgroundColor: backgroundColor}]}>
       <TextInput
@@ -23,14 +23,15 @@ const Input = ({backgroundColor, value, placeholder, onChangeText}: Props) => {
   );
 };
 
-export default Input;
+export default FormInput;
 
 const styles = StyleSheet.create({
   container: {
     height: 52,
-    borderRadius: 5,
+    borderRadius: 10,
     width: width * 290,
     justifyContent: 'center',
+    marginBottom: height * 10,
   },
   input: {
     color: colors.black,
