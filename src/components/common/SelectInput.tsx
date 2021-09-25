@@ -29,7 +29,6 @@ const SelectInput = ({backgroundColor, values, placeholder, onChangeValue}: Prop
     return (
         <View style={[styles.container, {backgroundColor: backgroundColor}]}>
             <RNPickerSelect
-                textInputProps={{ underlineColorAndroid: 'transparent' }}
                 placeholder={{
                   label: placeholder,
                   value: '',
@@ -39,6 +38,7 @@ const SelectInput = ({backgroundColor, values, placeholder, onChangeValue}: Prop
                 value={selectedValue}
                 onValueChange={ (e:string) => onValueSelected(e) }
                 items={[...values]}
+                style={{ inputAndroid: { color: 'black' } }}
             />
         </View>
     );
@@ -55,5 +55,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: "stretch",
     marginBottom: height * 10,
+    paddingLeft: width * 10,
   }
 });
