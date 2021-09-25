@@ -108,21 +108,21 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                     backgroundColor={colors.input}
                     password={false}
                     value={name}
-                    placeholder={'    이름'}
+                    placeholder={'     이름'}
                     onChangeText={ (e: string) => setName(e) }
                 />
                 <FormInput
                     backgroundColor={colors.input}
                     password={false}
                     value={id}
-                    placeholder={'    ID'}
+                    placeholder={'     ID'}
                     onChangeText={ (e: string) => setId(e) }
                 />
                 <FormInput
                     backgroundColor={colors.input}
                     password={false}
                     value={email}
-                    placeholder={'    Email'}
+                    placeholder={'     Email'}
                     onChangeText={ (e: string) => onEmailChange(e) }
                 />
                 <View style={styles.hidden_view}>
@@ -135,7 +135,7 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                     backgroundColor={colors.input}
                     password={true}
                     value={password}
-                    placeholder={'    비밀번호 입력(6~14자)'}
+                    placeholder={'  비밀번호 입력(6~14자)'}
                     onChangeText={ (e: string) => onPasswordChange(e) }
                 />
                 <View style={styles.hidden_view}>
@@ -148,7 +148,7 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                     backgroundColor={colors.input}
                     password={true}
                     value={passwordCheck}
-                    placeholder={'    비밀번호 재입력'}
+                    placeholder={'  비밀번호 재입력'}
                     onChangeText={ (e: string) => compareToPassword(e) }
                 />
                 <View style={styles.hidden_view}>
@@ -157,6 +157,13 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                         style={ diffPassword ? styles.reveal_text : styles.hidden_text }
                     />
                 </View>
+                <FormInput
+                    backgroundColor={colors.input}
+                    password={false}
+                    value={mobile}
+                    placeholder={"     핸드폰 번호('-' 제외)"}
+                    onChangeText={ (e: string) => setMobile(e) }
+                />
                 <View style={styles.divider}/>
                 <View style={styles.select}>
                     <SelectInput
@@ -252,7 +259,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icon: { alignItems: 'center', width: width * 24 },
-  title: { fontSize: height * 16.5, color: colors.sub, textAlignVertical: "center" },
+  title: { fontSize: height * 18, color: colors.sub, textAlignVertical: "center" },
   form: {
     paddingTop: height * 40,
     position: 'absolute',
