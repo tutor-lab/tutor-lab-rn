@@ -19,11 +19,24 @@ type Props = {
 const SelectInput = ({backgroundColor, selected, values, placeholder, onChangeValue}: Props) => {
     const [selectedValue, setSelectedValue] = useState('');
 
+    useEffect(() => onSelectedValueChanged(),[selected]);
+
     const onValueSelected = (value: string) => {
         onChangeValue(value);
-        const selectedItem = values.find((e) => e['value'] === selected);
-        setSelectedValue(selectedItem['value']);
     };
+
+    const onSelectedValueChanged = () => {
+        const selectedItem = values.filter((e) => e['value'] === selected) as Item;
+//         console.log(selectedItem);
+//         console.log(typeof selectedItem);
+//         console.log(selectedItem.length);
+        if(selectedItem.length !== 0) {
+            console.log(selectedItem[0]);
+            const selectedObj = selectedItem[0] as Item;
+            console.log(selectedObj['value']);
+            setSelectedValue(selectedObj['value']);
+        }
+    }
 
     return (
         <View style={[styles.container, {backgroundColor: backgroundColor}]}>
@@ -33,9 +46,9 @@ const SelectInput = ({backgroundColor, selected, values, placeholder, onChangeVa
                   label: placeholder,
                   value: '',
                 }}
-//                 fixAndroidTouchableBug={true}
+                fixAndroidTouchableBug={true}
                 value={selectedValue}
-                onValueChange={ (e:string) => onValueSelected(e) }
+                onValueChange={ (e: string) => onValueSelected(e) }
                 items={[...values]}
                 style={styles.picker}
             />

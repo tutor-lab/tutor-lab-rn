@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StepComponentProps } from "react-step-builder";
 import 'react-native-gesture-handler';
 import { View, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, Text, Dimensions } from 'react-native';
@@ -7,8 +7,15 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Modal, FormInput, SelectInput, Button } from '../../components/common';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { WithLocalSvg } from 'react-native-svg/src';
+import axios from 'axios';
+type Item =  {
+    label: string,
+    value: string,
+};
 
 const CreateAccountStep1 = (props : StepComponentProps) => {
+
+    axios.defaults.baseURL = 'http://3.35.255.192:8081/';
     const [name, setName] = useState('');
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
@@ -20,9 +27,21 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
     const [region, setRegion] = useState('');
     const [city, setCity] = useState('');
 
-    const onNameChange = (value: string) => {
-        setName(value);
-    };
+    useEffect(() => {
+        axios.get('addresses/states')
+            .then((response) => {
+                const regions = response.data;
+                let regionList: any[] = [];
+                console.log(response.data);
+                response.data.forEach((e) => {
+                   var data = {"label": e, "value": e};
+                   responseList.push(data);
+                });
+                console.log(regionList);
+            })
+            .catch((e) => console.log(e))
+    },[]);
+
     const onIDChange = (value: string) => {
         setId(value);
     };
@@ -32,10 +51,6 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
     const compareToPassword = (value: string) => {
         if(value === password) console.log('비밀번호 일치함');
         else console.log('불일치');
-    };
-    const onBirthYearSelected = (value: string) => {
-        console.log(value);
-        setBirthYear(value);
     };
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -59,7 +74,7 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                     backgroundColor={colors.input}
                     value={name}
                     placeholder={'      이름'}
-                    onChangeText={(e: string) => onNameChange(e) }
+                    onChangeText={(e: string) => setName(e) }
                 />
                 <FormInput
                     backgroundColor={colors.input}
@@ -90,7 +105,7 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                             { label: '2020', value: '2020' },
                             { label: '2019', value: '2019' },
                         ]}
-                        onChangeValue={ (e:string) => onBirthYearSelected(e) }
+                        onChangeValue={ (e:string) => setBirthYear(e) }
                     />
                     <View style={styles.vertical_divider} />
                     <SelectInput
