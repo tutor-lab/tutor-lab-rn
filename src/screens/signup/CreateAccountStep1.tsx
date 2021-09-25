@@ -26,21 +26,17 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
     const [gender, setGender] = useState('');
     const [region, setRegion] = useState('');
     const [city, setCity] = useState('');
+    const [states,setStates] = useState<Array<any>>([]);
 
     useEffect(() => {
         axios.get('addresses/states')
             .then((response) => {
-                const regions = response.data;
-                let regionList: any[] = [];
-                console.log(response.data);
-                response.data.forEach((e) => {
-                   var data = {"label": e, "value": e};
-                   responseList.push(data);
-                });
-                console.log(regionList);
+                setStates(response.data)
+                console.log(states);
             })
             .catch((e) => console.log(e))
     },[]);
+
 
     const onIDChange = (value: string) => {
         setId(value);
@@ -98,7 +94,6 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                 <View style={styles.select}>
                     <SelectInput
                         backgroundColor={colors.input}
-                        selected={birthYear}
                         placeholder={'  출생년도'}
                         values={[
                             { label: '2021', value: '2021' },
@@ -113,8 +108,8 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                         selected={gender}
                         placeholder={'  성별'}
                         values={[
-                            { label: '남', value: 'male' },
-                            { label: '여', value: 'female' },
+                            { label: '남', value: '남' },
+                            { label: '여', value: '여' },
                         ]}
                         onChangeValue={ (e:string) => setGender(e) }
                     />
@@ -124,9 +119,7 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                         backgroundColor={colors.input}
                         selected={region}
                         placeholder={'  지역'}
-                        values={[
-                            { label: '경기도', value: '2021' },
-                        ]}
+                        values={[...states]}
                         onChangeValue={ (e:string) => setRegion(e) }
                     />
                     <View style={styles.vertical_divider} />

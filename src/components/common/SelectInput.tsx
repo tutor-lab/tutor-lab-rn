@@ -10,47 +10,35 @@ type Item = {
 
 type Props = {
     backgroundColor: string;
-    selected: string;
     values: Item[];
     placeholder: string;
     onChangeValue: (value: string) => void;
 };
 
-const SelectInput = ({backgroundColor, selected, values, placeholder, onChangeValue}: Props) => {
+const SelectInput = ({backgroundColor, values, placeholder, onChangeValue}: Props) => {
     const [selectedValue, setSelectedValue] = useState('');
 
-    useEffect(() => onSelectedValueChanged(),[selected]);
+    useEffect(() => console.log(`useEffect: ${selectedValue}`),[selectedValue]);
 
-    const onValueSelected = (value: string) => {
+    const onValueSelected = (value:string) => {
+        console.log(`onValueSelected: ${value}`);
+        setSelectedValue(value);
         onChangeValue(value);
     };
-
-    const onSelectedValueChanged = () => {
-        const selectedItem = values.filter((e) => e['value'] === selected) as Item;
-//         console.log(selectedItem);
-//         console.log(typeof selectedItem);
-//         console.log(selectedItem.length);
-        if(selectedItem.length !== 0) {
-            console.log(selectedItem[0]);
-            const selectedObj = selectedItem[0] as Item;
-            console.log(selectedObj['value']);
-            setSelectedValue(selectedObj['value']);
-        }
-    }
 
     return (
         <View style={[styles.container, {backgroundColor: backgroundColor}]}>
             <RNPickerSelect
-                textInputProps={{ underlineColorAndroid: 'transparent'}}
+                textInputProps={{ underlineColorAndroid: 'transparent' }}
                 placeholder={{
                   label: placeholder,
                   value: '',
                 }}
+                useNativeAndroidPickerStyle={true}
                 fixAndroidTouchableBug={true}
                 value={selectedValue}
-                onValueChange={ (e: string) => onValueSelected(e) }
+                onValueChange={ (e:string) => onValueSelected(e) }
                 items={[...values]}
-                style={styles.picker}
             />
         </View>
     );
@@ -67,8 +55,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: "stretch",
     marginBottom: height * 10,
-  },
-  picker: {
-    color: colors.black,
   }
 });
