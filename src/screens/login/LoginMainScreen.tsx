@@ -108,15 +108,16 @@ const LoginMainScreen = ({route, navigation}: Props) => {
     setPassword(text);
   };
   const onLogin = () => {
+    AsyncStorage.clear();
     axios
       .post('/login', {
         username: username,
         password: password,
       })
       .then(function (response) {
-        AsyncStorage.clear();
+        
         AsyncStorage.setItem('accessToken', response.data.split(' ')[1]);
-        navigation.navigate('Chatting');
+        navigation.navigate('Main');
         // console.log(Object.keys(response.headers))
       })
       .catch(function (error) {

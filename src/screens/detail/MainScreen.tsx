@@ -14,9 +14,9 @@ import {
 import {Line, Bottom} from '../../components/common';
 import axios from 'axios';
 
-type Props = {navigation: any};
+type Props = {navigation: any,route:any};
 
-const MainScreen = ({navigation}: Props) => {
+const MainScreen = ({navigation,route}: any) => {
   const [selection, setSelection] = useState<{
     introduction: boolean;
     review: boolean;
@@ -24,17 +24,39 @@ const MainScreen = ({navigation}: Props) => {
 
   //const [htmlContent,setHtmlContent] = useState("")
   const [content, setContent] = useState('');
+  const [difficultyType,setDifficultyType] =useState('');
+  const [introduce,setIntroduce] = useState('');
+  const [lecturePrices,setLecturePrices] = useState({});
+  const [lectureSubjects,setLectureSubjects] = useState([]);
+  const [subTitle,setSubTitle] = useState('');
+  const [systemTypes,setSystemTypes] = useState([]);
+  const [thumbnail,setThumbnail] = useState('');
+  const [title,setTitle] = useState('');
 
   useEffect(() => {
-    axios.get('/lectures/30').then(res => {
+    axios.get(`/lectures/${route.params.itemId}`).then(res => {
+      console.log('res',res)
       setContent(res.data.content);
+      setDifficultyType(res.data.difficultyType)
+      setIntroduce(res.data.introduce)
+      setLecturePrices(res.data.lecturePrices[0])
+      setLectureSubjects(res.data.lectureSubjects)
+      setSubTitle(res.data.subTitle)
+      setSystemTypes(res.data.systemTypes[0])
+      setThumbnail(res.data.thumbnail)
+      setTitle(res.data.title)
     });
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <Detail data={Data.Detail} />
+        <Detail 
+          data={Data.Detail} 
+          title={title}  
+          subTitle={subTitle}
+          lecturePrices={lecturePrices}
+        />
         <Line />
         <Tutor data={Data.Detail} />
         <Line height={5} />
@@ -56,7 +78,7 @@ const MainScreen = ({navigation}: Props) => {
             </View>
           ) : (
             // 강의 소개
-            <>{/* <TutorIntroduction content={content} /> */}</>
+            <><TutorIntroduction content={content} /></>
           )}
         </View>
       </ScrollView>
@@ -67,7 +89,8 @@ const MainScreen = ({navigation}: Props) => {
             title: Data.Detail.title,
             subject: Data.Detail.lectureSubjects,
             tutor: Data.Detail.tutor,
-          })
+          }
+          )
         }
       />
     </SafeAreaView>

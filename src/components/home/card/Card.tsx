@@ -26,7 +26,7 @@ const Card = ({data, navigation}: Props) => {
   return (
     <TouchableOpacity
       activeOpacity={1}
-      onPress={() => navigation.navigate('Detail', {screen: 'Main'})}
+      onPress={() => navigation.navigate('Detail', {itemId: data.id})}
       style={[
         styles.container,
         {

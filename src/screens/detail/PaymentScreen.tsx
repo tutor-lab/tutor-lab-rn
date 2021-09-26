@@ -13,19 +13,31 @@ import {WithLocalSvg} from 'react-native-svg/src';
 import {Line, Bottom} from '../../components/common';
 
 import {PaymentInfo, PaymentList} from '../../components/detail';
+import axios from 'axios';
 
 type Props = {
   navigation: any;
-  route: {
-    params: {
-      title: string;
-      tutor: string;
-      subject: {id: number; krSubject: string; parent: string}[];
-    };
-  };
+  route:any;
+  // route: {
+  //   params: {
+  //     title: string;
+  //     tutor: string;
+  //     subject: {id: number; krSubject: string; parent: string}[];
+  //   };
+  // };
 };
 
-const PaymentScreen = ({navigation, route}: Props) => {
+const PaymentScreen = ({navigation, route}: any) => {
+
+  console.log(navigation);
+  console.log('route1122',route)
+
+  const onPayment = () =>{
+    axios.post(`/lectures/${route.params.itemId}/enrollments`)
+    .then(function (response) { console.log('result',response); })
+    .catch(function (error) { console.log(error); })
+    console.log('onSubmit12')
+  }
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -37,7 +49,7 @@ const PaymentScreen = ({navigation, route}: Props) => {
             <WithLocalSvg asset={icons.close} />
           </TouchableOpacity>
         </View>
-        <PaymentInfo info={route.params} />
+        {/* <PaymentInfo info={route.params} /> */}
         <Line height={8} />
         <View style={{paddingHorizontal: width * 20}}>
           <View style={{marginTop: 20, marginBottom: 13}}>
@@ -46,10 +58,10 @@ const PaymentScreen = ({navigation, route}: Props) => {
             </Text>
           </View>
           <PaymentList checked={true} />
-          <PaymentList checked={false} />
+          {/* <PaymentList checked={false} /> */}
         </View>
       </ScrollView>
-      <Bottom.Payment price={179000} onPress={() => console.log('')} />
+      <Bottom.Payment price={179000} onPress={onPayment} />
     </SafeAreaView>
   );
 };

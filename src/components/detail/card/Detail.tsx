@@ -35,9 +35,12 @@ type Props = {
     review_count: number;
     store_count: number;
   };
+  title:string;
+  subTitle:string;
+  lecturePrices:any;
 };
 
-const Tutor = ({data}: Props) => {
+const Detail = ({data,title,subTitle,lecturePrices}: Props) => {
   return (
     <>
       <View style={styles.image}>
@@ -55,12 +58,12 @@ const Tutor = ({data}: Props) => {
           <Remote remote={data.remote} />
         </View>
         <View style={styles.title}>
-          <Title title={data.title} />
+          <Title title={title} />
         </View>
         <View style={styles.explain}>
-          <Explain title={data.explain} />
+          <Explain title={subTitle} />
         </View>
-        <View style={styles.middle}>
+        {/* <View style={styles.middle}>
           <View style={styles.count}>
             <View style={styles.heart}>
               <Heart heart={data.heart} />
@@ -75,25 +78,25 @@ const Tutor = ({data}: Props) => {
               <Review review={data.review} />
             </View>
           </View>
-        </View>
+        </View> */}
         <View style={styles.bottom}>
-          <View style={styles.percent}>
+          {/* <View style={styles.percent}>
             <Percent discount={data.discount} />
-          </View>
+          </View> */}
           <View style={styles.price}>
-            <Price price={data.price} />
+            <Price price={lecturePrices.totalCost} />
           </View>
         </View>
-        <View>
+        {/* <View>
           <View style={styles.hashTag}>
             <HashTag hashTag={data.hashtag} />
           </View>
-        </View>
+        </View> */}
       </View>
     </>
   );
 };
-export default Tutor;
+export default React.memo(Detail);
 
 const styles = StyleSheet.create({
   image: {height: 280},
