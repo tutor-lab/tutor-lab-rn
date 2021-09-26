@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef, ElementType, memo} from 'react';
 import 'react-native-gesture-handler';
 import {
   View,
@@ -7,51 +7,117 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import {colors, fonts, icons, width, utils} from '../../constants';
-
-import {ChatMine, TextInput} from '../../components/chatting';
+import axios from 'axios';
 import {WithLocalSvg} from 'react-native-svg/src';
+
 import {MessageList} from '../../types/data';
+import {Header} from '../../components/common';
+import {colors, fonts, icons, width} from '../../constants';
+import {ChatMine, TextInput, ChatOther} from '../../components/chatting';
 
-// textinput line 최대 몇 줄? 나중에 채팅 올때 알람 어떻게? 읽었는지 안읽었는지 표시?
-// 스크롤 수정 필요
+// textinput line 최대 몇 줄?
+// 첫 랜더링 때 왜 깜빡거리는지..
+//  나중에 채팅 올때 알람 어떻게? 읽었는지 안읽었는지 표시?
 
-const ChattingScreen = () => {
+type Props = {navigation: any};
+const ChattingScreen = ({navigation}: Props) => {
+  const chatID = 1; //임시 테스트
+  const scrollViewRef = useRef<ElementType>();
+
   const [input, setInput] = useState({text: '', height: 40});
   const [messageList, setMessageList] = useState<MessageList[]>([]);
+  const [user, setUser] = useState<any>([]);
+  const [sendMsgCnt, setSendMsgCnt] = useState(0);
 
-  const sendMessage = (msg: string) => {
-    const today = new Date();
-
-    const message = {
-      id: messageList.length,
-      message: msg,
-      date: `${today.getFullYear()}-${utils.parseToday(
-        today.getMonth() + 1,
-      )}-${utils.parseToday(today.getDate())}`,
-      hour: `${utils.parseToday(today.getHours())}`,
-      minutes: `${utils.parseToday(today.getMinutes())}`,
-      // 그외.. 유저토큰? 아이디?
+  const ws = new WebSocket(`ws://3.35.255.192:8081/ws/chat/${chatID}`);
+  useEffect(() => {
+    // 에러 발생시
+    ws.onerror = e => {
+      console.log(e.message);
     };
-    setInput({text: '', height: 0});
-    setMessageList([...messageList, message]);
+    // 소켓 연결 해제
+    ws.onclose = e => {
+      console.log(e.code, e.reason);
+    };
+  }, []);
+
+  useEffect(() => {
+    // 메세지 수신
+    console.log('메세지 수신');
+    ws.onmessage = evt => {
+      // console.log('edata',e.data)
+      const data = JSON.parse(evt.data);
+      setMessageList((prevItems: any) => [...prevItems, data]);
+      // sendMessage(e.data.message)
+    };
+  }, []);
+
+  const sendMsgEnter = (data: string) => {
+    console.log('메세지 발신');
+    ws.send(
+      JSON.stringify({
+        username: user.name,
+        message: data,
+        sessionId: '30ae0b1d-45bc-ed13-2f3a-ee5c402725c7',
+        // sessionId 어떻게 보낼것인지
+        chatroomId: 1,
+        type: 'message',
+      }),
+    );
+    setInput({text: '', height: 40});
+    setSendMsgCnt(sendMsgCnt + 1);
   };
+
+  const getMy = async () => {
+    try {
+      await axios.get('/users/my-info').then((response: any) => {
+        setUser(response.data);
+        return response;
+      });
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getPrevChat = async () => {
+    try {
+      await axios.get(`/tutees/my-chatrooms/${chatID}`).then(response => {
+        setMessageList(response.data);
+        return response;
+      });
+    } catch (error) {
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    getMy();
+    getPrevChat();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <Header.Chatting navigation={navigation} title={'김하나'} />
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        ref={scrollViewRef}
+        onContentSizeChange={() => {
+          scrollViewRef.current.scrollToEnd({animated: true});
+        }}
+        keyboardShouldPersistTaps={'always'}>
         <View style={styles.padding}>
-          {messageList.length !== 0 ? (
-            <>
-              {messageList.map(list => (
-                <View key={list.id}>
+          {messageList.length > 0 &&
+            messageList.map(list =>
+              user.name === list.username ? (
+                <View key={JSON.stringify(list.id)}>
                   <ChatMine list={list} />
                 </View>
-              ))}
-            </>
-          ) : (
-            <></>
-          )}
+              ) : (
+                <View key={JSON.stringify(list.id)}>
+                  <ChatOther list={list} />
+                </View>
+              ),
+            )}
         </View>
       </ScrollView>
       <View style={styles.bottomContainer}>
@@ -85,7 +151,7 @@ const ChattingScreen = () => {
             <TouchableOpacity
               activeOpacity={1}
               onPress={() =>
-                input.text.trim() !== '' ? sendMessage(input.text) : ''
+                input.text.trim() !== '' && sendMsgEnter(input.text)
               }
               style={[styles.sendIcon, {height: input.height}]}>
               <WithLocalSvg asset={icons.search_main} />
@@ -97,7 +163,7 @@ const ChattingScreen = () => {
   );
 };
 
-export default ChattingScreen;
+export default memo(ChattingScreen);
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.bg_color},
