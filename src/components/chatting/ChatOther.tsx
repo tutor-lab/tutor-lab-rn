@@ -1,11 +1,23 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {View, StyleSheet, Text} from 'react-native';
 import {colors, fonts} from '../../constants';
+import {MessageList} from '../../types/data';
 
-type Props = {};
+type Props = {list: MessageList};
 
-const ChatTutor = ({}: Props) => {
+const ChatOther = ({list}: Props) => {
+  const [meridiem, setMeridiem] = useState<string>('');
+  const [hour, setHour] = useState<string>('');
+  const [minutes, setMinutes] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+  const [userName, setUserName] = useState<string>('');
+
+  useEffect(() => {
+    setUserName(list.username);
+    setMessage(list.message);
+  }, [list]);
+
   return (
     <View style={styles.container}>
       <View>
@@ -19,23 +31,25 @@ const ChatTutor = ({}: Props) => {
             ellipsizeMode="tail"
             numberOfLines={1}
             style={[fonts[500], styles.tutorText]}>
-            김하나
+            {userName}
           </Text>
         </View>
         <View style={styles.chatBox}>
-          <Text style={[fonts[400], styles.chatText]}>안녕하세요!</Text>
+          <Text style={[fonts[400], styles.chatText]}>{message}</Text>
         </View>
         <View style={styles.timeBox}>
-          <Text style={[fonts[400], styles.meridiemText]}>오후</Text>
+          <Text style={[fonts[400], styles.meridiemText]}>{meridiem}</Text>
           <View style={styles.divider} />
-          <Text style={styles.timeText}>08:37</Text>
+          <Text style={styles.timeText}>
+            {hour}:{minutes}
+          </Text>
         </View>
       </View>
     </View>
   );
 };
 
-export default ChatTutor;
+export default ChatOther;
 
 const styles = StyleSheet.create({
   container: {
