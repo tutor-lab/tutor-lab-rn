@@ -4,5 +4,5 @@ type LoginStackParamList = {
   LoginMain: {user: string};
   FindId: undefined;
   FindPwd: undefined;
-  C
+  Chatting:undefined;
 };

@@ -1,5 +1,6 @@
-import React, {useState,useCallback,useEffect} from 'react';
-import {View, SafeAreaView, StyleSheet,Alert} from 'react-native';
+import React, {useState, useCallback, useEffect} from 'react';
+import {View, SafeAreaView, StyleSheet, Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -8,8 +9,8 @@ import {height, colors} from '../../constants';
 import {TradeMark, SubBtn, Title} from '../../components/login';
 import {Button, TextInput} from '../../components/common';
 
-import axios from 'axios'
-import { authorize } from 'react-native-app-auth';
+import axios from 'axios';
+import {authorize} from 'react-native-app-auth';
 import {
   KakaoOAuthToken,
   KakaoProfile,
@@ -33,72 +34,71 @@ const defaultAuthState = {
   provider: '',
   accessToken: '',
   accessTokenExpirationDate: '',
-  refreshToken: ''
+  refreshToken: '',
 };
 const LoginMainScreen = ({route, navigation}: Props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [result, setResult] = useState<string>('');
   const [authState, setAuthState] = useState(defaultAuthState);
-
-
-  const configs:any = {
-  
-  // auth0: {
-  //   // From https://openidconnect.net/
-  //   issuer: 'https://developers.kakao.com/console/app/617439',
-  //   clientId: '8dc9eea7e202a581e0449058e753beaf',    
-  //   redirectUrl:"http://192.168.0.10:8080/oauth/kakao/callback",
-  //   additionalParameters: {"code" : "23423432"},
-  //   scopes: ['openid', 'profile', 'email', 'phone', 'address'],
-  // }
-    google:{
+  const configs: any = {
+    // auth0: {
+    //   // From https://openidconnect.net/
+    //   issuer: 'https://developers.kakao.com/console/app/617439',
+    //   clientId: '8dc9eea7e202a581e0449058e753beaf',
+    //   redirectUrl:"http://192.168.0.10:8080/oauth/kakao/callback",
+    //   additionalParameters: {"code" : "23423432"},
+    //   scopes: ['openid', 'profile', 'email', 'phone', 'address'],
+    // }
+    google: {
       issuer: 'https://accounts.google.com',
-      clientId: '902783645965-ald60d1ehnaeaoetihtb1861u98ppf3u.apps.googleusercontent.com',
+      clientId:
+        '902783645965-ald60d1ehnaeaoetihtb1861u98ppf3u.apps.googleusercontent.com',
       redirectUrl: 'https://f35dd0783aa2.ngrok.io/oauth/google/callback',
-      scopes: ['openid', 'profile','email'],
+      scopes: ['openid', 'profile', 'email'],
       usePKCE: false,
-    }
-};
+    },
+  };
 
-useEffect(() => {
-  configureGoogleSign();
-}, []);
+  useEffect(() => {
+    configureGoogleSign();
+  }, []);
 
-function configureGoogleSign() {
-  GoogleSignin.configure({
-    webClientId: '779338835350-2i5m24ouhqcb2rlumcu0dmv3dfcelcbc.apps.googleusercontent.com',
-    offlineAccess: false
-  });
-}
-// GoogleSignin.configure({
-//   webClientId: '779338835350-2i5m24ouhqcb2rlumcu0dmv3dfcelcbc.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-//   offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-//   hostedDomain: '', // specifies a hosted domain restriction
-//   loginHint: '', // [iOS] The user's ID, or email address, to be prefilled in the authentication UI if possible. [See docs here](https://developers.google.com/identity/sign-in/ios/api/interface_g_i_d_sign_in.html#a0a68c7504c31ab0b728432565f6e33fd)
-//   forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
-//   accountName: '', // [Android] specifies an account name on the device that should be used
-//   iosClientId: 'https://902783645965-ald60d1ehnaeaoetihtb1861u98ppf3u.apps.googleusercontent.com/', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
-//   googleServicePlistPath: '', // [iOS] optional, if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
-// });
-const handleAuthorize = useCallback(
-  async provider => {
-    try {
-      const config = configs[provider];
-      const newAuthState = await authorize(config);
+  function configureGoogleSign() {
+    GoogleSignin.configure({
+      webClientId:
+        '779338835350-2i5m24ouhqcb2rlumcu0dmv3dfcelcbc.apps.googleusercontent.com',
+      offlineAccess: false,
+    });
+  }
+  // GoogleSignin.configure({
+  //   webClientId: '779338835350-2i5m24ouhqcb2rlumcu0dmv3dfcelcbc.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+  //   offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+  //   hostedDomain: '', // specifies a hosted domain restriction
+  //   loginHint: '', // [iOS] The user's ID, or email address, to be prefilled in the authentication UI if possible. [See docs here](https://developers.google.com/identity/sign-in/ios/api/interface_g_i_d_sign_in.html#a0a68c7504c31ab0b728432565f6e33fd)
+  //   forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
+  //   accountName: '', // [Android] specifies an account name on the device that should be used
+  //   iosClientId: 'https://902783645965-ald60d1ehnaeaoetihtb1861u98ppf3u.apps.googleusercontent.com/', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+  //   googleServicePlistPath: '', // [iOS] optional, if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
+  // });
+  const handleAuthorize = useCallback(
+    async provider => {
+      try {
+        const config = configs[provider];
+        const newAuthState = await authorize(config);
 
-      console.log('newAuthState',newAuthState)
-      // setAuthState({
-      //   hasLoggedInOnce: true,
-      //   provider: provider,
-      //   ...newAuthState
-      // });
-    } catch (error) {
-      Alert.alert('Failed to log in123', error.message);
-    }
-  },
-  [authState]
-);
+        console.log('newAuthState', newAuthState);
+        // setAuthState({
+        //   hasLoggedInOnce: true,
+        //   provider: provider,
+        //   ...newAuthState
+        // });
+      } catch (error) {
+        Alert.alert('Failed to log in123', error.message);
+      }
+    },
+    [authState],
+  );
 
   const idOnChange = (text: string) => {
     setUsername(text);
@@ -107,30 +107,31 @@ const handleAuthorize = useCallback(
   const pwdOnChange = (text: string) => {
     setPassword(text);
   };
-  const onLogin = () =>{
-
-    axios.post("http://192.168.0.10:8080/login", {
+  const onLogin = () => {
+    axios
+      .post('/login', {
         username: username,
-        password: password      
-    })
-    .then(function (response) {
-      console.log(response.headers.authorization);
-      // console.log(Object.keys(response.headers))
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
+        password: password,
+      })
+      .then(function (response) {
+        AsyncStorage.clear();
+        AsyncStorage.setItem('accessToken', response.data.split(' ')[1]);
+        navigation.navigate('Chatting');
+        // console.log(Object.keys(response.headers))
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
-  }
   const signInWithKakao = async (): Promise<void> => {
     const token: KakaoOAuthToken = await login();
-
 
     // console.log("token=",token)
     setResult(JSON.stringify(token));
     const profile: KakaoProfile = await getKakaoProfile();
     // console.log("profile=",profile)
-    handleAuthorize('auth0')
+    handleAuthorize('auth0');
   };
 
   const signOutWithKakao = async (): Promise<void> => {
@@ -141,7 +142,7 @@ const handleAuthorize = useCallback(
 
   const getProfile = async (): Promise<void> => {
     const profile: KakaoProfile = await getKakaoProfile();
-    console.log("profile=",profile)
+    console.log('profile=', profile);
 
     setResult(JSON.stringify(profile));
   };
@@ -158,8 +159,8 @@ const handleAuthorize = useCallback(
       const userInfo = await GoogleSignin.signIn();
 
       // console.log("userInfo==",userInfo);
-      
-      handleAuthorize('google')
+
+      handleAuthorize('google');
       // setUserInfo(userInfo);
       // setError(null);
       // setIsLoggedIn(true);
@@ -203,10 +204,7 @@ const handleAuthorize = useCallback(
             />
           </View>
           <View style={styles.btnContainer}>
-            <Button.Button
-              title={'로그인 하기'}
-              onPress={() => onLogin()}
-            />
+            <Button.Button title={'로그인 하기'} onPress={() => onLogin()} />
           </View>
           <View style={styles.btnContainer}>
             <Button.Button
@@ -221,12 +219,12 @@ const handleAuthorize = useCallback(
             />
           </View>
           <View style={styles.btnContainer}>
-          <GoogleSigninButton
-              style={{ width: 192, height: 48 }}
+            <GoogleSigninButton
+              style={{width: 192, height: 48}}
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Dark}
               onPress={() => googleSignIn()}
-          />
+            />
           </View>
           <View style={styles.subBtnContaier}>
             <View style={styles.subBtnBox01}>

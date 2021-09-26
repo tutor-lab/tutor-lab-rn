@@ -8,12 +8,19 @@ import Detail from './src/navigation/Detail';
 import Chatting from './src/navigation/Chatting';
 import Signup from './src/navigation/Signup';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   axios.defaults.baseURL = 'http://3.35.255.192:8081/';
-
+  axios.interceptors.request.use(async function (config) {
+    const token = await AsyncStorage.getItem('accessToken');
+    if (token) {
+      config.headers.Authorization = 'Bearer ' + token;
+    }
+    return config;
+  });
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
