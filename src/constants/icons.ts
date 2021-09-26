@@ -4,6 +4,7 @@ export const category_arrow = require('../assets/icons/category_arrow.svg');
 export const lecture_back_arrow = require('../assets/icons/lecture_back_arrow.svg');
 export const logo_icon = require('../assets/icons/logo_icon.svg');
 export const logo_text = require('../assets/icons/logo_text.svg');
+export const back_arrow = require('../assets/icons/back_arrow.svg');
 
 export const heart_red = require('../assets/icons/heart_red.png');
 export const heart_blank = require('../assets/icons/heart_blank.png');
@@ -42,6 +43,7 @@ export default {
   category_menu,
   category_arrow,
   lecture_back_arrow,
+  back_arrow,
   logo_icon,
   logo_text,
   alert,
