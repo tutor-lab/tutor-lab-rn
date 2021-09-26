@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef, ElementType, memo} from 'react';
 import 'react-native-gesture-handler';
 import {
   View,
@@ -8,26 +8,26 @@ import {
   SafeAreaView,
 } from 'react-native';
 import axios from 'axios';
-
-import {colors, fonts, icons, width} from '../../constants';
-import {Header} from '../../components/common';
-
-import {ChatMine, TextInput, ChatOther} from '../../components/chatting';
 import {WithLocalSvg} from 'react-native-svg/src';
+
 import {MessageList} from '../../types/data';
+import {Header} from '../../components/common';
+import {colors, fonts, icons, width} from '../../constants';
+import {ChatMine, TextInput, ChatOther} from '../../components/chatting';
 
 // textinput line 최대 몇 줄?
-// 첫 랜더링 때
+// 첫 랜더링 때 왜 깜빡거리는지..
 //  나중에 채팅 올때 알람 어떻게? 읽었는지 안읽었는지 표시?
 
 type Props = {navigation: any};
 const ChattingScreen = ({navigation}: Props) => {
+  const chatID = 1; //임시 테스트
+  const scrollViewRef = useRef<ElementType>();
+
   const [input, setInput] = useState({text: '', height: 40});
   const [messageList, setMessageList] = useState<MessageList[]>([]);
   const [user, setUser] = useState<any>([]);
   const [sendMsgCnt, setSendMsgCnt] = useState(0);
-
-  const chatID = 1;
 
   const ws = new WebSocket(`ws://3.35.255.192:8081/ws/chat/${chatID}`);
   useEffect(() => {
@@ -43,6 +43,7 @@ const ChattingScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     // 메세지 수신
+    console.log('메세지 수신');
     ws.onmessage = evt => {
       // console.log('edata',e.data)
       const data = JSON.parse(evt.data);
@@ -52,6 +53,7 @@ const ChattingScreen = ({navigation}: Props) => {
   }, []);
 
   const sendMsgEnter = (data: string) => {
+    console.log('메세지 발신');
     ws.send(
       JSON.stringify({
         username: user.name,
@@ -96,7 +98,13 @@ const ChattingScreen = ({navigation}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header.Chatting navigation={navigation} title={'김하나'} />
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        ref={scrollViewRef}
+        onContentSizeChange={() => {
+          scrollViewRef.current.scrollToEnd({animated: true});
+        }}
+        keyboardShouldPersistTaps={'always'}>
         <View style={styles.padding}>
           {messageList.length > 0 &&
             messageList.map(list =>
@@ -143,7 +151,7 @@ const ChattingScreen = ({navigation}: Props) => {
             <TouchableOpacity
               activeOpacity={1}
               onPress={() =>
-                input.text.trim() !== '' ? sendMsgEnter(input.text) : ''
+                input.text.trim() !== '' && sendMsgEnter(input.text)
               }
               style={[styles.sendIcon, {height: input.height}]}>
               <WithLocalSvg asset={icons.search_main} />
@@ -155,7 +163,7 @@ const ChattingScreen = ({navigation}: Props) => {
   );
 };
 
-export default ChattingScreen;
+export default memo(ChattingScreen);
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.bg_color},
