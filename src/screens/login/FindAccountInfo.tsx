@@ -5,7 +5,6 @@ import {Modal, TextInput} from '../../components/common';
 import {LoginBtn, TradeMark, Title, SubTitle} from '../../components/login';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {height, width, colors, icons} from '../../constants';
-import EmailValidator from 'aj-email-validator'
 import axios from 'axios';
 
 type Props = {

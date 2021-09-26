@@ -6,7 +6,7 @@ import Login from './src/navigation/Login';
 import Main from './src/navigation/Main';
 import Detail from './src/navigation/Detail';
 import Chatting from './src/navigation/Chatting';
-
+import Signup from './src/navigation/Signup';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -26,8 +26,11 @@ const App = () => {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="Detail" component={Detail} />
+
+
         <Stack.Screen name="Chatting" component={Chatting} />
+        <Stack.Screen name="Detail" component={Detail} />
+        <Stack.Screen name="Signup" component={Signup} />
       </Stack.Navigator>
     </NavigationContainer>
   );

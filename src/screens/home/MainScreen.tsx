@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {colors, width} from '../../constants';
+import {colors, width, height} from '../../constants';
 import {
   Header,
   Lecture,
@@ -93,7 +93,7 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
-  padding: {paddingHorizontal: width * 22, flex: 1, paddingTop: 10},
+  padding: {paddingHorizontal: width * 22, flex: 1, paddingTop: height * 10},
   header: {},
   lecture: {marginTop: 30, zIndex: 3, position: 'relative'},
   searchBar: {marginTop: -50},

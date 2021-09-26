@@ -4,15 +4,17 @@ import {fonts, colors, width, height} from '../../constants';
 
 type Props = {
   backgroundColor: string;
+  password: bool;
   value: string;
   placeholder: string;
   onChangeText: (text: string) => void;
 };
 
-const Input = ({backgroundColor, value, placeholder, onChangeText}: Props) => {
+const FormInput = ({backgroundColor, password, value, placeholder, onChangeText}: Props) => {
   return (
     <View style={[styles.container, {backgroundColor: backgroundColor}]}>
       <TextInput
+        secureTextEntry={password}
         placeholderTextColor={colors.grey}
         style={[fonts[400], styles.input]}
         placeholder={placeholder}
@@ -23,18 +25,19 @@ const Input = ({backgroundColor, value, placeholder, onChangeText}: Props) => {
   );
 };
 
-export default Input;
+export default FormInput;
 
 const styles = StyleSheet.create({
   container: {
     height: 52,
-    borderRadius: 5,
+    borderRadius: 10,
     width: width * 290,
     justifyContent: 'center',
+    marginBottom: height * 10,
+    paddingLeft: width * 12,
   },
   input: {
     color: colors.black,
-    paddingLeft: 10,
-    fontSize: 16,
+    fontSize: height * 16,
   },
 });
