@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     height: 52,
     borderRadius: 10,
-    width: width * 90,
+    width: width * 290,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: "stretch",

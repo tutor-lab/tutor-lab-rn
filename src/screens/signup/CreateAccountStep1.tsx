@@ -10,6 +10,10 @@ import { WithLocalSvg } from 'react-native-svg/src';
 import EmailValidator from 'aj-email-validator';
 import axios from 'axios';
 
+interface Props {
+  navigation: StackNavigationProp<LoginStackParamList>;
+}
+
 const CreateAccountStep1 = (props : StepComponentProps) => {
 
     axios.defaults.baseURL = 'http://3.35.255.192:8081/';
@@ -111,22 +115,23 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
             const sex = gender === '남' ? "MALE" : "FEMALE";
             const zone = `${region} ${city} ${town}`;
 
-            axios.post('/sign-up', {}, {
-                signUpRequest: {
-                    "bio":"",
-                    "email": email,
-                    "gender": sex,
-                    "image": "",
-                    "name": name,
-                    "nickname": nickname,
-                    "password": password,
-                    "passwordConfirm": password,
-                    "phoneNumber": mobile,
-                    "username": username,
-                    "zone": zone,
-                }
+            const signUpRequest:any = new Object();
+            signUpRequest.bio = "";
+            signUpRequest.email = email;
+            signUpRequest.gender = sex;
+            signUpRequest.image = "";
+            signUpRequest.name = name;
+            signUpRequest.nickname = nickname;
+            signUpRequest.password = password;
+            signUpRequest.passwordConfirm = password;
+            signUpRequest.phoneNumber = mobile;
+            signUpRequest.username = username;
+            signUpRequest.zone = zone;
+
+            axios.post('/sign-up', signUpRequest)
+            .then((response) => {
+                navigation.replace('Login');
             })
-            .then((response) => console.log(`success : ${response}`))
             .catch((e) => console.log(e));
         }
     }
@@ -226,23 +231,21 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                         onChangeValue={ (e:string) => setGender(e) }
                     />
                 </View>
-                <View style={styles.select}>
+                <View style={styles.select2}>
                     <SelectInput2
                         backgroundColor={colors.input}
                         selected={region}
-                        placeholder={'  시'}
+                        placeholder={'  시/도'}
                         values={[...states]}
                         onChangeValue={ (e:string) => setRegion(e) }
                     />
-                    <View style={styles.vertical_divider} />
                     <SelectInput2
                         backgroundColor={colors.input}
                         selected={city}
-                        placeholder={'  구'}
+                        placeholder={'  구/군'}
                         values={ region !== '' && cities.length > 0 ? cities : [{ label: '시/군 부터 선택하세요', value: 'X'}]}
                         onChangeValue={ (e:string) => setCity(e) }
                     />
-                    <View style={styles.vertical_divider} />
                     <SelectInput2
                         backgroundColor={colors.input}
                         selected={town}
@@ -340,6 +343,11 @@ const styles = StyleSheet.create({
     alignContent: "space-between",
   },
   vertical_divider: { paddingRight: width * 10 },
+  select2: {
+    width: width * 290,
+    flexDirection: "column",
+    alignContent: "space-between",
+  },
   hidden_view: {
     alignSelf: "stretch",
     alignItems: "center",
