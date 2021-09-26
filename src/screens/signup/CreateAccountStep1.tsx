@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StepComponentProps } from "react-step-builder";
 import 'react-native-gesture-handler';
-import { View, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, Text, Dimensions, TextInput } from 'react-native';
+import { View, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, Text, Dimensions, TextInput,Alert } from 'react-native';
 import { height, width, colors, icons, fonts } from '../../constants';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Modal, FormInput, SelectInput, SelectInput2, Button } from '../../components/common';
@@ -14,7 +14,7 @@ interface Props {
   navigation: StackNavigationProp<LoginStackParamList>;
 }
 
-const CreateAccountStep1 = (props : StepComponentProps) => {
+const CreateAccountStep1 = (props :any) => {
 
     axios.defaults.baseURL = 'http://3.35.255.192:8081/';
     const [name, setName] = useState('');
@@ -102,13 +102,13 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
     };
 
     const checkForm = () => {
-        if(name === '') alert('이름을 입력해주세요');
-        else if(email === '') alert('ID(Email)을 입력해주세요');
-        else if(password === '') alert('비밀번호를 입력해주세요');
-        else if(!pwEqual) alert('비밀번호를 확인해주세요');
-        else if(mobile === '') alert('전화번호를 확인해주세요');
-        else if(gender === '') alert('성별을 선택해주세요')
-        else if(region === '' || city === '' || town === '') alert('주소를 설정해주세요');
+        if(name === '') Alert.alert('이름을 입력해주세요');
+        else if(email === '') Alert.alert('ID(Email)을 입력해주세요');
+        else if(password === '') Alert.alert('비밀번호를 입력해주세요');
+        else if(!pwEqual) Alert.alert('비밀번호를 확인해주세요');
+        else if(mobile === '') Alert.alert('전화번호를 확인해주세요');
+        else if(gender === '') Alert.alert('성별을 선택해주세요')
+        else if(region === '' || city === '' || town === '') Alert.alert('주소를 설정해주세요');
         else {
             const nickname = name;
             const username = email;
@@ -130,7 +130,8 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
 
             axios.post('/sign-up', signUpRequest)
             .then((response) => {
-                navigation.replace('Login');
+                Alert.alert('회원가입 완료하였습니다!');
+                props.navigation.navigate('Login');
             })
             .catch((e) => console.log(e));
         }
