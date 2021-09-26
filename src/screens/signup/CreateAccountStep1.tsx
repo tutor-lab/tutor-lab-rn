@@ -4,7 +4,7 @@ import 'react-native-gesture-handler';
 import { View, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, Text, Dimensions, TextInput } from 'react-native';
 import { height, width, colors, icons, fonts } from '../../constants';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Modal, FormInput, SelectInput, Button } from '../../components/common';
+import { Modal, FormInput, SelectInput, SelectInput2, Button } from '../../components/common';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { WithLocalSvg } from 'react-native-svg/src';
 import EmailValidator from 'aj-email-validator';
@@ -14,7 +14,6 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
 
     axios.defaults.baseURL = 'http://3.35.255.192:8081/';
     const [name, setName] = useState('');
-    const [id, setId] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordCheck, setPasswordCheck] = useState('');
@@ -24,9 +23,11 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
     const [gender, setGender] = useState('');
     const [region, setRegion] = useState('');
     const [city, setCity] = useState('');
+    const [town, setTown] = useState('');
 
     const [states,setStates] = useState<Array<any>>([]);
     const [cities, setCities] = useState<Array<any>>([]);
+    const [towns, setTowns] = useState<Array<any>>([]);
 
     const [emailCheckMsg, setEmailCheckMsg] = useState('');
     const [invalidateEmail, setInvalidateEmail] = useState(false);
@@ -39,12 +40,27 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
         axios.get('addresses/states')
             .then((response) => {
                 setStates(response.data)
-//                 axios.get('address')
-//                 .then((response) => console.log(response.data))
-//                 .catch((e) => console.log(e));
             })
             .catch((e) => console.log(e))
     },[]);
+
+    useEffect(() => {
+        const uri = `addresses/siGunGus?state=${region}`;
+        axios.get(encodeURI(uri))
+            .then((response) => {
+                setCities(response.data);
+            })
+            .catch((e) => console.log(e))
+    }, [region]);
+
+    useEffect(() => {
+        const uri = `addresses/dongs?state=${region}&siGunGu=${city}`;
+        axios.get(encodeURI(uri))
+            .then((response) => {
+                setTowns(response.data);
+            })
+            .catch((e) => console.log(e))
+    }, [city]);
 
 
     const onEmailChange = (value: string) => {
@@ -77,13 +93,42 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
             console.log('equal');
             setDiffPassword(false);
             setPwEqualCheckMsg('');
+            setPwEqual(true);
         }
     };
 
     const checkForm = () => {
-        console.log('check');
+        if(name === '') alert('이름을 입력해주세요');
+        else if(email === '') alert('ID(Email)을 입력해주세요');
+        else if(password === '') alert('비밀번호를 입력해주세요');
+        else if(!pwEqual) alert('비밀번호를 확인해주세요');
+        else if(mobile === '') alert('전화번호를 확인해주세요');
+        else if(gender === '') alert('성별을 선택해주세요')
+        else if(region === '' || city === '' || town === '') alert('주소를 설정해주세요');
+        else {
+            const nickname = name;
+            const username = email;
+            const sex = gender === '남' ? "MALE" : "FEMALE";
+            const zone = `${region} ${city} ${town}`;
 
-        //props.next();
+            axios.post('/sign-up', {}, {
+                signUpRequest: {
+                    "bio":"",
+                    "email": email,
+                    "gender": sex,
+                    "image": "",
+                    "name": name,
+                    "nickname": nickname,
+                    "password": password,
+                    "passwordConfirm": password,
+                    "phoneNumber": mobile,
+                    "username": username,
+                    "zone": zone,
+                }
+            })
+            .then((response) => console.log(`success : ${response}`))
+            .catch((e) => console.log(e));
+        }
     }
 
     return (
@@ -114,15 +159,8 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                 <FormInput
                     backgroundColor={colors.input}
                     password={false}
-                    value={id}
-                    placeholder={'     ID'}
-                    onChangeText={ (e: string) => setId(e) }
-                />
-                <FormInput
-                    backgroundColor={colors.input}
-                    password={false}
                     value={email}
-                    placeholder={'     Email'}
+                    placeholder={'     ID(Email)'}
                     onChangeText={ (e: string) => onEmailChange(e) }
                 />
                 <View style={styles.hidden_view}>
@@ -189,25 +227,33 @@ const CreateAccountStep1 = (props : StepComponentProps) => {
                     />
                 </View>
                 <View style={styles.select}>
-                    <SelectInput
+                    <SelectInput2
                         backgroundColor={colors.input}
                         selected={region}
-                        placeholder={'  지역'}
+                        placeholder={'  시'}
                         values={[...states]}
                         onChangeValue={ (e:string) => setRegion(e) }
                     />
                     <View style={styles.vertical_divider} />
-                    <SelectInput
+                    <SelectInput2
                         backgroundColor={colors.input}
                         selected={city}
-                        placeholder={'  시/군/구'}
-                        values={[
-                            { label: '고양시', value: '고양시' },
-                            { label: '과천시', value: '과천시' },
-                        ]}
+                        placeholder={'  구'}
+                        values={ region !== '' && cities.length > 0 ? cities : [{ label: '시/군 부터 선택하세요', value: 'X'}]}
                         onChangeValue={ (e:string) => setCity(e) }
                     />
+                    <View style={styles.vertical_divider} />
+                    <SelectInput2
+                        backgroundColor={colors.input}
+                        selected={town}
+                        placeholder={'  동'}
+                        values={ city !== '' && towns.length > 0 ? towns : [{ label: '구/군 부터 선택하세요', value: 'X'}]}
+                        onChangeValue={ (e:string) => setTown(e) }
+                    />
                 </View>
+                 <View style={styles.label}>
+                    <Text style={styles.label_text}>동네 강의 추천을 위해 선택해주세요</Text>
+                 </View>
             </View>
 
             <TouchableOpacity
@@ -309,5 +355,14 @@ const styles = StyleSheet.create({
     marginTop: 0,
     fontSize: height * 15,
     color: colors.red,
+  },
+  label: {
+    flexDirection: "row",
+    alignSelf: "stretch",
+    paddingLeft: width * 45,
+  },
+  label_text: {
+     color: colors.charcoal,
+     fontSize: height * 15,
   }
 });
