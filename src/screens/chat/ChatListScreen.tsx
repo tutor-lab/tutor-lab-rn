@@ -3,14 +3,12 @@ import 'react-native-gesture-handler';
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   ScrollView,
   Keyboard,
   SafeAreaView,
-  Text,
 } from 'react-native';
-import {colors, fonts, icons, width} from '../../constants';
-import {WithLocalSvg} from 'react-native-svg/src';
+import {colors, width} from '../../constants';
+import {Header} from '../../components/common';
 import {SearchBar, ChatList} from '../../components/chat';
 
 const ChatListScreen = () => {
@@ -18,21 +16,7 @@ const ChatListScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.padding}>
-        <View style={styles.headerContainer}>
-          <View style={{flex: 1}}>
-            <Text style={[fonts[700], styles.headerText]}>채팅</Text>
-          </View>
-          <View style={styles.headerRight}>
-            <TouchableOpacity activeOpacity={1} style={{}}>
-              <WithLocalSvg asset={icons.alert_dot} />
-            </TouchableOpacity>
-            <View style={{marginLeft: 10}}>
-              <TouchableOpacity activeOpacity={1} style={{marginLeft: 5}}>
-                <WithLocalSvg asset={icons.more} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
+        <Header.ChatList />
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.searchBar}>
             <SearchBar

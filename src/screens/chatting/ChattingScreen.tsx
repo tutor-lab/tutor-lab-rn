@@ -10,6 +10,8 @@ import {
 import axios from 'axios';
 
 import {colors, fonts, icons, width} from '../../constants';
+import {Header} from '../../components/common';
+
 import {ChatMine, TextInput, ChatOther} from '../../components/chatting';
 import {WithLocalSvg} from 'react-native-svg/src';
 import {MessageList} from '../../types/data';
@@ -18,7 +20,8 @@ import {MessageList} from '../../types/data';
 // 첫 랜더링 때
 //  나중에 채팅 올때 알람 어떻게? 읽었는지 안읽었는지 표시?
 
-const ChattingScreen = () => {
+type Props = {navigation: any};
+const ChattingScreen = ({navigation}: Props) => {
   const [input, setInput] = useState({text: '', height: 40});
   const [messageList, setMessageList] = useState<MessageList[]>([]);
   const [user, setUser] = useState<any>([]);
@@ -92,6 +95,7 @@ const ChattingScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Header.Chatting navigation={navigation} title={'김하나'} />
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.padding}>
           {messageList.length > 0 &&
