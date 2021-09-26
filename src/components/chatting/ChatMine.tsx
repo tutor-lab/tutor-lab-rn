@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {View, StyleSheet, Text} from 'react-native';
-import {colors, fonts, utils} from '../../constants';
+import {colors, fonts} from '../../constants';
 import {MessageList} from '../../types/data';
 
 type Props = {
@@ -18,7 +18,7 @@ const ChattingScreen = ({list}: Props) => {
     // utils.chkMeridiem(list.hour, setMeridiem);
     // utils.convertHours(list.hour, setHour);
     // setMinutes(list.minutes);
-    // setMessage(list.message);
+    setMessage(list.message);
   }, [list]);
 
   return (

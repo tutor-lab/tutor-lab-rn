@@ -33,15 +33,10 @@ export type PaymentList = {
 }[];
 
 export type MessageList = {
-  id: number;
+  chatroomId: number;
+  id: string;
   message: string;
-  date: string;
-  hour: string;
-  minutes: string;
-  username:string;
+  sessionId: string;
+  type: string;
+  username: string;
 };
-
-export type User = {
-  name: string;
-}
- 
