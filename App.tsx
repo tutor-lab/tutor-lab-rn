@@ -15,22 +15,19 @@ const Stack = createStackNavigator();
 const App = () => {
   axios.defaults.baseURL = 'http://3.35.255.192:8081/';
   axios.interceptors.request.use(async function (config) {
-    const token = await AsyncStorage.getItem('accessToken')
+    const token = await AsyncStorage.getItem('accessToken');
     if (token) {
-      config.headers.Authorization = "Bearer " + token;
+      config.headers.Authorization = 'Bearer ' + token;
     }
     return config;
   });
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Chatting" component={Chatting} />
-        
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Detail" component={Detail} />
-        
-
+        <Stack.Screen name="Chatting" component={Chatting} />
       </Stack.Navigator>
     </NavigationContainer>
   );
