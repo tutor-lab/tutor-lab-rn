@@ -1,6 +1,8 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import {View, Text, Image, StyleSheet} from 'react-native';
+
+import {TutorBox} from '../../components/common';
 import {colors, fonts, width} from '../../constants';
 
 type Props = {
@@ -33,10 +35,10 @@ const PaymentInfo = ({info}: Props) => {
           ))}
         </View>
         <View style={styles.tutorContainer}>
-          <View style={styles.tutorTag}>
-            <Text style={[fonts[500], styles.tutorText]}>튜터</Text>
+          <TutorBox />
+          <View style={{marginLeft: 8}}>
+            <Text style={[fonts[500], styles.tutorName]}>{info.tutor}</Text>
           </View>
-          <Text style={[fonts[500], styles.tutorName]}>{info.tutor}</Text>
         </View>
       </View>
     </View>
@@ -46,14 +48,17 @@ export default PaymentInfo;
 
 const styles = StyleSheet.create({
   container: {
-    height: 128,
+    paddingVertical: 32,
     paddingHorizontal: width * 20,
     flexDirection: 'row',
     alignItems: 'center',
   },
   imageWrapper: {height: 64, width: 64},
   image: {width: '100%', height: '100%', borderRadius: 8},
-  textContainer: {height: 64, justifyContent: 'flex-start', paddingLeft: 12},
+  textContainer: {
+    justifyContent: 'flex-start',
+    paddingLeft: 12,
+  },
   titleWrapper: {flex: 1, height: '100%'},
   text: {fontSize: 14, color: colors.sub},
   tutorContainer: {
@@ -61,13 +66,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     height: '100%',
-  },
-  tutorTag: {
-    backgroundColor: 'rgba(238, 90, 90, 0.1)',
-    height: 22,
-    width: 39,
-    borderRadius: 8,
-    alignItems: 'center',
   },
   subject: {flexDirection: 'row', flex: 1, height: '100%'},
   tutorText: {fontSize: 12, color: colors.red},

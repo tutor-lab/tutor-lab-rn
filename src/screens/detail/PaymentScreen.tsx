@@ -1,68 +1,48 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
-import {colors, fonts, icons, width} from '../../constants';
-import {WithLocalSvg} from 'react-native-svg/src';
-import {Line, Bottom} from '../../components/common';
-
-import {PaymentInfo, PaymentList} from '../../components/detail';
+import {View, Text, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import axios from 'axios';
+
+import {colors, fonts, width} from '../../constants';
+import {Line, Bottom, Header} from '../../components/common';
+import {PaymentInfo, PaymentList} from '../../components/detail';
 
 type Props = {
   navigation: any;
-  route: any;
-  // route: {
-  //   params: {
-  //     title: string;
-  //     tutor: string;
-  //     subject: {id: number; krSubject: string; parent: string}[];
-  //   };
-  // };
+  route: {
+    params: {
+      itemId: number;
+      title: string;
+      tutor: string;
+      subject: {id: number; krSubject: string; parent: string}[];
+    };
+  };
 };
 
-const PaymentScreen = ({navigation, route}: any) => {
-  console.log(navigation);
-  console.log('route1122', route);
-
+const PaymentScreen = ({navigation, route}: Props) => {
   const onPayment = () => {
     axios
       .post(`/lectures/${route.params.itemId}/enrollments`)
       .then(function (response) {
-        console.log('result', response);
+        console.log('result', response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-    console.log('onSubmit12');
   };
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={() => navigation.goBack()}
-            style={styles.close}>
-            <WithLocalSvg asset={icons.close} />
-          </TouchableOpacity>
-        </View>
-        {/* <PaymentInfo info={route.params} /> */}
+      <Header.Payment navigation={navigation} />
+      <ScrollView contentContainerStyle={styles.scroll}>
+        <PaymentInfo info={route.params} />
         <Line height={8} />
         <View style={{paddingHorizontal: width * 20}}>
-          <View style={{marginTop: 20, marginBottom: 13}}>
-            <Text style={[fonts[700], {fontSize: 16, color: colors.sub}]}>
-              옵션 선택
-            </Text>
+          <View style={styles.option}>
+            <Text style={[fonts[700], styles.text]}>옵션 선택</Text>
           </View>
           <PaymentList checked={true} />
-          {/* <PaymentList checked={false} /> */}
+          <PaymentList checked={false} />
         </View>
       </ScrollView>
       <Bottom.Payment price={179000} onPress={onPayment} />
@@ -77,14 +57,7 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
-  close: {
-    paddingLeft: width * 20,
-    height: 50,
-    width: 100,
-    justifyContent: 'center',
-  },
-  header: {
-    height: 50,
-    width: '100%',
-  },
+  scroll: {flexGrow: 1},
+  option: {marginTop: 20, marginBottom: 13},
+  text: {fontSize: 16, color: colors.sub},
 });

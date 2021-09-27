@@ -14,9 +14,9 @@ import {
 import {Line, Bottom} from '../../components/common';
 import axios from 'axios';
 
-type Props = {navigation: any; route: any};
+type Props = {navigation: any; route: {params: {itemId: number}}};
 
-const MainScreen = ({navigation, route}: any) => {
+const DetailScreen = ({navigation, route}: Props) => {
   const [selection, setSelection] = useState<{
     introduction: boolean;
     review: boolean;
@@ -35,7 +35,7 @@ const MainScreen = ({navigation, route}: any) => {
 
   useEffect(() => {
     axios.get(`/lectures/${route.params.itemId}`).then(res => {
-      console.log('res', res);
+      console.log('res', res.data);
       setContent(res.data.content);
       setDifficultyType(res.data.difficultyType);
       setIntroduce(res.data.introduce);
@@ -88,9 +88,10 @@ const MainScreen = ({navigation, route}: any) => {
         heart={() => console.log('좋아요')}
         btn={() =>
           navigation.navigate('Payment', {
-            title: Data.Detail.title,
-            subject: Data.Detail.lectureSubjects,
-            tutor: Data.Detail.tutor,
+            itemId: route.params.itemId,
+            title: title,
+            subject: lectureSubjects,
+            tutor: '강하나',
           })
         }
       />
@@ -98,7 +99,7 @@ const MainScreen = ({navigation, route}: any) => {
   );
 };
 
-export default MainScreen;
+export default DetailScreen;
 
 var styles = StyleSheet.create({
   container: {

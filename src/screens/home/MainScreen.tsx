@@ -76,7 +76,14 @@ const MainScreen = ({navigation}: Props) => {
           <View style={styles.card}>
             {lectureList.map(data => (
               <View key={data.id}>
-                <Card data={data} navigation={navigation} />
+                <Card
+                  data={data}
+                  onPress={() =>
+                    navigation.navigate('Detail', {
+                      itemId: data.id,
+                    })
+                  }
+                />
               </View>
             ))}
           </View>

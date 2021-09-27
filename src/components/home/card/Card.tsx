@@ -20,13 +20,13 @@ import {LectureList} from '../../../types/data';
 
 type Props = {
   data: LectureList;
-  navigation: any;
+  onPress: () => any;
 };
-const Card = ({data, navigation}: Props) => {
+const Card = ({data, onPress}: Props) => {
   return (
     <TouchableOpacity
       activeOpacity={1}
-      onPress={() => navigation.navigate('Detail', {itemId: data.id})}
+      onPress={onPress}
       style={[
         styles.container,
         {
