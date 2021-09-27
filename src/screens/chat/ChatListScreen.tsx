@@ -6,25 +6,31 @@ import {
   ScrollView,
   Keyboard,
   SafeAreaView,
+  TouchableOpacity
 } from 'react-native';
 import {colors, width} from '../../constants';
 import {Header} from '../../components/common';
 import {SearchBar, ChatList} from '../../components/chat';
 import axios from 'axios';
 
-const ChatListScreen = () => {
+const ChatListScreen = ({navigation}:any) => {
   const [searchText, setSearchText] = useState('');
+  const [contentList,setContentList] = useState([]);
 
   useEffect(() => {
     axios
       .get('/tutees/my-chatrooms')
       .then(function (response) {
-        console.log(response);
+        console.log(response.data.content)
+        setContentList(response.data.content)
       })
       .catch(function (error) {
         console.log(error);
       });
   }, []);
+
+ 
+  console.log('navigation=',navigation)
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.padding}>
@@ -40,11 +46,19 @@ const ChatListScreen = () => {
             />
           </View>
           {/* 데이터 바인딩 필요 */}
+          {contentList.map((item:any)=>
+         
+            <ChatList 
+              chatLists={item}
+              navigation={navigation}
+            />
+          
+          )}
+          
+          {/* <ChatList />
           <ChatList />
           <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
+          <ChatList /> */}
         </ScrollView>
       </View>
     </SafeAreaView>

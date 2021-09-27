@@ -38,9 +38,10 @@ type Props = {
   title: string;
   subTitle: string;
   lecturePrices: any;
+  systemTypes:any;
 };
 
-const Detail = ({data, title, subTitle, lecturePrices}: Props) => {
+const Detail = ({data, title, subTitle, lecturePrices,systemTypes}: Props) => {
   return (
     <>
       <View style={styles.image}>
@@ -55,7 +56,10 @@ const Detail = ({data, title, subTitle, lecturePrices}: Props) => {
       </View>
       <View style={styles.detail}>
         <View style={styles.remote}>
-          <Remote remote={data.remote} />
+     
+          <Remote remote={systemTypes} />
+  
+          
         </View>
         <View style={styles.title}>
           <Title title={title} />

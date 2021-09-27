@@ -20,9 +20,9 @@ import {SOCKET_URL} from 'react-native-dotenv';
 // 첫 랜더링 때 왜 깜빡거리는지..
 //  나중에 채팅 올때 알람 어떻게? 읽었는지 안읽었는지 표시?
 
-type Props = {navigation: any};
-const ChattingScreen = ({navigation}: Props) => {
-  const chatID = 1; //임시 테스트
+type Props = {navigation: any,route:any};
+const ChattingScreen = ({navigation,route}: Props) => {
+  // const chatID = 1; //임시 테스트
   const scrollViewRef = useRef<ElementType>();
 
   const [input, setInput] = useState({text: '', height: 40});
@@ -30,7 +30,8 @@ const ChattingScreen = ({navigation}: Props) => {
   const [user, setUser] = useState<any>([]);
   const [sendMsgCnt, setSendMsgCnt] = useState(0);
 
-  const ws = new WebSocket(`${SOCKET_URL}/chat/${chatID}`);
+  const ws = new WebSocket(`${SOCKET_URL}/chat/${route.params.chatRoomId}`);
+
   useEffect(() => {
     // 에러 발생시
     ws.onerror = e => {
@@ -44,7 +45,6 @@ const ChattingScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     // 메세지 수신
-    console.log('메세지 수신');
     ws.onmessage = evt => {
       // console.log('edata',e.data)
       const data = JSON.parse(evt.data);
@@ -54,7 +54,7 @@ const ChattingScreen = ({navigation}: Props) => {
   }, []);
 
   const sendMsgEnter = (data: string) => {
-    console.log('메세지 발신');
+    console.log('data=',data)
     ws.send(
       JSON.stringify({
         username: user.name,
@@ -82,7 +82,7 @@ const ChattingScreen = ({navigation}: Props) => {
 
   const getPrevChat = async () => {
     try {
-      await axios.get(`/tutees/my-chatrooms/${chatID}`).then(response => {
+      await axios.get(`/tutees/my-chatrooms/${route.params.chatRoomId}`).then(response => {
         setMessageList(response.data);
         return response;
       });

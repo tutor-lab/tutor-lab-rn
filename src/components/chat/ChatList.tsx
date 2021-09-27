@@ -3,11 +3,22 @@ import 'react-native-gesture-handler';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {colors, fonts} from '../../constants';
 
-type Props = {};
+type Props = {
+  chatLists:any;
+  navigation:any;
+};
 
-const ChatList = ({}: Props) => {
+const ChatList = ({chatLists,navigation}: Props) => {
+
+  console.log('navigation',navigation); 
+
+  const goToChatRoom = () =>{
+    navigation.navigate('Chatting',{params: {
+      chatRoomId: chatLists.chatroomId,
+    }});
+  }
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={goToChatRoom}>
       <View style={styles.leftSection}>
         <View style={styles.imageWrapper}>{/* 이미지 */}</View>
         <View style={styles.textSection}>
@@ -21,12 +32,7 @@ const ChatList = ({}: Props) => {
             numberOfLines={2}
             ellipsizeMode="tail"
             style={[fonts[400], styles.chatText]}>
-            기간은 9월 1기간은 ssssss9월 1기간은 9월 1기간은 9월 1기간은 9월
-            1기간은 9월 1기간은 9월 1ssss기간은 9월 1기간은 9월 1기간은 9월
-            1기간은 9월 1기간은 9월 1기간은 9월 1기간sssss은 9월 1기간은 9월
-            1기간은 9월 1기간은 9월 1기간은 9월 1기간은 9월 1기간은 9월 1기간은
-            9월 1기간은 9월 1기간은 9월 1기간은 9월 1기간은 9월 1기간은 9월
-            1기간은 9월 1기간은 9월 1
+            {chatLists.lectureTitle}
           </Text>
         </View>
       </View>

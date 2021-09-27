@@ -6,12 +6,12 @@ import {fonts} from '../../../constants';
 
 type Props = {remote: string[]};
 
-const Remote = ({remote}: Props) => {
+const Remote = ({remote}: any) => {
   return (
     <>
       {remote.map(text => (
         <View key={text} style={styles.tag}>
-          <Text style={styles.text}>{text}</Text>
+          <Text style={styles.text}>{text.type}</Text>
         </View>
       ))}
     </>
