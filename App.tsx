@@ -9,11 +9,12 @@ import Chatting from './src/navigation/Chatting';
 import Signup from './src/navigation/Signup';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {BACKEND_URL} from 'react-native-dotenv';
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  axios.defaults.baseURL = 'http://3.35.255.192:8081/';
+  axios.defaults.baseURL = BACKEND_URL;
   axios.interceptors.request.use(async function (config) {
     const token = await AsyncStorage.getItem('accessToken');
     if (token) {
@@ -21,16 +22,15 @@ const App = () => {
     }
     return config;
   });
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Main" component={Main} />
-
-
         <Stack.Screen name="Chatting" component={Chatting} />
         <Stack.Screen name="Detail" component={Detail} />
-        <Stack.Screen name="Signup" component={Signup} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {GOOGLE_CLIENT_ID, GOOGLE_WEB_CLIENT_ID} from 'react-native-dotenv';
 
 import {height, colors} from '../../constants';
 import {TradeMark, SubBtn, Title} from '../../components/login';
@@ -42,18 +43,9 @@ const LoginMainScreen = ({route, navigation}: Props) => {
   const [result, setResult] = useState<string>('');
   const [authState, setAuthState] = useState(defaultAuthState);
   const configs: any = {
-    // auth0: {
-    //   // From https://openidconnect.net/
-    //   issuer: 'https://developers.kakao.com/console/app/617439',
-    //   clientId: '8dc9eea7e202a581e0449058e753beaf',
-    //   redirectUrl:"http://192.168.0.10:8080/oauth/kakao/callback",
-    //   additionalParameters: {"code" : "23423432"},
-    //   scopes: ['openid', 'profile', 'email', 'phone', 'address'],
-    // }
     google: {
       issuer: 'https://accounts.google.com',
-      clientId:
-        '902783645965-ald60d1ehnaeaoetihtb1861u98ppf3u.apps.googleusercontent.com',
+      clientId: GOOGLE_CLIENT_ID,
       redirectUrl: 'https://f35dd0783aa2.ngrok.io/oauth/google/callback',
       scopes: ['openid', 'profile', 'email'],
       usePKCE: false,
@@ -66,21 +58,11 @@ const LoginMainScreen = ({route, navigation}: Props) => {
 
   function configureGoogleSign() {
     GoogleSignin.configure({
-      webClientId:
-        '779338835350-2i5m24ouhqcb2rlumcu0dmv3dfcelcbc.apps.googleusercontent.com',
+      webClientId: GOOGLE_WEB_CLIENT_ID,
       offlineAccess: false,
     });
   }
-  // GoogleSignin.configure({
-  //   webClientId: '779338835350-2i5m24ouhqcb2rlumcu0dmv3dfcelcbc.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-  //   offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-  //   hostedDomain: '', // specifies a hosted domain restriction
-  //   loginHint: '', // [iOS] The user's ID, or email address, to be prefilled in the authentication UI if possible. [See docs here](https://developers.google.com/identity/sign-in/ios/api/interface_g_i_d_sign_in.html#a0a68c7504c31ab0b728432565f6e33fd)
-  //   forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
-  //   accountName: '', // [Android] specifies an account name on the device that should be used
-  //   iosClientId: 'https://902783645965-ald60d1ehnaeaoetihtb1861u98ppf3u.apps.googleusercontent.com/', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
-  //   googleServicePlistPath: '', // [iOS] optional, if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
-  // });
+
   const handleAuthorize = useCallback(
     async provider => {
       try {
@@ -115,9 +97,8 @@ const LoginMainScreen = ({route, navigation}: Props) => {
         password: password,
       })
       .then(function (response) {
-        
         AsyncStorage.setItem('accessToken', response.data.split(' ')[1]);
-        navigation.navigate('Main');
+        navigation.replace('Main');
         // console.log(Object.keys(response.headers))
       })
       .catch(function (error) {

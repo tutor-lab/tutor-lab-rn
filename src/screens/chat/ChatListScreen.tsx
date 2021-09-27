@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {
   View,
@@ -15,12 +15,16 @@ import axios from 'axios';
 const ChatListScreen = () => {
   const [searchText, setSearchText] = useState('');
 
-  useEffect(() =>{
-
-    axios.get("/tutees/my-chatrooms")
-    .then(function (response) { console.log(response); })
-    .catch(function (error) { console.log(error); })
-  },[])
+  useEffect(() => {
+    axios
+      .get('/tutees/my-chatrooms')
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.padding}>

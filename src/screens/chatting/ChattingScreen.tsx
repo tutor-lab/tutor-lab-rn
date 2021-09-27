@@ -14,6 +14,7 @@ import {MessageList} from '../../types/data';
 import {Header} from '../../components/common';
 import {colors, fonts, icons, width} from '../../constants';
 import {ChatMine, TextInput, ChatOther} from '../../components/chatting';
+import {SOCKET_URL} from 'react-native-dotenv';
 
 // textinput line 최대 몇 줄?
 // 첫 랜더링 때 왜 깜빡거리는지..
@@ -29,7 +30,7 @@ const ChattingScreen = ({navigation}: Props) => {
   const [user, setUser] = useState<any>([]);
   const [sendMsgCnt, setSendMsgCnt] = useState(0);
 
-  const ws = new WebSocket(`ws://3.35.255.192:8081/ws/chat/${chatID}`);
+  const ws = new WebSocket(`${SOCKET_URL}/chat/${chatID}`);
   useEffect(() => {
     // 에러 발생시
     ws.onerror = e => {

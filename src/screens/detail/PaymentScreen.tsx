@@ -17,7 +17,7 @@ import axios from 'axios';
 
 type Props = {
   navigation: any;
-  route:any;
+  route: any;
   // route: {
   //   params: {
   //     title: string;
@@ -28,16 +28,20 @@ type Props = {
 };
 
 const PaymentScreen = ({navigation, route}: any) => {
-
   console.log(navigation);
-  console.log('route1122',route)
+  console.log('route1122', route);
 
-  const onPayment = () =>{
-    axios.post(`/lectures/${route.params.itemId}/enrollments`)
-    .then(function (response) { console.log('result',response); })
-    .catch(function (error) { console.log(error); })
-    console.log('onSubmit12')
-  }
+  const onPayment = () => {
+    axios
+      .post(`/lectures/${route.params.itemId}/enrollments`)
+      .then(function (response) {
+        console.log('result', response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log('onSubmit12');
+  };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>

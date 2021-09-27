@@ -35,12 +35,12 @@ type Props = {
     review_count: number;
     store_count: number;
   };
-  title:string;
-  subTitle:string;
-  lecturePrices:any;
+  title: string;
+  subTitle: string;
+  lecturePrices: any;
 };
 
-const Detail = ({data,title,subTitle,lecturePrices}: Props) => {
+const Detail = ({data, title, subTitle, lecturePrices}: Props) => {
   return (
     <>
       <View style={styles.image}>
