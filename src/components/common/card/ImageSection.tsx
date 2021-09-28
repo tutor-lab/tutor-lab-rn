@@ -16,13 +16,13 @@ const ImageSection = ({isGroup, difficultyType, thumbnail}: Props) => {
 
   const chkDifficult = (text: string) => {
     const findIdx = DifficultyData.findIndex(curr => curr.title === text);
-    const type = findIdx ? DifficultyData[findIdx].text : '';
+    const type = DifficultyData[findIdx].text;
     setDifficulty(type);
   };
 
   const chkGroup = (boolean: boolean) => {
     const findIdx = GroupData.findIndex(curr => curr.boolean === boolean);
-    const type = findIdx ? GroupData[findIdx].text : '';
+    const type = GroupData[findIdx].text;
     setGroup(type);
   };
 
@@ -45,20 +45,12 @@ const ImageSection = ({isGroup, difficultyType, thumbnail}: Props) => {
           />
         </View>
         <View style={styles.tag_box}>
-          {difficulty !== '' ? (
-            <View style={styles.tag}>
-              <Text style={[fonts[500], styles.tag_text]}>{difficulty}</Text>
-            </View>
-          ) : (
-            <></>
-          )}
-          {group !== '' ? (
-            <View style={styles.tag}>
-              <Text style={[fonts[500], styles.tag_text]}>{group}</Text>
-            </View>
-          ) : (
-            <></>
-          )}
+          <View style={styles.tag}>
+            <Text style={[fonts[500], styles.tag_text]}>{difficulty}</Text>
+          </View>
+          <View style={styles.tag}>
+            <Text style={[fonts[500], styles.tag_text]}>{group}</Text>
+          </View>
         </View>
       </View>
     </View>

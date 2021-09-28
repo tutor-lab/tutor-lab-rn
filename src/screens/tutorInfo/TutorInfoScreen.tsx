@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {
   SafeAreaView,
@@ -9,13 +9,24 @@ import {
   Text,
 } from 'react-native';
 import axios from 'axios';
-import {Header, Line, TutorBox} from '../../components/common';
+import {Header, Line, TutorBox, Card, Data} from '../../components/common';
+import {Selection} from '../../components/tutorInfo';
 import {colors, fonts, icons, width} from '../../constants';
 import {WithLocalSvg} from 'react-native-svg/src';
+import {List} from 'react-native-paper';
 
 type Props = {navigation: any};
 
 const TutorInfoScreen = ({navigation}: Props) => {
+  const [selection, setSelection] = useState<{
+    class: boolean;
+    review: boolean;
+  }>({class: true, review: false});
+  const [count, setCount] = useState<{
+    class: number;
+    review: number;
+  }>({class: 0, review: 0});
+
   return (
     <SafeAreaView style={styles.container}>
       <Header.TutorInfo navigation={navigation} />
@@ -38,7 +49,31 @@ const TutorInfoScreen = ({navigation}: Props) => {
           </View>
         </View>
         <Line height={8} />
-        <View></View>
+        <View style={[styles.padding, {paddingVertical: 27}]}>
+          <Selection
+            selection={selection}
+            setSelection={setSelection}
+            count={count}
+          />
+          <View style={{marginVertical: 9}}>
+            {selection.class ? (
+              Data.Card.map(data => (
+                <View key={data.id}>
+                  <Card
+                    data={data}
+                    onPress={() =>
+                      navigation.navigate('Detail', {
+                        itemId: data.id,
+                      })
+                    }
+                  />
+                </View>
+              ))
+            ) : (
+              <>{/* 후기 */}</>
+            )}
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

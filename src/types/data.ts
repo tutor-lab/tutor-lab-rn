@@ -1,6 +1,5 @@
 export type LectureList = {
   content: string;
-  difficultyName: string;
   difficultyType: string;
   id: number;
   introduce: string;
