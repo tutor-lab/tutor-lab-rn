@@ -24,6 +24,7 @@ const colors = {
   unCpl: '#C5C5C5',
   login_btn: '#3389FF',
   skyBlue: '#E1ECFE',
+  profile: 'rgba(101, 149, 244, 0.2)',
 };
 
 export default colors;
