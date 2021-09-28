@@ -7,13 +7,13 @@ import {colors, width, height} from '../../constants';
 import {
   Header,
   Lecture,
-  Card,
   SearchBar,
   Filter,
   Count,
   Sort,
   Data,
 } from '../../components/home';
+import {Card} from '../../components/common';
 import axios from 'axios';
 
 type Props = {

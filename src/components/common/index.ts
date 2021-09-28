@@ -11,10 +11,12 @@ import Line from './Line';
 import Bottom from './bottom';
 import TutorBox from './TutorBox';
 import Header from './header';
-
+import Card from './card/Card';
+import Data from './Data';
 
 export {
   Header,
+  Data,
   Modal,
   Bottom,
   TutorBox,
@@ -24,6 +26,7 @@ export {
   SelectInput2,
   Button,
   Avatar,
+  Card,
   Selected,
   UnSelected,
   Line,
