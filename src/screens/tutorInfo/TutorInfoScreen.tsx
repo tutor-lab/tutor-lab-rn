@@ -10,14 +10,15 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import {Header, Line, TutorBox, Card, Data} from '../../components/common';
+import {TutorInfo} from '../../types/data';
+
 import {Selection} from '../../components/tutorInfo';
 import {colors, fonts, icons, width} from '../../constants';
-import {WithLocalSvg} from 'react-native-svg/src';
-import {List} from 'react-native-paper';
 
 type Props = {navigation: any};
 
 const TutorInfoScreen = ({navigation}: Props) => {
+  const [profile, setProfile] = useState<TutorInfo>();
   const [selection, setSelection] = useState<{
     class: boolean;
     review: boolean;
@@ -26,54 +27,73 @@ const TutorInfoScreen = ({navigation}: Props) => {
     class: number;
     review: number;
   }>({class: 0, review: 0});
+  console.log(profile);
+  const tutorId: number = 3; // params로 넘기기
+
+  useEffect(() => {
+    axios
+      .get(`/tutors/${tutorId}`)
+      .then(function (response) {
+        setProfile(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <Header.TutorInfo navigation={navigation} />
       <ScrollView contentContainerStyle={styles.scroll}>
-        <View style={styles.padding}>
-          <View style={styles.profileContainer}>
-            <View style={styles.row}>
-              <View style={styles.profileLeft}>
-                <TutorBox />
-                <Text style={[fonts[700], styles.name]}>김하나</Text>
-                <Text style={[fonts[400], styles.bio]}>
-                  기초부터 실무에서 사용합니다
-                </Text>
-              </View>
-              <View style={styles.profileRight}>
-                <View style={styles.imgWrapper}>{/* 프로필 이미지 */}</View>
+        {profile && (
+          <>
+            <View style={styles.padding}>
+              <View style={styles.profileContainer}>
+                <View style={styles.row}>
+                  <View style={styles.profileLeft}>
+                    <TutorBox />
+                    <Text style={[fonts[700], styles.name]}>
+                      {profile.user.nickname}
+                    </Text>
+                    <Text style={[fonts[400], styles.bio]}>
+                      {profile.user.bio}
+                    </Text>
+                  </View>
+                  <View style={styles.profileRight}>
+                    <View style={styles.imgWrapper}>{/* 프로필 이미지 */}</View>
+                  </View>
+                </View>
+                <View style={styles.explainWrapper}>{/*  */}</View>
               </View>
             </View>
-            <View style={styles.explainWrapper}>{/*  */}</View>
-          </View>
-        </View>
-        <Line height={8} />
-        <View style={[styles.padding, {paddingVertical: 27}]}>
-          <Selection
-            selection={selection}
-            setSelection={setSelection}
-            count={count}
-          />
-          <View style={{marginVertical: 9}}>
-            {selection.class ? (
-              Data.Card.map(data => (
-                <View key={data.id}>
-                  <Card
-                    data={data}
-                    onPress={() =>
-                      navigation.navigate('Detail', {
-                        itemId: data.id,
-                      })
-                    }
-                  />
-                </View>
-              ))
-            ) : (
-              <>{/* 후기 */}</>
-            )}
-          </View>
-        </View>
+            <Line height={8} />
+            <View style={[styles.padding, {paddingVertical: 27}]}>
+              <Selection
+                selection={selection}
+                setSelection={setSelection}
+                count={count}
+              />
+              <View style={{marginVertical: 9}}>
+                {selection.class ? (
+                  Data.Card.map(data => (
+                    <View key={data.id}>
+                      <Card
+                        data={data}
+                        onPress={() =>
+                          navigation.navigate('Detail', {
+                            itemId: data.id,
+                          })
+                        }
+                      />
+                    </View>
+                  ))
+                ) : (
+                  <>{/* 후기 */}</>
+                )}
+              </View>
+            </View>
+          </>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

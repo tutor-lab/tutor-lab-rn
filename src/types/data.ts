@@ -39,3 +39,20 @@ export type MessageList = {
   type: string;
   username: string;
 };
+
+export type TutorInfo = {
+  careers: any[];
+  educations: any[];
+  specialist: boolean;
+  subjects: string;
+  user: {
+    bio: string;
+    email: string;
+    gender: string;
+    name: string;
+    nickname: string;
+    phoneNumber: string;
+    username: string;
+    zone: string;
+  };
+};
