@@ -10,7 +10,7 @@ import Signup from './src/navigation/Signup';
 import Main from './src/navigation/Main';
 import Detail from './src/navigation/Detail';
 import TutorInfo from './src/navigation/TutorInfo';
-import Chatting from './src/navigation/Chatting';
+import Chat from './src/navigation/Chat';
 
 const Stack = createStackNavigator();
 
@@ -28,11 +28,11 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="TutorInfo" component={TutorInfo} />
-        <Stack.Screen name="Chatting" component={Chatting} />
+        <Stack.Screen name="Chat" component={Chat} />
       </Stack.Navigator>
     </NavigationContainer>
   );

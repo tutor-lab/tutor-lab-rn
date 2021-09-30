@@ -2,7 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {View, Text} from 'react-native';
 
-const FreeBoard = () => {
+const FreeBoardTabScreen = () => {
   return (
     <View>
       <Text>자유게시판</Text>
@@ -10,4 +10,4 @@ const FreeBoard = () => {
   );
 };
 
-export default FreeBoard;
+export default FreeBoardTabScreen;

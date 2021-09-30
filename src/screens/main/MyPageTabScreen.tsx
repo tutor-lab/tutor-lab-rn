@@ -9,14 +9,14 @@ import {
   Profile,
   Version,
   Data,
-} from '../../components/mypage';
+} from '../../components/myPageTab';
 import {Header, Line} from '../../components/common';
 
-const MyPageScreen = () => {
+const MyPageTabScreen = () => {
   const version = '1.1.0';
   return (
     <SafeAreaView style={styles.container}>
-      <Header.MyPage />
+      <Header.MyPageTab />
       <View style={styles.padding}>
         <Profile profile={Data.Profile} onPress={() => console.log('')} />
         <View style={styles.bigBtnWrapper}>
@@ -54,7 +54,7 @@ const MyPageScreen = () => {
   );
 };
 
-export default MyPageScreen;
+export default MyPageTabScreen;
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.white},

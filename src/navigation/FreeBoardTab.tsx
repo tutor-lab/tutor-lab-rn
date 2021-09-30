@@ -1,17 +1,19 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import {createStackNavigator} from '@react-navigation/stack';
-import MyPageScreen from '../screens/mypage/MyPageScreen';
 
-const MyPage = () => {
+import FreeBoardTabScreen from '../screens/main/FreeBoardTabScreen';
+
+const FreeBoardTab = () => {
   const Stack = createStackNavigator();
+
   return (
     <Stack.Navigator
-      initialRouteName="MyPage"
+      initialRouteName="FreeBoardTab"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="MyPage" component={MyPageScreen} />
+      <Stack.Screen name="FreeBoardTab" component={FreeBoardTabScreen} />
     </Stack.Navigator>
   );
 };
 
-export default MyPage;
+export default FreeBoardTab;

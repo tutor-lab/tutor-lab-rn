@@ -35,8 +35,8 @@ const DetailScreen = ({navigation, route}: Props) => {
 
   useEffect(() => {
     axios.get(`/lectures/${route.params.itemId}`).then(res => {
-      console.log('lectureDetail!@#!@#!@#s')
-      console.log('res', res.data); 
+      console.log('lectureDetail!@#!@#!@#s');
+      console.log('res', res.data);
       setContent(res.data.content);
       setDifficultyType(res.data.difficultyType);
       setIntroduce(res.data.introduce);
@@ -60,10 +60,7 @@ const DetailScreen = ({navigation, route}: Props) => {
           systemTypes={systemTypes}
         />
         <Line />
-        <Tutor 
-          data={Data.Detail} 
-          introduce={introduce}
-        />
+        <Tutor data={Data.Detail} introduce={introduce} />
         <Line height={5} />
         <View style={styles.selection}>
           <Selection selection={selection} setSelection={setSelection} />

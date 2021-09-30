@@ -1,6 +1,13 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, Text, SafeAreaView, StyleSheet, ScrollView,Alert} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import axios from 'axios';
 
 import {colors, fonts, width} from '../../constants';
@@ -24,9 +31,9 @@ const PaymentScreen = ({navigation, route}: Props) => {
     axios
       .post(`/lectures/${route.params.itemId}/enrollments`)
       .then(function (response) {
-        if(response.status===201){
-          Alert.alert("강의신청이 완료되었습니다!")
-          navigation.navigate('Main')
+        if (response.status === 201) {
+          Alert.alert('강의신청이 완료되었습니다!');
+          navigation.navigate('Main');
         }
       })
       .catch(function (error) {

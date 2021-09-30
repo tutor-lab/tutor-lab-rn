@@ -2,18 +2,18 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import MainScreen from '../screens/home/MainScreen';
+import HomeTabScreen from '../screens/main/HomeTabScreen';
 
-const Home = () => {
+const HomeTab = () => {
   const Stack = createStackNavigator();
 
   return (
     <Stack.Navigator
-      initialRouteName="Main"
+      initialRouteName="HomeTab"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Screen name="HomeTab" component={HomeTabScreen} />
     </Stack.Navigator>
   );
 };
 
-export default Home;
+export default HomeTab;

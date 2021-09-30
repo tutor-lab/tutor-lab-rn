@@ -11,7 +11,7 @@ type Props = {
   //   서치, 메뉴 아이콘 클릭시
 };
 
-const Chatting = ({navigation, title}: Props) => {
+const Chat = ({navigation, title}: Props) => {
   return (
     <Container>
       <View style={styles.padding}>
@@ -42,7 +42,7 @@ const Chatting = ({navigation, title}: Props) => {
   );
 };
 
-export default Chatting;
+export default Chat;
 
 const styles = StyleSheet.create({
   padding: {paddingHorizontal: width * 20, flexDirection: 'row'},

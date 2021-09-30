@@ -1,22 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
 import 'react-native-gesture-handler';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {colors, fonts} from '../../constants';
 
 type Props = {
-  chatLists:any;
-  navigation:any;
+  chatLists: any;
+  navigation: any;
 };
 
-const ChatList = ({chatLists,navigation}: Props) => {
-
-  console.log('navigation',navigation); 
-
-  const goToChatRoom = () =>{
-    navigation.navigate('Chatting',{params: {
-      chatRoomId: chatLists.chatroomId,
-    }});
-  }
+const ChatList = ({chatLists, navigation}: Props) => {
+  const goToChatRoom = () => {
+    navigation.navigate('Chat', {
+      params: {
+        chatRoomId: chatLists.chatroomId,
+      },
+    });
+  };
   return (
     <TouchableOpacity style={styles.container} onPress={goToChatRoom}>
       <View style={styles.leftSection}>

@@ -2,15 +2,22 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import ChatListScreen from '../screens/chat/ChatListScreen';
+import ChatScreen from '../screens/chat/ChatScreen';
 
-const Chat = () => {
+type Props = {props: {params: {params: {itemId: number}}}};
+
+const Chat = (props: any) => {
   const Stack = createStackNavigator();
+
   return (
     <Stack.Navigator
-      initialRouteName="ChatList"
+      initialRouteName="Chat"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="ChatList" component={ChatListScreen} />
+      <Stack.Screen
+        name="Chat"
+        component={ChatScreen}
+        initialParams={props.route.params.params}
+      />
     </Stack.Navigator>
   );
 };

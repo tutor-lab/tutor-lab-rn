@@ -8,7 +8,7 @@ type Props = {
   //   알람, 메뉴 아이콘 클릭시
 };
 
-const Chatting = ({}: Props) => {
+const ChatTab = ({}: Props) => {
   return (
     <Container>
       <View style={styles.left}>
@@ -26,7 +26,7 @@ const Chatting = ({}: Props) => {
   );
 };
 
-export default Chatting;
+export default ChatTab;
 
 const styles = StyleSheet.create({
   padding: {paddingHorizontal: width * 20, flexDirection: 'row'},

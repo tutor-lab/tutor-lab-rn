@@ -97,7 +97,6 @@ const LoginMainScreen = ({route, navigation}: Props) => {
         password: password,
       })
       .then(function (response) {
-        console.log('rer')
         AsyncStorage.setItem('accessToken', response.data.split(' ')[1]);
         navigation.navigate('Main');
         // console.log(Object.keys(response.headers))
