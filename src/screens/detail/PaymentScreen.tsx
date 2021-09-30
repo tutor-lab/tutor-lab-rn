@@ -10,12 +10,7 @@ import {PaymentInfo, PaymentList} from '../../components/detail';
 type Props = {
   navigation: any;
   route: {
-    params: {
-      itemId: number;
-      title: string;
-      tutor: string;
-      subject: {id: number; krSubject: string; parent: string}[];
-    };
+    params: any;
   };
 };
 
@@ -44,8 +39,11 @@ const PaymentScreen = ({navigation, route}: Props) => {
           <View style={styles.option}>
             <Text style={[fonts[700], styles.text]}>옵션 선택</Text>
           </View>
-          <PaymentList checked={true} />
-          <PaymentList checked={false} />
+          {route.params.lecturePrices.map((item:any)=>
+            <PaymentList checked={true} item={item} />
+          )}
+          {/* <PaymentList checked={true} /> */}
+          {/* <PaymentList checked={false} /> */}
         </View>
       </ScrollView>
       <Bottom.Payment price={179000} onPress={onPayment} />

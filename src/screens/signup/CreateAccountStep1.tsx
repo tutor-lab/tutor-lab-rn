@@ -16,7 +16,6 @@ interface Props {
 
 const CreateAccountStep1 = (props :any) => {
 
-    axios.defaults.baseURL = 'http://3.35.255.192:8081/';
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -41,7 +40,7 @@ const CreateAccountStep1 = (props :any) => {
     const [diffPassword, setDiffPassword] = useState(false);
 
     useEffect(() => {
-        axios.get('addresses/states')
+        axios.get('/addresses/states')
             .then((response) => {
                 setStates(response.data)
             })
@@ -49,7 +48,7 @@ const CreateAccountStep1 = (props :any) => {
     },[]);
 
     useEffect(() => {
-        const uri = `addresses/siGunGus?state=${region}`;
+        const uri = `/addresses/siGunGus?state=${region}`;
         axios.get(encodeURI(uri))
             .then((response) => {
                 setCities(response.data);
@@ -58,7 +57,7 @@ const CreateAccountStep1 = (props :any) => {
     }, [region]);
 
     useEffect(() => {
-        const uri = `addresses/dongs?state=${region}&siGunGu=${city}`;
+        const uri = `/addresses/dongs?state=${region}&siGunGu=${city}`;
         axios.get(encodeURI(uri))
             .then((response) => {
                 setTowns(response.data);
@@ -150,10 +149,11 @@ const CreateAccountStep1 = (props :any) => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.header}>
-                        <Text style={[fonts[500], styles.title]}>회원가입({props.current}/3)</Text>
+                        <Text style={[fonts[500], styles.title]}>회원가입({props.current}/1)</Text>
                     </View>
                 </View>
             </View>
+
             <View style={styles.form}>
                 <FormInput
                     backgroundColor={colors.input}
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   icon: { alignItems: 'center', width: width * 24 },
   title: { fontSize: height * 18, color: colors.sub, textAlignVertical: "center" },
   form: {
-    paddingTop: height * 40,
+    paddingTop: height * 5,
     position: 'absolute',
     left: 0,
     right: 0,

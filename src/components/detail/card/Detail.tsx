@@ -39,15 +39,16 @@ type Props = {
   subTitle: string;
   lecturePrices: any;
   systemTypes:any;
+  thumbnail:string;
 };
 
-const Detail = ({data, title, subTitle, lecturePrices,systemTypes}: Props) => {
+const Detail = ({data, title, subTitle, lecturePrices,systemTypes,thumbnail}: Props) => {
   return (
     <>
       <View style={styles.image}>
         <Image
-          source={require('../../../assets/images/detail.png')}
-          resizeMode="cover"
+          source={{uri:thumbnail}}
+          resizeMode="contain"
           style={{width: '100%', height: 280, zIndex: 1}}
         />
         <View style={styles.tag}>

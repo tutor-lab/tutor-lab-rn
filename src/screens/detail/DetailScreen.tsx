@@ -32,20 +32,21 @@ const DetailScreen = ({navigation, route}: Props) => {
   const [systemTypes, setSystemTypes] = useState([]);
   const [thumbnail, setThumbnail] = useState('');
   const [title, setTitle] = useState('');
+  const [lectureTutor,setLectureTutor] = useState([]);
 
   useEffect(() => {
     axios.get(`/lectures/${route.params.itemId}`).then(res => {
-      console.log('lectureDetail!@#!@#!@#s')
-      console.log('res', res.data); 
+      
       setContent(res.data.content);
       setDifficultyType(res.data.difficultyType);
       setIntroduce(res.data.introduce);
-      setLecturePrices(res.data.lecturePrices[0]);
+      setLecturePrices(res.data.lecturePrices);
       setLectureSubjects(res.data.lectureSubjects);
       setSubTitle(res.data.subTitle);
       setSystemTypes(res.data.systemTypes);
       setThumbnail(res.data.thumbnail);
       setTitle(res.data.title);
+      setLectureTutor(res.data.lectureTutor);
     });
   }, []);
 
@@ -58,10 +59,12 @@ const DetailScreen = ({navigation, route}: Props) => {
           subTitle={subTitle}
           lecturePrices={lecturePrices}
           systemTypes={systemTypes}
+          thumbnail={thumbnail}
         />
         <Line />
         <Tutor 
           data={Data.Detail} 
+          lectureTutor={lectureTutor}
           introduce={introduce}
         />
         <Line height={5} />
@@ -94,9 +97,11 @@ const DetailScreen = ({navigation, route}: Props) => {
         btn={() =>
           navigation.navigate('Payment', {
             itemId: route.params.itemId,
-            title: title,
+            title:title,
+            lecturePrices: lecturePrices,
             subject: lectureSubjects,
-            tutor: '강하나',
+            thumbnail: thumbnail,
+            lectureTutor:lectureTutor
           })
         }
       />

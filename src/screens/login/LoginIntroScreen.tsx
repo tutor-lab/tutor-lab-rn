@@ -1,16 +1,29 @@
-import React from 'react';
-import {SafeAreaView, View, Image, StyleSheet} from 'react-native';
+import React,{useState} from 'react';
+import {SafeAreaView, View, Image, StyleSheet,Text} from 'react-native';
 
 import {colors, height, width, icons} from '../../constants';
 import {LoginBtn, TradeMark, SubBtn} from '../../components/login';
 import {LoginStackProp} from '../../types/navigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import MainScreen from '../../screens/home/MainScreen';
+import Main from '../../navigation/Main';
 
 interface Props {
   navigation: LoginStackProp;
 }
 
 const LoginIntroScreen = ({navigation}: Props) => {
+
+  const [isToken,setIsToken] = useState("")
+  const token = AsyncStorage.getItem('accessToken', (err, result) => {
+    setIsToken(result)
+    return result
+  });
+
+  console.log('isToken',isToken)
+  
   return (
+    <>
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={icons.logo} resizeMode="contain" />
@@ -35,7 +48,38 @@ const LoginIntroScreen = ({navigation}: Props) => {
       <View style={styles.footer}>
         <TradeMark />
       </View>
-    </SafeAreaView>
+    </SafeAreaView>  
+    {/* {isToken?
+    <><Main /></>:
+      <SafeAreaView style={styles.container}>
+      <View style={styles.logoContainer}>
+        <Image style={styles.logo} source={icons.logo} resizeMode="contain" />
+      </View>
+      <View style={styles.btnContainer}>
+        <LoginBtn
+          title={'튜티로 로그인하기'}
+          onPress={() => {
+            navigation.navigate('LoginMain', {user: '튜티'});
+          }}
+        />
+        <LoginBtn
+          title={'튜터로 로그인하기'}
+          onPress={() => {
+            navigation.navigate('LoginMain', {user: '튜터'});
+          }}
+        />
+      </View>
+      <View>
+        <SubBtn title={'회원가입'} onPress={() => navigation.navigate('Signup')} />
+      </View>
+      <View style={styles.footer}>
+        <TradeMark />
+      </View>
+    </SafeAreaView>  
+    
+    } */}
+    
+    </>
   );
 };
 

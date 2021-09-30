@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import axios from 'axios';
@@ -15,6 +15,13 @@ import Chatting from './src/navigation/Chatting';
 const Stack = createStackNavigator();
 
 const App = () => {
+  console.log('BACKEND_URL=',BACKEND_URL)
+  const [isToken,setIsToken] = useState("")
+  const token = AsyncStorage.getItem('accessToken', (err, result) => {
+    setIsToken(result)
+    return result
+  });
+
   axios.defaults.baseURL = BACKEND_URL;
   axios.interceptors.request.use(async function (config) {
     const token = await AsyncStorage.getItem('accessToken');
@@ -27,9 +34,12 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
+        {/* {isToken?
         <Stack.Screen name="Main" component={Main} />
+      : <Stack.Screen name="Login" component={Login} />} */}
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="TutorInfo" component={TutorInfo} />
         <Stack.Screen name="Chatting" component={Chatting} />

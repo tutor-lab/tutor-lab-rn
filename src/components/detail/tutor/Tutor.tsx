@@ -24,19 +24,20 @@ type Props = {
     store_count: number;
   };
   introduce:string;
+  lectureTutor:any;
 };
 
-const Tutor = ({data,introduce}: Props) => {
+const Tutor = ({data,lectureTutor,introduce}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.tutor}>
         <Profile />
         
         <View style={styles.textSection}>
-          <Name name={data.tutor} />
+          <Name name={lectureTutor.nickname} />
           <Count
-            lecture_count={data.lecture_count}
-            review_count={data.review_count}
+            lecture_count={lectureTutor.lectureCount}
+            review_count={lectureTutor.reviewCount}
             store_count={data.store_count}
           />
           <Text style={fonts[500]}>{introduce}</Text>

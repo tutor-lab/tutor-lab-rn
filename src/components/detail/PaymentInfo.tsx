@@ -10,15 +10,23 @@ type Props = {
     title: string;
     tutor: string;
     subject: {id: number; krSubject: string; parent: string}[];
+    thumbnail:string;
+    lectureTutor:{
+      lectureCount:number;
+      nickname:string;
+      reviewCount:number;
+    }
   };
+  
 };
 
 const PaymentInfo = ({info}: Props) => {
+  console.log('info',info)
   return (
     <View style={styles.container}>
       <View style={styles.imageWrapper}>
         <Image
-          source={require('../../assets/images/detail.png')}
+          source={{uri:info.thumbnail}}
           resizeMode="cover"
           style={styles.image}
         />
@@ -37,7 +45,7 @@ const PaymentInfo = ({info}: Props) => {
         <View style={styles.tutorContainer}>
           <TutorBox />
           <View style={{marginLeft: 8}}>
-            <Text style={[fonts[500], styles.tutorName]}>{info.tutor}</Text>
+            <Text style={[fonts[500], styles.tutorName]}>{info.lectureTutor.nickname}</Text>
           </View>
         </View>
       </View>

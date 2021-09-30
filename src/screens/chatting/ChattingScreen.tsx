@@ -30,7 +30,7 @@ const ChattingScreen = ({navigation,route}: Props) => {
   const [user, setUser] = useState<any>([]);
   const [sendMsgCnt, setSendMsgCnt] = useState(0);
 
-  const ws = new WebSocket(`${SOCKET_URL}/chat/${route.params.chatRoomId}`);
+  const ws = new WebSocket(`ws://3.35.255.192:8081/ws/chat/${route.params.chatRoomId}`);
 
   useEffect(() => {
     // 에러 발생시
@@ -55,13 +55,14 @@ const ChattingScreen = ({navigation,route}: Props) => {
 
   const sendMsgEnter = (data: string) => {
     console.log('data=',data)
+    console.log('route.params.chatRoomId=',route.params.chatRoomId)
     ws.send(
       JSON.stringify({
         username: user.name,
         message: data,
-        sessionId: '30ae0b1d-45bc-ed13-2f3a-ee5c402725c7',
+        sessionId: '',
         // sessionId 어떻게 보낼것인지
-        chatroomId: 1,
+        chatroomId: route.params.chatRoomId,
         type: 'message',
       }),
     );

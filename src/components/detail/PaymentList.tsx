@@ -6,8 +6,9 @@ import {colors, fonts, icons} from '../../constants';
 import {WithLocalSvg} from 'react-native-svg/src';
 import {Line} from '../common';
 
-type Props = {checked: boolean};
-const PaymentList = ({checked}: Props) => {
+type Props = {checked: boolean,item:any};
+const PaymentList = ({checked,item}: Props) => {
+   
   return (
     <TouchableOpacity
       activeOpacity={1}
@@ -31,7 +32,7 @@ const PaymentList = ({checked}: Props) => {
             )}
           </View>
         </View>
-        <Text style={styles.price}>197,000</Text>
+        <Text style={styles.price}>{item.totalCost}</Text>
         <Text style={[fonts[700], styles.priceText1]}>원</Text>
         <Text style={[fonts[400], styles.priceText2]}>
           {'  '}/{'  '}
@@ -42,23 +43,24 @@ const PaymentList = ({checked}: Props) => {
       <Line />
       <View style={{paddingVertical: 12}}>
         <View style={styles.row}>
-          <Text style={styles.matchingText1}>1:1</Text>
-          <Text style={[fonts[700], styles.matchingText2]}>개인강의</Text>
+          {/* <Text style={styles.matchingText1}>1:1</Text> */}
+          <Text style={[fonts[700], styles.matchingText2]}> {item.isGroupStr}</Text>
         </View>
         <View style={{paddingVertical: 6}}>
-          <Text style={[styles.explainText, fonts[400]]}>
+          {/* <Text style={[styles.explainText, fonts[400]]}>
             기초부터 실무에서 사용하는 데이터 분석 기술 파헤치기
-          </Text>
+           
+          </Text> */}
           <View style={styles.row}>
-            <Text style={[styles.explainText, fonts[400]]}>시간당 </Text>
-            <Text style={styles.explainText}>00000</Text>
+            <Text style={[styles.explainText, fonts[400]]}>{item.content} </Text>
+            {/* <Text style={styles.explainText}>00000</Text>
             <Text style={[styles.explainText, fonts[400]]}>원 x </Text>
             <Text style={styles.explainText}>1</Text>
             <Text style={[styles.explainText, fonts[400]]}>회 </Text>
             <Text style={styles.explainText}>0</Text>
             <Text style={[styles.explainText, fonts[400]]}>시간 x 총 </Text>
             <Text style={styles.explainText}>00</Text>
-            <Text style={[styles.explainText, fonts[400]]}>회 수업 진행</Text>
+            <Text style={[styles.explainText, fonts[400]]}>회 수업 진행</Text> */}
           </View>
         </View>
       </View>

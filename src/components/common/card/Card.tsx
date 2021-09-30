@@ -61,12 +61,12 @@ const Card = ({data, onPress}: Props) => {
           <Tutor />
         </View>
         <View style={styles.count}>
-          <View style={styles.heart}>
+          {/* <View style={styles.heart}>
             <Heart heart={56} />
-          </View>
-          <View style={styles.divider}>
+          </View> */}
+          {/* <View style={styles.divider}>
             <WithLocalSvg asset={icons.line_vertical} />
-          </View>
+          </View> */}
           <View style={styles.star}>
             <Star rating={5} />
           </View>
@@ -75,9 +75,9 @@ const Card = ({data, onPress}: Props) => {
           </View>
         </View>
         <View style={styles.bottom}>
-          <View style={styles.percent}>
+          {/* <View style={styles.percent}>
             <Percent discount={50} />
-          </View>
+          </View> */}
           <View style={styles.lecturePrice}>
             <LecturePrices lecturePrices={data.lecturePrices[0]} />
           </View>

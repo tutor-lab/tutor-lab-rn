@@ -17,10 +17,10 @@ const Count = ({lecture_count, review_count, store_count}: Props) => {
         <Text style={[fonts[400], styles.title]}>후기 </Text>
         <Text style={styles.count}>{review_count}</Text>
       </View>
-      <View style={styles.textBox}>
+      {/* <View style={styles.textBox}>
         <Text style={[fonts[400], styles.title]}>저장 </Text>
         <Text style={styles.count}>{store_count}</Text>
-      </View>
+      </View> */}
     </View>
   );
 };
