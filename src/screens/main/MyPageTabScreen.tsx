@@ -45,7 +45,7 @@ const MyPageTabScreen = ({navigation}: Props) => {
         {Data.ListInfo.map(item => (
           <List
             key={item.id}
-            title={item.title}
+            list={item}
             onPress={() =>
               navigation.navigate('MyPage', {screen: `${item.navigation}`})
             }
@@ -55,7 +55,7 @@ const MyPageTabScreen = ({navigation}: Props) => {
         {Data.ListExtra.map(item => (
           <List
             key={item.id}
-            title={item.title}
+            list={item}
             onPress={() =>
               navigation.navigate('MyPage', {screen: `${item.navigation}`})
             }

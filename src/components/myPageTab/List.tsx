@@ -5,20 +5,20 @@ import {fonts} from '../../constants';
 import {Line} from '../common';
 
 type Props = {
-  title: String;
+  list: {id: number; title: string; navigation: string; lastIdx: boolean};
   onPress: any;
 };
 
-const List = ({title, onPress}: Props) => {
+const List = ({list, onPress}: Props) => {
   return (
     <View>
       <TouchableOpacity
         activeOpacity={1}
         style={styles.container}
         onPress={onPress}>
-        <Text style={[fonts[400], styles.text]}>{title}</Text>
+        <Text style={[fonts[400], styles.text]}>{list.title}</Text>
       </TouchableOpacity>
-      <Line />
+      {!list.lastIdx && <Line />}
     </View>
   );
 };
