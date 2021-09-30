@@ -23,7 +23,7 @@ const TutorInfo = ({navigation}: Props) => {
         <View style={styles.right}>
           <TouchableOpacity
             activeOpacity={1}
-            onPress={() => console.log('Home')}>
+            onPress={() => console.log('HomeTab')}>
             <WithLocalSvg asset={icons.home_unselected} />
           </TouchableOpacity>
         </View>

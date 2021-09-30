@@ -2,12 +2,12 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {View, Text} from 'react-native';
 
-const FreeBoard = () => {
+const NoticeScreen = () => {
   return (
     <View>
-      <Text>자유게시판</Text>
+      <Text>NoticeScreen</Text>
     </View>
   );
 };
 
-export default FreeBoard;
+export default NoticeScreen;

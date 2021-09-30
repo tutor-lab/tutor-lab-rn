@@ -1,18 +1,20 @@
 import Container from './Container';
 import Title from './Title';
-import Chatting from './Chatting';
-import ChatList from './ChatList';
+import Chat from './Chat';
+import ChatTab from './ChatTab';
 import TutorInfo from './TutorInfo';
 import Payment from './Payment';
+import MyPageTab from './MyPageTab';
 
 export {Title, Container};
 
 const Header = {
   Container,
+  MyPageTab,
   Title,
   TutorInfo,
-  Chatting,
-  ChatList,
+  Chat,
+  ChatTab,
   Payment,
 };
 

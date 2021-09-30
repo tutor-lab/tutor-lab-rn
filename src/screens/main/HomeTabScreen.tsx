@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 
 import {colors, width, height} from '../../constants';
 import {
@@ -12,7 +11,7 @@ import {
   Count,
   Sort,
   Data,
-} from '../../components/home';
+} from '../../components/homeTab';
 import {Card} from '../../components/common';
 import axios from 'axios';
 
@@ -20,7 +19,7 @@ type Props = {
   navigation: any;
 };
 
-const MainScreen = ({navigation}: Props) => {
+const HomeTabScreen = ({navigation}: Props) => {
   const [search, setSearch] = useState<string>('');
   const [alert, setAlert] = useState<boolean>(false);
   const [lecture, setLecture] = useState<{
@@ -52,7 +51,7 @@ const MainScreen = ({navigation}: Props) => {
     //     style={styles.linearGradient}></LinearGradient>
     // </View>
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.padding}>
           <View style={styles.header}>
             <Header alert={alert} />
@@ -93,13 +92,14 @@ const MainScreen = ({navigation}: Props) => {
   );
 };
 
-export default MainScreen;
+export default HomeTabScreen;
 
 var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
   },
+  scroll: {flexGrow: 1},
   padding: {paddingHorizontal: width * 22, flex: 1, paddingTop: height * 10},
   header: {},
   lecture: {marginTop: 30, zIndex: 3, position: 'relative'},

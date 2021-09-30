@@ -2,18 +2,18 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import MainScreen from '../screens/home/MainScreen';
+import FreeBoardTabScreen from '../screens/main/FreeBoardTabScreen';
 
-const Home = () => {
+const FreeBoardTab = () => {
   const Stack = createStackNavigator();
 
   return (
     <Stack.Navigator
-      initialRouteName="Main"
+      initialRouteName="FreeBoardTab"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Screen name="FreeBoardTab" component={FreeBoardTabScreen} />
     </Stack.Navigator>
   );
 };
 
-export default Home;
+export default FreeBoardTab;

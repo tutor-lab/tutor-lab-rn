@@ -32,11 +32,10 @@ const DetailScreen = ({navigation, route}: Props) => {
   const [systemTypes, setSystemTypes] = useState([]);
   const [thumbnail, setThumbnail] = useState('');
   const [title, setTitle] = useState('');
-  const [lectureTutor,setLectureTutor] = useState([]);
+  const [lectureTutor, setLectureTutor] = useState([]);
 
   useEffect(() => {
     axios.get(`/lectures/${route.params.itemId}`).then(res => {
-      
       setContent(res.data.content);
       setDifficultyType(res.data.difficultyType);
       setIntroduce(res.data.introduce);
@@ -62,8 +61,8 @@ const DetailScreen = ({navigation, route}: Props) => {
           thumbnail={thumbnail}
         />
         <Line />
-        <Tutor 
-          data={Data.Detail} 
+        <Tutor
+          data={Data.Detail}
           lectureTutor={lectureTutor}
           introduce={introduce}
         />
@@ -97,11 +96,11 @@ const DetailScreen = ({navigation, route}: Props) => {
         btn={() =>
           navigation.navigate('Payment', {
             itemId: route.params.itemId,
-            title:title,
+            title: title,
             lecturePrices: lecturePrices,
             subject: lectureSubjects,
             thumbnail: thumbnail,
-            lectureTutor:lectureTutor
+            lectureTutor: lectureTutor,
           })
         }
       />

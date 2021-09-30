@@ -8,7 +8,7 @@ type Props = {
   list: MessageList;
 };
 
-const ChattingScreen = ({list}: Props) => {
+const ChatScreen = ({list}: Props) => {
   const [meridiem, setMeridiem] = useState<string>('');
   const [hour, setHour] = useState<string>('');
   const [minutes, setMinutes] = useState<string>('');
@@ -37,7 +37,7 @@ const ChattingScreen = ({list}: Props) => {
   );
 };
 
-export default ChattingScreen;
+export default ChatScreen;
 
 const styles = StyleSheet.create({
   container: {marginVertical: 13.5 / 2, width: '100%', alignItems: 'flex-end'},

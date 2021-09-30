@@ -1,11 +1,11 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet,Text} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 
 import {width} from '../../../constants';
 
 import {Button, Name, Count, Profile} from './index';
-import { fonts} from '../../../constants';
+import {fonts} from '../../../constants';
 type Props = {
   data: {
     tag: string[];
@@ -23,16 +23,16 @@ type Props = {
     review_count: number;
     store_count: number;
   };
-  introduce:string;
-  lectureTutor:any;
+  introduce: string;
+  lectureTutor: any;
 };
 
-const Tutor = ({data,lectureTutor,introduce}: Props) => {
+const Tutor = ({data, introduce, lectureTutor}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.tutor}>
         <Profile />
-        
+
         <View style={styles.textSection}>
           <Name name={lectureTutor.nickname} />
           <Count

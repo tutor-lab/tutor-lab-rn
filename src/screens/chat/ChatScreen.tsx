@@ -13,15 +13,15 @@ import {WithLocalSvg} from 'react-native-svg/src';
 import {MessageList} from '../../types/data';
 import {Header} from '../../components/common';
 import {colors, fonts, icons, width} from '../../constants';
-import {ChatMine, TextInput, ChatOther} from '../../components/chatting';
-import {SOCKET_URL} from 'react-native-dotenv';
+import {ChatMine, TextInput, ChatOther} from '../../components/chat';
 
 // textinput line 최대 몇 줄?
 // 첫 랜더링 때 왜 깜빡거리는지..
 //  나중에 채팅 올때 알람 어떻게? 읽었는지 안읽었는지 표시?
 
-type Props = {navigation: any,route:any};
-const ChattingScreen = ({navigation,route}: Props) => {
+type Props = {navigation: any; route: any};
+
+const ChatScreen = ({navigation, route}: Props) => {
   // const chatID = 1; //임시 테스트
   const scrollViewRef = useRef<ElementType>();
 
@@ -30,7 +30,9 @@ const ChattingScreen = ({navigation,route}: Props) => {
   const [user, setUser] = useState<any>([]);
   const [sendMsgCnt, setSendMsgCnt] = useState(0);
 
-  const ws = new WebSocket(`ws://3.35.255.192:8081/ws/chat/${route.params.chatRoomId}`);
+  const ws = new WebSocket(
+    `ws://3.35.255.192:8081/ws/chat/${route.params.chatRoomId}`,
+  );
 
   useEffect(() => {
     // 에러 발생시
@@ -54,8 +56,8 @@ const ChattingScreen = ({navigation,route}: Props) => {
   }, []);
 
   const sendMsgEnter = (data: string) => {
-    console.log('data=',data)
-    console.log('route.params.chatRoomId=',route.params.chatRoomId)
+    console.log('data=', data);
+    console.log('route.params.chatRoomId=', route.params.chatRoomId);
     ws.send(
       JSON.stringify({
         username: user.name,
@@ -83,10 +85,12 @@ const ChattingScreen = ({navigation,route}: Props) => {
 
   const getPrevChat = async () => {
     try {
-      await axios.get(`/tutees/my-chatrooms/${route.params.chatRoomId}`).then(response => {
-        setMessageList(response.data);
-        return response;
-      });
+      await axios
+        .get(`/tutees/my-chatrooms/${route.params.chatRoomId}`)
+        .then(response => {
+          setMessageList(response.data);
+          return response;
+        });
     } catch (error) {
       return error;
     }
@@ -99,7 +103,7 @@ const ChattingScreen = ({navigation,route}: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header.Chatting navigation={navigation} title={'김하나'} />
+      <Header.Chat navigation={navigation} title={'김하나'} />
       <ScrollView
         contentContainerStyle={styles.scroll}
         ref={scrollViewRef}
@@ -165,7 +169,7 @@ const ChattingScreen = ({navigation,route}: Props) => {
   );
 };
 
-export default memo(ChattingScreen);
+export default memo(ChatScreen);
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.bg_color},

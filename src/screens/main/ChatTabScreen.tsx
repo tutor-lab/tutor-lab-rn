@@ -6,36 +6,33 @@ import {
   ScrollView,
   Keyboard,
   SafeAreaView,
-  TouchableOpacity
 } from 'react-native';
 import {colors, width} from '../../constants';
 import {Header} from '../../components/common';
-import {SearchBar, ChatList} from '../../components/chat';
+import {SearchBar, ChatList} from '../../components/chatTab';
 import axios from 'axios';
 
-const ChatListScreen = ({navigation}:any) => {
+const ChatTabScreen = ({navigation}: any) => {
   const [searchText, setSearchText] = useState('');
-  const [contentList,setContentList] = useState([]);
+  const [contentList, setContentList] = useState([]);
 
   useEffect(() => {
     axios
       .get('/tutees/my-chatrooms')
       .then(function (response) {
-        console.log(response.data.content)
-        setContentList(response.data.content)
+        console.log(response.data.content);
+        setContentList(response.data.content);
       })
       .catch(function (error) {
         console.log(error);
       });
   }, []);
 
- 
-  console.log('navigation=',navigation)
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.padding}>
-        <Header.ChatList />
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <Header.ChatTab />
+        <ScrollView contentContainerStyle={styles.scroll}>
           <View style={styles.searchBar}>
             <SearchBar
               value={searchText}
@@ -46,15 +43,9 @@ const ChatListScreen = ({navigation}:any) => {
             />
           </View>
           {/* 데이터 바인딩 필요 */}
-          {contentList.map((item:any)=>
-         
-            <ChatList 
-              chatLists={item}
-              navigation={navigation}
-            />
-          
-          )}
-          
+          {contentList.map((item: any) => (
+            <ChatList chatLists={item} navigation={navigation} />
+          ))}
           {/* <ChatList />
           <ChatList />
           <ChatList />
@@ -65,11 +56,12 @@ const ChatListScreen = ({navigation}:any) => {
   );
 };
 
-export default ChatListScreen;
+export default ChatTabScreen;
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.white, alignItems: 'center'},
   padding: {paddingHorizontal: width * 20},
+  scroll: {flexGrow: 1},
   headerContainer: {
     paddingVertical: 17,
     width: '100%',
