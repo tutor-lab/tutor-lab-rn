@@ -4,11 +4,13 @@ import Chatting from './Chatting';
 import ChatList from './ChatList';
 import TutorInfo from './TutorInfo';
 import Payment from './Payment';
+import MyPage from './MyPage';
 
 export {Title, Container};
 
 const Header = {
   Container,
+  MyPage,
   Title,
   TutorInfo,
   Chatting,

@@ -23,6 +23,9 @@ export const arrow_right = require('../assets/icons/arrow_right.svg');
 export const arrow_right_main = require('../assets/icons/arrow_right_main.svg');
 export const more = require('../assets/icons/more.svg');
 export const plus = require('../assets/icons/plus.svg');
+export const setting = require('../assets/icons/setting.svg');
+export const wishlist = require('../assets/icons/wishlist.svg');
+export const purchased = require('../assets/icons/purchased.svg');
 
 export const home_selected = require('../assets/icons/home_selected.svg');
 export const home_unselected = require('../assets/icons/home_unselected.svg');
@@ -45,6 +48,7 @@ export default {
   category_arrow,
   lecture_back_arrow,
   back_arrow,
+  setting,
   logo_icon,
   logo_text,
   alert,
@@ -73,4 +77,6 @@ export default {
   paymentList_unchecked,
   more,
   plus,
+  wishlist,
+  purchased,
 };

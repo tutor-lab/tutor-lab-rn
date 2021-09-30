@@ -10,6 +10,7 @@ import UnSelected from './select/UnSelected';
 import Line from './Line';
 import Bottom from './bottom';
 import TutorBox from './TutorBox';
+import TuteeBox from './TuteeBox';
 import Header from './header';
 import Card from './card/Card';
 import Data from './Data';
@@ -24,6 +25,7 @@ export {
   FormInput,
   SelectInput,
   SelectInput2,
+  TuteeBox,
   Button,
   Avatar,
   Card,

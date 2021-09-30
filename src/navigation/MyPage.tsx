@@ -1,12 +1,16 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, Text} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import MyPageScreen from '../screens/mypage/MyPageScreen';
 
 const MyPage = () => {
+  const Stack = createStackNavigator();
   return (
-    <View>
-      <Text>마이페이지</Text>
-    </View>
+    <Stack.Navigator
+      initialRouteName="MyPage"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="MyPage" component={MyPageScreen} />
+    </Stack.Navigator>
   );
 };
 
