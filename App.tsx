@@ -11,6 +11,7 @@ import Main from './src/navigation/Main';
 import Detail from './src/navigation/Detail';
 import TutorInfo from './src/navigation/TutorInfo';
 import Chat from './src/navigation/Chat';
+import MyPage from './src/navigation/MyPage';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ const App = () => {
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="TutorInfo" component={TutorInfo} />
         <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="MyPage" component={MyPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

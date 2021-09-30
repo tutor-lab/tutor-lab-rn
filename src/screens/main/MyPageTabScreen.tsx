@@ -12,20 +12,29 @@ import {
 } from '../../components/myPageTab';
 import {Header, Line} from '../../components/common';
 
-const MyPageTabScreen = () => {
+type Props = {navigation: any};
+
+const MyPageTabScreen = ({navigation}: Props) => {
   const version = '1.1.0';
   return (
     <SafeAreaView style={styles.container}>
       <Header.MyPageTab />
       <View style={styles.padding}>
-        <Profile profile={Data.Profile} onPress={() => console.log('')} />
+        <Profile
+          profile={Data.Profile}
+          onPress={() =>
+            navigation.navigate('MyPage', {screen: 'ChangeProfile'})
+          }
+        />
         <View style={styles.bigBtnWrapper}>
           {Data.Btn_Big.map(item => (
             <Btn_Big
               key={item.id}
               icon={item.icon}
               title={item.title}
-              onPress={() => console.log(item.navigation)}
+              onPress={() =>
+                navigation.navigate('MyPage', {screen: `${item.navigation}`})
+              }
             />
           ))}
         </View>
@@ -37,7 +46,9 @@ const MyPageTabScreen = () => {
           <List
             key={item.id}
             title={item.title}
-            onPress={() => console.log(item.navigation)}
+            onPress={() =>
+              navigation.navigate('MyPage', {screen: `${item.navigation}`})
+            }
           />
         ))}
         <ListTitle title={'TUTOR LAB'} />
@@ -45,7 +56,9 @@ const MyPageTabScreen = () => {
           <List
             key={item.id}
             title={item.title}
-            onPress={() => console.log(item.navigation)}
+            onPress={() =>
+              navigation.navigate('MyPage', {screen: `${item.navigation}`})
+            }
           />
         ))}
         <Version title={'버전정보'} version={`${version}`} />
