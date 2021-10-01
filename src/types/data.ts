@@ -56,3 +56,24 @@ export type TutorInfo = {
     zone: string;
   };
 };
+
+export type MyInfo = {
+  data: {
+    bio: string;
+    birth: string;
+    email: string;
+    gender: string;
+    name: string;
+    nickname: string;
+    phoneNumber: string;
+    username: string;
+    zone: string;
+  };
+};
+
+export type Gender = {
+  id: number;
+  gender: string;
+  text: string;
+  isTrue: boolean;
+};

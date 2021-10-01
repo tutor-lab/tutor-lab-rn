@@ -268,4 +268,9 @@ export const GroupData = [
   {id: 1, boolean: false, text: '개인'},
 ];
 
-export default {Card, DifficultyData, GroupData};
+export const Gender = [
+  {id: 0, gender: 'FEMALE', text: '여성', isTrue: true},
+  {id: 1, gender: 'MALE', text: '남성', isTrue: false},
+];
+
+export default {Card, DifficultyData, GroupData, Gender};

@@ -1,5 +1,6 @@
 import Modal from './modal';
 import TextInput from './TextInput';
+import TextInputLabel from './TextInputLabel';
 import FormInput from './FormInput';
 import SelectInput from './SelectInput';
 import SelectInput2 from './SelectInput2';
@@ -16,6 +17,7 @@ import Card from './card/Card';
 import Data from './Data';
 
 export {
+  TextInputLabel,
   Header,
   Data,
   Modal,
