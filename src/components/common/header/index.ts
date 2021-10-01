@@ -5,6 +5,7 @@ import ChatTab from './ChatTab';
 import TutorInfo from './TutorInfo';
 import Payment from './Payment';
 import MyPageTab from './MyPageTab';
+import Basic from './Basic';
 
 export {Title, Container};
 
@@ -16,6 +17,7 @@ const Header = {
   Chat,
   ChatTab,
   Payment,
+  Basic,
 };
 
 export default Header;

@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 const Main = () => {
   return (
     <Tab.Navigator
-      initialRouteName="HomeTab"
+      initialRouteName="MyPageTab"
       backBehavior="initialRoute"
       tabBarOptions={{
         activeTintColor: colors.main,
