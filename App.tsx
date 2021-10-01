@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import axios from 'axios';
@@ -12,15 +12,15 @@ import Detail from './src/navigation/Detail';
 import TutorInfo from './src/navigation/TutorInfo';
 import Chat from './src/navigation/Chat';
 import MyPage from './src/navigation/MyPage';
+import EditProfile from './src/navigation/EditProfile';
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  console.log('BACKEND_URL=',BACKEND_URL)
-  const [isToken,setIsToken] = useState("")
+  const [isToken, setIsToken] = useState('');
   const token = AsyncStorage.getItem('accessToken', (err, result) => {
-    setIsToken(result)
-    return result
+    setIsToken(result);
+    return result;
   });
 
   axios.defaults.baseURL = BACKEND_URL;
@@ -45,6 +45,7 @@ const App = () => {
         <Stack.Screen name="TutorInfo" component={TutorInfo} />
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="MyPage" component={MyPage} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

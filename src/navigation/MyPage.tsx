@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import PurchasedScreen from '../screens/mypage/PurchasedScreen';
 import WishListScreen from '../screens/mypage/WishListScreen';
-import ChangeProfileScreen from '../screens/mypage/ChangeProfileScreen';
+import EditProfile from './EditProfile';
 import DashBoardActivityScreen from '../screens/mypage/DashBoardActivityScreen';
 import RequireClassScreen from '../screens/mypage/RequireClassScreen';
 import SettingScreen from '../screens/mypage/SettingScreen';
@@ -16,9 +16,9 @@ const Stack = createStackNavigator();
 const MyPage = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="Purchased" component={PurchasedScreen} />
       <Stack.Screen name="WishList" component={WishListScreen} />
-      <Stack.Screen name="ChangeProfile" component={ChangeProfileScreen} />
       <Stack.Screen
         name="DashBoardActivity"
         component={DashBoardActivityScreen}

@@ -26,7 +26,8 @@ export const plus = require('../assets/icons/plus.svg');
 export const setting = require('../assets/icons/setting.svg');
 export const wishlist = require('../assets/icons/wishlist.svg');
 export const purchased = require('../assets/icons/purchased.svg');
-
+export const outlined_right = require('../assets/icons/outlined_right.svg');
+export const edit_profile = require('../assets/icons/edit_profile.svg');
 export const home_selected = require('../assets/icons/home_selected.svg');
 export const home_unselected = require('../assets/icons/home_unselected.svg');
 export const free_board_selected = require('../assets/icons/free_board_selected.svg');
@@ -50,7 +51,9 @@ export default {
   back_arrow,
   setting,
   logo_icon,
+  edit_profile,
   logo_text,
+  outlined_right,
   alert,
   alert_dot,
   refresh,

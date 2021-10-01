@@ -8,7 +8,7 @@ type Props = {
   //  홈 아이콘 클릭시?
 };
 
-const MyPage = ({}: Props) => {
+const MyPageTab = ({}: Props) => {
   return (
     <Container>
       <View style={styles.padding}>
@@ -28,7 +28,7 @@ const MyPage = ({}: Props) => {
   );
 };
 
-export default MyPage;
+export default MyPageTab;
 
 const styles = StyleSheet.create({
   padding: {paddingHorizontal: width * 20, flexDirection: 'row'},
