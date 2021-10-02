@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, SafeAreaView, StyleSheet} from 'react-native';
+import {View, SafeAreaView, StyleSheet,Alert} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {height, colors} from '../../constants';
 import {LoginBtn, TradeMark, Title, SubTitle} from '../../components/login';
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const FindIdScreen = ({navigation}: Props) => {
-  axios.defaults.baseURL = "http://3.35.255.192:8081/";
+  
 
   const [email, setEmail] = useState('');
   const [visible, setVisible] = useState(false);
@@ -25,11 +25,11 @@ const FindIdScreen = ({navigation}: Props) => {
 
   const checkInputValue = () => {
 
-    if(email === '') alert('이메일을 입력해주세요.');
-    else if(!EmailValidator(email)) alert('이메일 형식이 올바르지 않습니다.');
+    if(email === '') Alert.alert('이메일을 입력해주세요.');
+    else if(!EmailValidator(email)) Alert.alert('이메일 형식이 올바르지 않습니다.');
     else {
         const isUserExist = checkIsUserExistByEmail(email);
-        if(!isUserExist) alert('등록된 회원 정보가 없습니다.');
+        if(!isUserExist) Alert.alert('등록된 회원 정보가 없습니다.');
         else setVisible(true);
     }
   }

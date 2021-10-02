@@ -36,7 +36,7 @@ const HomeTabScreen = ({navigation}: Props) => {
     axios
       .get('/lectures')
       .then(function (response) {
-        setLectureList(response.data);
+        setLectureList(response.data.content);
         setLectureCount(response.data.length);
       })
       .catch(function (error) {
