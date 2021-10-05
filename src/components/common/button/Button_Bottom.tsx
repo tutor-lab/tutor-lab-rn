@@ -4,34 +4,33 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {fonts, colors} from '../../../constants';
 
 type Props = {
-  text: string;
+  title: string;
   onPress: () => void;
 };
 
-const Button_48 = ({text, onPress}: Props) => {
+const Button_Bottom = ({title, onPress}: Props) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <View style={styles.btn_box}>
-        <Text style={[fonts[500], styles.btn_text]}>{text}</Text>
+      <View style={styles.wrapper}>
+        <Text style={[fonts[500], styles.text]}>{title}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default Button_48;
+export default Button_Bottom;
 
 const styles = StyleSheet.create({
   container: {
-    height: 48,
     width: '100%',
-  },
-  btn_box: {
-    borderRadius: 8,
     backgroundColor: colors.main,
+    height: 78,
+  },
+  wrapper: {
     height: '100%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  btn_text: {color: colors.white, fontSize: 15},
+  text: {color: colors.white, fontSize: 15},
 });

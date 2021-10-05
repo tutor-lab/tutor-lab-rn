@@ -39,6 +39,7 @@ export const my_page_unselected = require('../assets/icons/my_page_unselected.sv
 export const close = require('../assets/icons/close.svg');
 export const paymentList_checked = require('../assets/icons/paymentList_checked.svg');
 export const paymentList_unchecked = require('../assets/icons/paymentList_unchecked.svg');
+export const cancel = require('../assets/icons/cancel.svg');
 
 export default {
   logo,
@@ -51,6 +52,7 @@ export default {
   back_arrow,
   setting,
   logo_icon,
+  cancel,
   edit_profile,
   logo_text,
   outlined_right,
