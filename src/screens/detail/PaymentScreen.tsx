@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'react-native-gesture-handler';
 import {
   View,
@@ -22,9 +22,14 @@ type Props = {
 };
 
 const PaymentScreen = ({navigation, route}: Props) => {
+  const [enrollId, setEnrollId] = useState(0);
+
   const onPayment = () => {
+    if (enrollId === 0) {
+      return Alert.alert('옵션을 선택해주세요.');
+    }
     axios
-      .post(`/lectures/${route.params.itemId}/enrollments`)
+      .post(`/lectures/${route.params.itemId}/${enrollId}/enrollments`)
       .then(function (response) {
         if (response.status === 201) {
           Alert.alert('강의신청이 완료되었습니다!');
@@ -32,7 +37,9 @@ const PaymentScreen = ({navigation, route}: Props) => {
         }
       })
       .catch(function (error) {
-        console.log(error);
+        if (error.response.data.code === 400) {
+          Alert.alert(error.response.data.message);
+        }
       });
   };
 
@@ -46,9 +53,14 @@ const PaymentScreen = ({navigation, route}: Props) => {
           <View style={styles.option}>
             <Text style={[fonts[700], styles.text]}>옵션 선택</Text>
           </View>
-          {route.params.lecturePrices.map((item:any)=>
-            <PaymentList checked={true} item={item} />
-          )}
+          {route.params.lecturePrices.map((item: any) => (
+            <PaymentList
+              checked={true}
+              item={item}
+              enrollId={enrollId}
+              setEnrollId={setEnrollId}
+            />
+          ))}
           {/* <PaymentList checked={true} /> */}
           {/* <PaymentList checked={false} /> */}
         </View>

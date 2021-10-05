@@ -1,14 +1,32 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 
 import {colors, fonts, icons} from '../../constants';
 import {WithLocalSvg} from 'react-native-svg/src';
 import {Line} from '../common';
 
-type Props = {checked: boolean,item:any};
-const PaymentList = ({checked,item}: Props) => {
-   
+type Props = {checked: boolean; item: any; enrollId: any; setEnrollId: any};
+const PaymentList = ({checked, item, enrollId, setEnrollId}: Props) => {
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [checkNumber, setCheckNumber] = useState(0);
+  useEffect(() => {
+    item.checked = toggleCheckBox;
+  }, [toggleCheckBox]);
+
+  const handleCheckBox = (value: boolean, Id: number) => {
+    if (item.lecturePriceId === Id) {
+      setToggleCheckBox(value);
+      setEnrollId(Id);
+      setCheckNumber(Id);
+    }
+    if (toggleCheckBox) {
+      setEnrollId(0);
+      setCheckNumber(0);
+    }
+  };
+
   return (
     <TouchableOpacity
       activeOpacity={1}
@@ -19,12 +37,21 @@ const PaymentList = ({checked,item}: Props) => {
       <View style={styles.priceContainer}>
         <View style={styles.checkBoxContainer}>
           <View
-            style={[
-              styles.checkBox,
-              checked
-                ? {borderColor: colors.main, backgroundColor: colors.main}
-                : {borderColor: colors.line, backgroundColor: colors.white},
-            ]}>
+            style={
+              [
+                // styles.checkBox,
+                // checked
+                //   ? {borderColor: colors.main, backgroundColor: colors.main}
+                //   : {borderColor: colors.line, backgroundColor: colors.white},
+              ]
+            }>
+            <CheckBox
+              disabled={false}
+              value={enrollId === checkNumber ? toggleCheckBox : false}
+              onValueChange={newValue =>
+                handleCheckBox(newValue, item.lecturePriceId)
+              }
+            />
             {checked ? (
               <WithLocalSvg asset={icons.paymentList_checked} />
             ) : (
@@ -44,7 +71,10 @@ const PaymentList = ({checked,item}: Props) => {
       <View style={{paddingVertical: 12}}>
         <View style={styles.row}>
           {/* <Text style={styles.matchingText1}>1:1</Text> */}
-          <Text style={[fonts[700], styles.matchingText2]}> {item.isGroupStr}</Text>
+          <Text style={[fonts[700], styles.matchingText2]}>
+            {' '}
+            {item.isGroupStr}
+          </Text>
         </View>
         <View style={{paddingVertical: 6}}>
           {/* <Text style={[styles.explainText, fonts[400]]}>
@@ -52,7 +82,9 @@ const PaymentList = ({checked,item}: Props) => {
            
           </Text> */}
           <View style={styles.row}>
-            <Text style={[styles.explainText, fonts[400]]}>{item.content} </Text>
+            <Text style={[styles.explainText, fonts[400]]}>
+              {item.content}{' '}
+            </Text>
             {/* <Text style={styles.explainText}>00000</Text>
             <Text style={[styles.explainText, fonts[400]]}>원 x </Text>
             <Text style={styles.explainText}>1</Text>
@@ -68,7 +100,7 @@ const PaymentList = ({checked,item}: Props) => {
   );
 };
 
-export default PaymentList;
+export default React.memo(PaymentList);
 
 var styles = StyleSheet.create({
   container: {
