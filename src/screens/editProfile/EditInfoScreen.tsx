@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import 'react-native-gesture-handler';
 import {
   SafeAreaView,
@@ -10,11 +10,19 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 
-import {Header, TextInput, Data, TextInputLabel} from '../../components/common';
-import {MyInfo, Gender} from '../../types/data';
-import {colors, fonts, width} from '../../constants';
+import {
+  Header,
+  TextInput,
+  Data,
+  Button,
+  TextInputLabel,
+} from '../../components/common';
 
-const EditInfoScreen = ({navigation}) => {
+import {Modals} from '../../components/editProfile';
+import {MyInfo, Gender} from '../../types/data';
+import {colors, fonts, height, width} from '../../constants';
+
+const EditInfoScreen = ({navigation}: any) => {
   const [birth, setBirth] = useState<string>('');
   const [email, setEmail] = useState<string>(''); //이메일
   const [gender, setGender] = useState<string>(''); //성별
@@ -22,6 +30,16 @@ const EditInfoScreen = ({navigation}) => {
   const [name, setName] = useState<string>(''); //성명
   const [number, setNumber] = useState<string>(''); //성명
   const [zone, setZone] = useState<string>(''); //주소
+  const [siGun, setSiGun] = useState<string>(''); //주소
+  const [dong, setDong] = useState<string>(''); //주소
+  const [state, setState] = useState<string>(''); //주소
+
+  const splitZone = (zone: string) => {
+    const arr = zone.split(' ');
+    setState(arr[0]);
+    setDong(arr[1]);
+    setSiGun(arr[2]);
+  };
 
   const getUserInfo = async () => {
     try {
@@ -32,7 +50,7 @@ const EditInfoScreen = ({navigation}) => {
         chkGender(res.data.gender);
         setName(res.data.name);
         setNumber(res.data.phoneNumber);
-        setZone(res.data.zone);
+        splitZone(res.data.zone);
         return res;
       });
     } catch (error) {
@@ -49,6 +67,17 @@ const EditInfoScreen = ({navigation}) => {
     setGenderData(findIdx);
     setGender(genderData.filter(curr => curr.isTrue)[0].text);
   };
+
+  useEffect(() => {
+    axios
+      .get('/addresses/states')
+      .then(res => {
+        setZone(res.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
     getUserInfo();
@@ -109,7 +138,7 @@ const EditInfoScreen = ({navigation}) => {
             <TextInputLabel title={'주소'} />
             <View style={styles.textInputBox}>
               <TextInput
-                value={zone}
+                // value={zone}
                 onChangeText={(t: string) => setName(t)}
                 placeholder={'주소'}
               />
@@ -117,6 +146,7 @@ const EditInfoScreen = ({navigation}) => {
           </View>
         </View>
       </KeyboardAwareScrollView>
+      <Button.Button_Bottom title={'저장'} onPress={() => console.log('')} />
     </SafeAreaView>
   );
 };

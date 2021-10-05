@@ -43,7 +43,6 @@ const HomeTabScreen = ({navigation}: Props) => {
         console.log(error);
       });
   }, []);
-
   return (
     // <View style={{height: '100%'}}>
     //   <LinearGradient
