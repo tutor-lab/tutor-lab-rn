@@ -36,14 +36,13 @@ const HomeTabScreen = ({navigation}: Props) => {
     axios
       .get('/lectures')
       .then(function (response) {
-        setLectureList(response.data);
-        setLectureCount(response.data.length);
+        setLectureList(response.data.content);
+        setLectureCount(response.data.content.length);
       })
       .catch(function (error) {
         console.log(error);
       });
   }, []);
-
   return (
     // <View style={{height: '100%'}}>
     //   <LinearGradient
