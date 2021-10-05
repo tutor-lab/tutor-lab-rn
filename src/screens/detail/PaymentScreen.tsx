@@ -25,22 +25,22 @@ const PaymentScreen = ({navigation, route}: Props) => {
   const [enrollId, setEnrollId] = useState(0);
 
   const onPayment = () => {
-    console.log('enrollId=', enrollId);
     if (enrollId === 0) {
       return Alert.alert('옵션을 선택해주세요.');
     }
-    // axios
-    //   .post(`/lectures/${route.params.itemId}/${enrollId}/enrollments`)
-    //   .then(function (response) {
-    //     console.log(response);
-    //     if (response.status === 201) {
-    //       Alert.alert('강의신청이 완료되었습니다!');
-    //       navigation.navigate('Main');
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    axios
+      .post(`/lectures/${route.params.itemId}/${enrollId}/enrollments`)
+      .then(function (response) {
+        if (response.status === 201) {
+          Alert.alert('강의신청이 완료되었습니다!');
+          navigation.navigate('Main');
+        }
+      })
+      .catch(function (error) {
+        if (error.response.data.code === 400) {
+          Alert.alert(error.response.data.message);
+        }
+      });
   };
 
   return (
