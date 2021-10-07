@@ -9,42 +9,34 @@ import {
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
+import EmailValidator from 'aj-email-validator';
 
 import {
   Header,
   TextInput,
-  Data,
   Button,
+  Data,
   TextInputLabel,
 } from '../../components/common';
 
 import {Modals} from '../../components/editProfile';
 import {MyInfo, Gender} from '../../types/data';
-import {colors, fonts, height, width} from '../../constants';
+import {colors, fonts, height, width, utils} from '../../constants';
 
 const EditInfoScreen = ({navigation}: any) => {
   const [birth, setBirth] = useState<string>('');
   const [email, setEmail] = useState<string>(''); //이메일
-  const [gender, setGender] = useState<string>(''); //성별
-  const [genderData, setGenderData] = useState<Gender[]>(Data.Gender);
+  const [gender, setGender] = useState<Gender>(Data.Gender[0]); //성별
   const [name, setName] = useState<string>(''); //성명
   const [number, setNumber] = useState<string>(''); //성명
-  const [zone, setZone] = useState<string>(''); //주소
+  const [states, setSates] = useState<string>(''); //주소
   const [siGun, setSiGun] = useState<string>(''); //주소
   const [dong, setDong] = useState<string>(''); //주소
   const [state, setState] = useState<string>(''); //주소
 
-  const splitZone = (zone: string) => {
-    const arr = zone.split(' ');
-    setState(arr[0]);
-    setDong(arr[1]);
-    setSiGun(arr[2]);
-  };
-
   const getUserInfo = async () => {
     try {
       await axios.get('/users/my-info').then((res: MyInfo) => {
-        console.log(res.data);
         setBirth(res.data.birth);
         setEmail(res.data.email);
         chkGender(res.data.gender);
@@ -58,21 +50,28 @@ const EditInfoScreen = ({navigation}: any) => {
     }
   };
 
-  const chkGender = (chk: string) => {
-    const findIdx = genderData.map(curr => {
-      return curr.gender === `${chk}`
-        ? {...curr, isTrue: true}
-        : {...curr, isTrue: false};
-    });
-    setGenderData(findIdx);
-    setGender(genderData.filter(curr => curr.isTrue)[0].text);
+  const splitZone = (zone: string) => {
+    const arr = zone.split(' ');
+    setState(arr[0]);
+    setDong(arr[1]);
+    setSiGun(arr[2]);
+  };
+
+  const chkGender = (value: string) => {
+    const data = utils.genderValdator(value);
+    setGender(data);
+  };
+
+  const toggleGender = (value: Gender) => {
+    const data = utils.toggleGender(value);
+    setGender(data);
   };
 
   useEffect(() => {
     axios
       .get('/addresses/states')
       .then(res => {
-        setZone(res.data);
+        setSates(res.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -108,18 +107,23 @@ const EditInfoScreen = ({navigation}: any) => {
               />
             </View>
           </View>
-          <View style={[styles.textInputContainer, {flexDirection: 'row'}]}>
+          <View style={[styles.textInputContainer, styles.row]}>
             <View style={styles.flex}>
               <TextInputLabel title={'성별'} />
               <TouchableOpacity
-                style={[styles.textInputBox, styles.row]}
-                onPress={() => console.log('')}>
-                <TextInput editable={false} value={gender} maxLength={2} />
+                activeOpacity={0.5}
+                style={[styles.textInputBox, styles.rowWidth]}
+                onPress={() => toggleGender(gender)}>
+                <TextInput
+                  editable={false}
+                  value={gender?.text}
+                  maxLength={2}
+                />
               </TouchableOpacity>
             </View>
             <View style={styles.flex}>
               <TextInputLabel title={'출생년도'} />
-              <View style={[styles.textInputBox, styles.row]}>
+              <View style={[styles.textInputBox, styles.rowWidth]}>
                 <TextInput placeholder={'XXXX'} maxLength={4} />
               </View>
             </View>
@@ -128,20 +132,44 @@ const EditInfoScreen = ({navigation}: any) => {
             <TextInputLabel title={'휴대폰 번호'} />
             <View style={styles.textInputBox}>
               <TextInput
+                keyboardType={'numeric'}
                 value={number}
                 onChangeText={(t: string) => setName(t)}
                 placeholder={'010-XXXX-XXXX'}
               />
             </View>
           </View>
-          <View style={styles.textInputContainer}>
-            <TextInputLabel title={'주소'} />
-            <View style={styles.textInputBox}>
-              <TextInput
-                // value={zone}
-                onChangeText={(t: string) => setName(t)}
-                placeholder={'주소'}
-              />
+          <View style={[styles.textInputContainer, styles.row]}>
+            <View style={styles.flex}>
+              <TextInputLabel title={'주'} />
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={[styles.textInputBox, styles.rowWidth]}
+                onPress={() => console.log('부산광역시')}>
+                <TextInput placeholder={'주'} editable={false} value={state} />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.flex}>
+              <TextInputLabel title={'시/군'} />
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={[styles.textInputBox, styles.rowWidth]}
+                onPress={() => console.log('시/군')}>
+                <TextInput
+                  placeholder={'시/군'}
+                  editable={false}
+                  value={siGun}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.flex}>
+              <TextInputLabel title={'동'} />
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={[styles.textInputBox, styles.rowWidth]}
+                onPress={() => console.log('동')}>
+                <TextInput editable={false} placeholder={'동'} value={dong} />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -163,7 +191,8 @@ const styles = StyleSheet.create({
     height: 50,
   },
   flex: {flex: 1},
-  row: {width: '95%'},
+  row: {flexDirection: 'row'},
+  rowWidth: {width: '95%'},
   textInputContainer: {paddingBottom: 13},
   textLabel: {paddingLeft: 18, fontSize: 14, color: colors.main},
 });

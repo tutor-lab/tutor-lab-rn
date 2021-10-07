@@ -75,5 +75,4 @@ export type Gender = {
   id: number;
   gender: string;
   text: string;
-  isTrue: boolean;
 };
