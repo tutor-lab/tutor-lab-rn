@@ -7,6 +7,7 @@ type Props = React.ComponentProps<typeof TextInput> & {
   fontSize?: number;
   paddingHorizontal?: number;
   width?: string;
+  backgroundColor?: string;
 };
 
 const Input = ({
