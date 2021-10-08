@@ -15,6 +15,7 @@ import TuteeBox from './TuteeBox';
 import Header from './header';
 import Card from './card/Card';
 import Data from './Data';
+import Picker from './Picker';
 
 export {
   TextInputLabel,
@@ -34,4 +35,5 @@ export {
   Selected,
   UnSelected,
   Line,
+  Picker,
 };

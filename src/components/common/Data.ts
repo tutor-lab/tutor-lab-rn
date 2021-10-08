@@ -269,8 +269,8 @@ export const GroupData = [
 ];
 
 export const Gender = [
-  {id: 0, gender: 'FEMALE', text: '여성', isTrue: true},
-  {id: 1, gender: 'MALE', text: '남성', isTrue: false},
+  {id: 0, gender: 'FEMALE', text: '여성'},
+  {id: 1, gender: 'MALE', text: '남성'},
 ];
 
 export default {Card, DifficultyData, GroupData, Gender};

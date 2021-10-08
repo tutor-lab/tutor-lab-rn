@@ -37,7 +37,7 @@ const HomeTabScreen = ({navigation}: Props) => {
       .get('/lectures')
       .then(function (response) {
         setLectureList(response.data.content);
-        setLectureCount(response.data.length);
+        setLectureCount(response.data.content.length);
       })
       .catch(function (error) {
         console.log(error);

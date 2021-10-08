@@ -75,5 +75,9 @@ export type Gender = {
   id: number;
   gender: string;
   text: string;
-  isTrue: boolean;
+};
+
+export type Zone = {
+  label: string;
+  value: string;
 };

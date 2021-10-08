@@ -40,6 +40,7 @@ export const close = require('../assets/icons/close.svg');
 export const paymentList_checked = require('../assets/icons/paymentList_checked.svg');
 export const paymentList_unchecked = require('../assets/icons/paymentList_unchecked.svg');
 export const cancel = require('../assets/icons/cancel.svg');
+export const picker = require('../assets/icons/picker.svg');
 
 export default {
   logo,
@@ -84,4 +85,5 @@ export default {
   plus,
   wishlist,
   purchased,
+  picker,
 };

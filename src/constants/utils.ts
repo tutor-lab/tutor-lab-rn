@@ -1,3 +1,6 @@
+import {Data} from '../components/common';
+import {Gender} from '../types/data';
+
 export const numberWithCommas = x => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
@@ -22,4 +25,34 @@ export const convertHours = (
   setValue(convertH);
 };
 
-export default {numberWithCommas, parseToday, chkMeridiem, convertHours};
+const pwdValidator = (value: string) => {
+  if (value.length < 6 || value.length > 14) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const genderValdator = (value: string) => {
+  const data = Data.Gender.filter((curr: Gender) => {
+    return curr.gender === value;
+  });
+  return data[0];
+};
+
+const toggleGender = (value: Gender) => {
+  const data = Data.Gender.filter((curr: Gender) => {
+    return curr.gender !== value.gender;
+  });
+  return data[0];
+};
+
+export default {
+  numberWithCommas,
+  parseToday,
+  chkMeridiem,
+  convertHours,
+  pwdValidator,
+  genderValdator,
+  toggleGender,
+};
