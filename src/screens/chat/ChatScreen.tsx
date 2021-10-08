@@ -56,8 +56,6 @@ const ChatScreen = ({navigation, route}: Props) => {
   }, []);
 
   const sendMsgEnter = (data: string) => {
-    console.log('data=', data);
-    console.log('route.params.chatRoomId=', route.params.chatRoomId);
     ws.send(
       JSON.stringify({
         username: user.name,
