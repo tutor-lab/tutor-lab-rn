@@ -76,3 +76,8 @@ export type Gender = {
   gender: string;
   text: string;
 };
+
+export type Zone = {
+  label: string;
+  value: string;
+};
