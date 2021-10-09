@@ -297,10 +297,16 @@ const EditInfoScreen = ({navigation}: any) => {
             : setDong
         }
       />
-      <Modals.Container visible={modal}>
+      <Modals.Container visible={modal} setVisible={setModal}>
         <Modals.Title text={'회원정보 수정'} />
         <Modals.Description text={modalDescription} />
-        <Modals.OneBtn text={'확인'} onPress={() => navigation.goBack()} />
+        <Modals.OneBtn
+          text={'확인'}
+          onPress={() => {
+            setModal(false);
+            navigation.goBack();
+          }}
+        />
       </Modals.Container>
     </SafeAreaView>
   );

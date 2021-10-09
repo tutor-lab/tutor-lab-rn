@@ -6,8 +6,8 @@ import {colors, fonts, width} from '../../../constants';
 type Props = {
   textCancel: string;
   textOk: string;
-  onPressCancel: () => void;
-  onPressOk: () => void;
+  onPressCancel: any;
+  onPressOk: any;
 };
 
 const TwoBtn = ({onPressCancel, onPressOk, textCancel, textOk}: Props) => {

@@ -1,3 +1,5 @@
+declare module 'aj-email-validator';
+
 type LoginStackParamList = {
   Login: undefined;
   LoginIntro: undefined;

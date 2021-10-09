@@ -5,11 +5,11 @@ import {width, colors} from '../../../constants';
 
 type Props = {
   visible: boolean;
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
   children: any;
 };
 
-const Container = ({visible, children}: Props) => {
-  const [showModal, setShowModal] = React.useState(visible);
+const Container = ({visible, setVisible, children}: Props) => {
   const scaleValue: Animated.Value = React.useRef(
     new Animated.Value(0),
   ).current;
@@ -20,14 +20,14 @@ const Container = ({visible, children}: Props) => {
 
   const toggleModal = () => {
     if (visible) {
-      setShowModal(true);
+      setVisible(true);
       Animated.spring(scaleValue, {
         toValue: 1,
         duration: 200,
         useNativeDriver: true,
       }).start();
     } else {
-      setTimeout(() => setShowModal(false), 200);
+      setTimeout(() => setVisible(false), 200);
       Animated.timing(scaleValue, {
         toValue: 0,
         duration: 200,
@@ -36,7 +36,7 @@ const Container = ({visible, children}: Props) => {
     }
   };
   return (
-    <Modal transparent visible={showModal}>
+    <Modal transparent visible={visible}>
       <View style={styles.container}>
         <View style={styles.modalView}>
           <Animated.View
