@@ -273,4 +273,54 @@ export const Gender = [
   {id: 1, gender: 'MALE', text: '남성'},
 ];
 
-export default {Card, DifficultyData, GroupData, Gender};
+export const WithdrawalDescription = [
+  {
+    id: 0,
+    text: '탈퇴 시 현재 구매한 강의 및 관심 강의 목록이 모두 사라집니다. 탈퇴 후 환불은 불가하니 확인바랍니다.',
+  },
+  {
+    id: 1,
+    text: '탈퇴 시 작성한 리뷰 및 게시물은 자동 삭제되지 않으며, 추후 수정/삭제가 불가하니 탈퇴 전 확인바랍니다.',
+  },
+  {
+    id: 2,
+    text: '탈퇴사유를 선택해주시면, 앱 개선에 중요 자료로 활용 하겠습니다. 감사합니다.',
+  },
+];
+
+export const WithdrawalCheckList = [
+  {
+    id: 0,
+    text: '마음에 드는 강의가 없어서',
+    isSelected: false,
+  },
+  {
+    id: 1,
+    text: '이용이 불편하고 오류가 많아서',
+    isSelected: false,
+  },
+  {
+    id: 2,
+    text: '강의 이용료가 부담되서',
+    isSelected: false,
+  },
+  {
+    id: 3,
+    text: '활용도가 낮아서',
+    isSelected: false,
+  },
+  {
+    id: 4,
+    text: '기타',
+    isSelected: false,
+  },
+];
+
+export default {
+  Card,
+  DifficultyData,
+  GroupData,
+  Gender,
+  WithdrawalDescription,
+  WithdrawalCheckList,
+};
