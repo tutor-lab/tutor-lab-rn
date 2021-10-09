@@ -5,7 +5,7 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Alert,
+  Keyboard,
   Text,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -23,13 +23,14 @@ import {
 import {Zone} from '../../types/data';
 import {Modals} from '../../components/editProfile';
 import {MyInfo, Gender} from '../../types/data';
-import {colors, width, utils, icons} from '../../constants';
+import {colors, width, utils, icons, fonts} from '../../constants';
 
 const EditInfoScreen = ({navigation}: any) => {
   const [picker, setPicker] = useState<boolean>(false);
   const [pickerTitle, setPickerTitle] = useState<string>('');
   const [pickerItmes, setPickerItems] = useState<Zone[] | undefined>();
   const [modal, setModal] = useState<boolean>(false);
+  const [modalDescription, setModalDescription] = useState<string>('');
   const [birth, setBirth] = useState<string>('');
   const [email, setEmail] = useState<string>(''); //이메일
   const [gender, setGender] = useState<Gender>(Data.Gender[0]); //성별
@@ -41,6 +42,7 @@ const EditInfoScreen = ({navigation}: any) => {
   const [siGun, setSiGun] = useState<string>('');
   const [dong, setDong] = useState<string>('');
   const [state, setState] = useState<string>('');
+  const [errorText, setErrorText] = useState<string>('');
 
   const getUserInfo = async () => {
     try {
@@ -49,7 +51,7 @@ const EditInfoScreen = ({navigation}: any) => {
         setEmail(res.data.email);
         chkGender(res.data.gender);
         setName(res.data.name);
-        setNumber(res.data.phoneNumber);
+        setNumber(res.data.phoneNumber ? res.data.phoneNumber : '');
         splitZone(res.data.zone);
         return res;
       });
@@ -104,7 +106,7 @@ const EditInfoScreen = ({navigation}: any) => {
         setDongs(response.data);
       })
       .catch(e => console.log(e));
-  }, [siGun, state]);
+  }, [siGun]);
 
   useEffect(() => {
     getUserInfo();
@@ -119,40 +121,52 @@ const EditInfoScreen = ({navigation}: any) => {
   };
 
   const sendInfo = () => {
-    const data = {
-      email: email,
-      birth: birth,
-      gender: gender.gender,
-      name: name,
-      phoneNumber: number,
-      zone: sendZone(),
-    };
-    console.log(data);
-    // axios
-    //   .put('/users', {
-    //     email: email,
-    //     birth: birth,
-    //     gender: gender.gender,
-    //     name: name,
-    //     phoneNumber: number,
-    //     zone: sendZone(),
-    //   })
-    //   .then(function (response) {
-    //     if (response.status === 201) {
-    //       console.log(response.data);
-    //       console.log(response.status);
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error.message);
-    //   });
+    Keyboard.dismiss();
+    if (!EmailValidator(email)) {
+      setErrorText('이메일을 정확히 입력해 주세요.');
+    } else if (name.length === 0) {
+      setErrorText('성명을 정확히 입력해 주세요.');
+    } else if (!utils.birthValidator(birth)) {
+      setErrorText('출생년도를 정확히 입력해 주세요.');
+    } else if (number.length === 0) {
+      setErrorText('번호를 정확히 입력해 주세요.');
+    } else if (state.length === 0) {
+      setErrorText('주를 선택해 주세요.');
+    } else if (siGun.length === 0) {
+      setErrorText('시/군을 선택해 주세요.');
+    } else if (dong.length === 0) {
+      setErrorText('동을 선택해 주세요.');
+    } else {
+      axios
+        .put('/users', {
+          email: email,
+          name: name,
+          gender: gender.gender,
+          birth: birth,
+          phoneNumber: number,
+          zone: sendZone(),
+        })
+        .then(res => {
+          if (res.status === 201) {
+            setErrorText('');
+            setModalDescription('수정이 완료되었습니다.');
+            setModal(true);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          setModalDescription('오류가 발생하였습니다.');
+          setModal(true);
+        });
+    }
   };
+
   const togglePicker = (title: string, items: Zone[] | undefined) => {
     setPickerTitle(title);
     setPicker(true);
     setPickerItems(items);
   };
-  console.log(picker);
+
   return (
     <SafeAreaView style={styles.container}>
       <Header.Basic title={'회원정보 수정'} navigation={navigation} />
@@ -201,9 +215,11 @@ const EditInfoScreen = ({navigation}: any) => {
               <TextInputLabel title={'출생년도'} />
               <View style={[styles.textInputBox, styles.rowWidth]}>
                 <TextInput
+                  keyboardType={'numeric'}
                   placeholder={'XXXX'}
                   maxLength={4}
-                  onChangeText={(e: string) => setNumber(e)}
+                  value={birth}
+                  onChangeText={(e: string) => setBirth(e)}
                 />
               </View>
             </View>
@@ -212,10 +228,11 @@ const EditInfoScreen = ({navigation}: any) => {
             <TextInputLabel title={'휴대폰 번호'} />
             <View style={styles.textInputBox}>
               <TextInput
-                keyboardType={'numeric'}
                 value={number}
-                onChangeText={(t: string) => setName(t)}
-                placeholder={'010-XXXX-XXXX'}
+                keyboardType={'numeric'}
+                placeholder={'번호를 입력해 주세요.'}
+                maxLength={11}
+                onChangeText={(e: string) => setNumber(e)}
               />
             </View>
           </View>
@@ -263,6 +280,7 @@ const EditInfoScreen = ({navigation}: any) => {
               </TouchableOpacity>
             </View>
           </View>
+          <Text style={[fonts[400], styles.errorText]}>{errorText}</Text>
         </View>
       </KeyboardAwareScrollView>
       <Button.Button_Bottom title={'저장'} onPress={() => sendInfo()} />
@@ -271,7 +289,25 @@ const EditInfoScreen = ({navigation}: any) => {
         visible={picker}
         setVisible={setPicker}
         items={pickerItmes}
+        setItem={
+          pickerTitle === '주'
+            ? setState
+            : pickerTitle === '시/군'
+            ? setSiGun
+            : setDong
+        }
       />
+      <Modals.Container visible={modal} setVisible={setModal}>
+        <Modals.Title text={'회원정보 수정'} />
+        <Modals.Description text={modalDescription} />
+        <Modals.OneBtn
+          text={'확인'}
+          onPress={() => {
+            setModal(false);
+            navigation.goBack();
+          }}
+        />
+      </Modals.Container>
     </SafeAreaView>
   );
 };
@@ -303,4 +339,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingRight: 18,
   },
+  errorText: {fontSize: 12, color: colors.red},
 });

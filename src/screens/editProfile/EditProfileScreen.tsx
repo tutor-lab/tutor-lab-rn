@@ -1,14 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'react-native-gesture-handler';
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {colors, width} from '../../constants';
 import {Header, Line} from '../../components/common';
-import {NaviList, ImageSection, Data} from '../../components/editProfile';
+import {
+  NaviList,
+  ImageSection,
+  Modals,
+  Data,
+} from '../../components/editProfile';
 
 type Props = {navigation: any};
 
 const EditProfileScreen = ({navigation}: Props) => {
+  const [modal, setModal] = useState<boolean>(false);
+
+  const logout = () => {
+    setModal(false);
+    AsyncStorage.clear();
+    navigation.replace('Login', {screen: 'LoginIntro'});
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header.Basic title={'프로필 수정'} navigation={navigation} />
@@ -23,13 +37,23 @@ const EditProfileScreen = ({navigation}: Props) => {
                 list={item}
                 onPress={() =>
                   item.navigation === 'Logout'
-                    ? console.log('토글 로그아웃')
+                    ? setModal(true)
                     : navigation.navigate(item.navigation)
                 }
               />
             ))}
           </View>
         </View>
+        <Modals.Container visible={modal} setVisible={setModal}>
+          <Modals.Title text={'로그아웃'} />
+          <Modals.Description text={'로그아웃을 하시겠습니까?'} />
+          <Modals.TwoBtn
+            onPressCancel={() => setModal(false)}
+            onPressOk={() => logout()}
+            textCancel={'아니요'}
+            textOk={'예'}
+          />
+        </Modals.Container>
       </ScrollView>
     </SafeAreaView>
   );

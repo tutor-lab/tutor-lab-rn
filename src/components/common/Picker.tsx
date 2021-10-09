@@ -19,9 +19,10 @@ type Props = {
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
   items: Zone[] | undefined;
+  setItem: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Picker = ({title, visible, setVisible, items}: Props) => {
+const Picker = ({title, visible, setVisible, items, setItem}: Props) => {
   const scaleValue: Animated.Value = React.useRef(
     new Animated.Value(0),
   ).current;
@@ -91,7 +92,10 @@ const Picker = ({title, visible, setVisible, items}: Props) => {
                       <TouchableOpacity
                         key={item.value}
                         activeOpacity={1}
-                        onPress={() => console.log(item.value)}
+                        onPress={() => {
+                          setItem(item.value);
+                          setVisible(false);
+                        }}
                         style={styles.itemWrapper}>
                         <Text style={[fonts[500], styles.item]}>
                           {item.value}
