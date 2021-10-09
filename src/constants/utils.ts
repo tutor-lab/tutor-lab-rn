@@ -47,12 +47,26 @@ const toggleGender = (value: Gender) => {
   return data[0];
 };
 
+export const birthValidator = (value: string) => {
+  let birthReg = /^(19|20)[0-9]{2}$/;
+  let now = new Date();
+  let currentYear = now.getFullYear();
+  let n = currentYear - parseInt(value);
+
+  if (n < 0) {
+    return false;
+  } else {
+    return birthReg.test(value);
+  }
+};
+
 export default {
   numberWithCommas,
   parseToday,
   chkMeridiem,
   convertHours,
   pwdValidator,
+  birthValidator,
   genderValdator,
   toggleGender,
 };
