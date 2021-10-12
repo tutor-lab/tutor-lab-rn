@@ -1,10 +1,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import HomeTab from './HomeTab';
-import FreeBoardTab from './FreeBoardTab';
-import MyPageTab from './MyPageTab';
-import ChatTab from './ChatTab';
+import HomeTab from '../screens/main/HomeTabScreen';
+import FreeBoardTab from '../screens/main/FreeBoardTabScreen';
+import MyPageTab from '../screens/main/MyPageTabScreen';
+import ChatTab from '../screens/main/ChatTabScreen';
 import {TabBar} from '../components/main';
 
 const Main = () => {

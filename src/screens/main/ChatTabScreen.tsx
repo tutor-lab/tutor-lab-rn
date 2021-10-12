@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import {colors, width} from '../../constants';
 import {Header} from '../../components/common';
-import {SearchBar, ChatList} from '../../components/chatTab';
+import {SearchBar, ChatList} from '../../components/chattab';
 import axios from 'axios';
 
-const ChatScreen = ({navigation}: any) => {
+const ChatTabScreen = ({navigation}: any) => {
   const [searchText, setSearchText] = useState('');
   const [contentList, setContentList] = useState([]);
 
@@ -56,7 +56,7 @@ const ChatScreen = ({navigation}: any) => {
   );
 };
 
-export default ChatScreen;
+export default ChatTabScreen;
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.white, alignItems: 'center'},

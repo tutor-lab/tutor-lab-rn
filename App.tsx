@@ -10,9 +10,9 @@ import Signup from './src/navigation/Signup';
 import Main from './src/navigation/Main';
 import Detail from './src/navigation/Detail';
 import TutorInfo from './src/screens/tutorInfo/TutorInfoScreen';
-import MyPageList from './src/navigation/MyPageList';
+import MyPage from './src/navigation/Mypage';
 import EditProfile from './src/navigation/EditProfile';
-import ChatDetail from './src/screens/chatdetail/ChatDetailScreen';
+import Chat from './src/screens/chat/ChatScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,8 +43,8 @@ const App = () => {
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="TutorInfo" component={TutorInfo} />
-        <Stack.Screen name="ChatDetail" component={ChatDetail} />
-        <Stack.Screen name="MyPageList" component={MyPageList} />
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="MyPage" component={MyPage} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>

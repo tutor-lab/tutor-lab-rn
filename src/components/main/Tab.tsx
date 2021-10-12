@@ -30,7 +30,11 @@ export default function BottomTab({isFocused, index, label, onPress}: ITab) {
       style={styles.container}
       onPress={() => onPress()}>
       <WithLocalSvg asset={icon[index].icon} />
-      <Text style={[isFocused ? styles.focus : styles.unfocus, styles.text]}>
+      <Text
+        style={[
+          isFocused ? (fonts[400], styles.focus) : (fonts[400], styles.unfocus),
+          styles.text,
+        ]}>
         {label}
       </Text>
     </TouchableOpacity>

@@ -13,7 +13,7 @@ import ContactUsScreen from '../screens/mypage/ContactUsScreen';
 
 const Stack = createNativeStackNavigator();
 
-const MyPageList = () => {
+const Mypage = () => {
   return (
     <Stack.Navigator
       initialRouteName={'EditProfile'}
@@ -34,4 +34,4 @@ const MyPageList = () => {
   );
 };
 
-export default MyPageList;
+export default Mypage;

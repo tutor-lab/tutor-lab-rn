@@ -50,7 +50,14 @@ const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
 export default TabBar;
 
 const styles = StyleSheet.create({
-  container: {height: 68, backgroundColor: colors.white, width: '100%'},
+  container: {
+    position: 'absolute',
+    bottom: 0,
+    paddingTop: 15.5,
+    paddingBottom: 12,
+    backgroundColor: colors.white,
+    width: '100%',
+  },
   tabWrapper: {
     flexDirection: 'row',
     height: '100%',

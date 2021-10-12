@@ -10,7 +10,7 @@ import {
   ImageSection,
   Modals,
   Data,
-} from '../../components/editProfile';
+} from '../../components/editprofile';
 
 type Props = {navigation: any};
 

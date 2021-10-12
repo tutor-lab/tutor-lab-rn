@@ -9,7 +9,7 @@ import {
   Profile,
   Version,
   Data,
-} from '../../components/myPageTab';
+} from '../../components/mypagetab';
 import {Header, Line} from '../../components/common';
 
 type Props = {navigation: any};
@@ -23,7 +23,7 @@ const MyPageTabScreen = ({navigation}: Props) => {
         <Profile
           profile={Data.Profile}
           onPress={() =>
-            navigation.navigate('MyPageList', {screen: 'ChangeProfile'})
+            navigation.navigate('MyPage', {screen: 'ChangeProfile'})
           }
         />
         <View style={styles.bigBtnWrapper}>
@@ -33,7 +33,7 @@ const MyPageTabScreen = ({navigation}: Props) => {
               icon={item.icon}
               title={item.title}
               onPress={() =>
-                navigation.navigate('MyPageList', {
+                navigation.navigate('MyPage', {
                   screen: `${item.navigation}`,
                 })
               }
@@ -49,7 +49,7 @@ const MyPageTabScreen = ({navigation}: Props) => {
             key={item.id}
             list={item}
             onPress={() =>
-              navigation.navigate('MyPageList', {screen: `${item.navigation}`})
+              navigation.navigate('MyPage', {screen: `${item.navigation}`})
             }
           />
         ))}
@@ -59,7 +59,7 @@ const MyPageTabScreen = ({navigation}: Props) => {
             key={item.id}
             list={item}
             onPress={() =>
-              navigation.navigate('MyPageList', {screen: `${item.navigation}`})
+              navigation.navigate('MyPage', {screen: `${item.navigation}`})
             }
           />
         ))}

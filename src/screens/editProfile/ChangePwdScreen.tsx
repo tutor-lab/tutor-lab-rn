@@ -13,7 +13,7 @@ import {
   ErrorText,
 } from '../../components/common';
 
-import {Modals} from '../../components/editProfile';
+import {Modals} from '../../components/editprofile';
 import {width, fonts, colors, utils} from '../../constants';
 
 const ChangePwdScreen = ({navigation}: any) => {

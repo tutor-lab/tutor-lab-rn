@@ -22,7 +22,7 @@ import {
   Commonstyles,
 } from '../../components/common';
 import {Zone} from '../../types/data';
-import {Modals} from '../../components/editProfile';
+import {Modals} from '../../components/editprofile';
 import {MyInfo, Gender} from '../../types/data';
 import {colors, width, utils, icons, fonts} from '../../constants';
 

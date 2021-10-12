@@ -11,7 +11,7 @@ import {
   Count,
   Sort,
   Data,
-} from '../../components/homeTab';
+} from '../../components/hometab';
 import {Card} from '../../components/common';
 import axios from 'axios';
 
@@ -19,7 +19,7 @@ type Props = {
   navigation: any;
 };
 
-const HomeScreen = ({navigation}: Props) => {
+const HomeTabScreen = ({navigation}: Props) => {
   const [search, setSearch] = useState<string>('');
   const [alert, setAlert] = useState<boolean>(false);
   const [lecture, setLecture] = useState<{
@@ -91,7 +91,7 @@ const HomeScreen = ({navigation}: Props) => {
   );
 };
 
-export default HomeScreen;
+export default HomeTabScreen;
 
 var styles = StyleSheet.create({
   container: {

@@ -93,8 +93,8 @@ const LoginMainScreen = ({route, navigation}: Props) => {
     AsyncStorage.clear();
     axios
       .post('/login', {
-        username: 'user3@email.com',
-        password: 'password',
+        username: username,
+        password: password,
       })
       .then(function (response) {
         AsyncStorage.setItem('accessToken', response.data.split(' ')[1]);

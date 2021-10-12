@@ -10,7 +10,7 @@ type Props = {
 
 const ChatList = ({chatLists, navigation}: Props) => {
   const goToChatRoom = () => {
-    navigation.navigate('ChatDetail', {
+    navigation.navigate('Chat', {
       params: {
         chatRoomId: chatLists.chatroomId,
       },
