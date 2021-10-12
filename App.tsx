@@ -9,10 +9,10 @@ import Login from './src/navigation/Login';
 import Signup from './src/navigation/Signup';
 import Main from './src/navigation/Main';
 import Detail from './src/navigation/Detail';
-import TutorInfo from './src/navigation/TutorInfo';
-import Chat from './src/navigation/Chat';
-import MyPage from './src/navigation/MyPage';
+import TutorInfo from './src/screens/tutorInfo/TutorInfoScreen';
+import MyPageList from './src/navigation/MyPageList';
 import EditProfile from './src/navigation/EditProfile';
+import ChatDetail from './src/screens/chatdetail/ChatDetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,15 +38,14 @@ const App = () => {
         {/* {isToken?
         <Stack.Screen name="Main" component={Main} />
       : <Stack.Screen name="Login" component={Login} />} */}
-        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="TutorInfo" component={TutorInfo} />
-        <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="MyPage" component={MyPage} />
+        <Stack.Screen name="ChatDetail" component={ChatDetail} />
+        <Stack.Screen name="MyPageList" component={MyPageList} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
-        {/*  */}
       </Stack.Navigator>
     </NavigationContainer>
   );

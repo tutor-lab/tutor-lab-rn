@@ -13,7 +13,7 @@ import {WithLocalSvg} from 'react-native-svg/src';
 import {MessageList} from '../../types/data';
 import {Header} from '../../components/common';
 import {colors, fonts, icons, width} from '../../constants';
-import {ChatMine, TextInput, ChatOther} from '../../components/chat';
+import {ChatMine, TextInput, ChatOther} from '../../components/chatdetail';
 
 // textinput line 최대 몇 줄?
 // 첫 랜더링 때 왜 깜빡거리는지..
@@ -21,7 +21,7 @@ import {ChatMine, TextInput, ChatOther} from '../../components/chat';
 
 type Props = {navigation: any; route: any};
 
-const ChatScreen = ({navigation, route}: Props) => {
+const ChatDetailScreen = ({navigation, route}: Props) => {
   // const chatID = 1; //임시 테스트
   const scrollViewRef = useRef<ElementType>();
 
@@ -169,7 +169,7 @@ const ChatScreen = ({navigation, route}: Props) => {
   );
 };
 
-export default memo(ChatScreen);
+export default memo(ChatDetailScreen);
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.bg_color},

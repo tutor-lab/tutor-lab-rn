@@ -2,7 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import DetailScreen from '../screens/detail/DetailScreen';
+import ClassDetailScreen from '../screens/detail/ClassDetailScreen';
 import PaymentScreen from '../screens/detail/PaymentScreen';
 
 type Props = {props: {params: {params: {itemId: number}}}};
@@ -12,11 +12,11 @@ const Detail = (props: any) => {
 
   return (
     <Stack.Navigator
-      initialRouteName="Detail"
+      initialRouteName="ClassDetail"
       screenOptions={{headerShown: false}}>
       <Stack.Screen
-        name="Detail"
-        component={DetailScreen}
+        name="ClassDetail"
+        component={ClassDetailScreen}
         initialParams={props.route.params}
       />
       <Stack.Screen name={'Payment'} component={PaymentScreen} />

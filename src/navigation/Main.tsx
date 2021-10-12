@@ -6,19 +6,15 @@ import FreeBoardTab from './FreeBoardTab';
 import MyPageTab from './MyPageTab';
 import ChatTab from './ChatTab';
 import {TabBar} from '../components/main';
-import {colors} from '../constants';
-
-const Tab = createBottomTabNavigator();
 
 const Main = () => {
+  const Tab = createBottomTabNavigator();
+
   return (
     <Tab.Navigator
-      initialRouteName="HomeTab"
+      initialRouteName="ChatTab"
       backBehavior="initialRoute"
-      tabBarOptions={{
-        activeTintColor: colors.main,
-        keyboardHidesTabBar: true,
-      }}
+      screenOptions={{headerShown: false}}
       tabBar={props => <TabBar {...props} />}>
       <Tab.Screen
         name="HomeTab"

@@ -13,9 +13,11 @@ import ContactUsScreen from '../screens/mypage/ContactUsScreen';
 
 const Stack = createNativeStackNavigator();
 
-const MyPage = () => {
+const MyPageList = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      initialRouteName={'EditProfile'}
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="Purchased" component={PurchasedScreen} />
       <Stack.Screen name="WishList" component={WishListScreen} />
@@ -32,4 +34,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default MyPageList;

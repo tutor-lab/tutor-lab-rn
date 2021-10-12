@@ -19,7 +19,7 @@ type Props = {
   navigation: any;
 };
 
-const HomeTabScreen = ({navigation}: Props) => {
+const HomeScreen = ({navigation}: Props) => {
   const [search, setSearch] = useState<string>('');
   const [alert, setAlert] = useState<boolean>(false);
   const [lecture, setLecture] = useState<{
@@ -91,7 +91,7 @@ const HomeTabScreen = ({navigation}: Props) => {
   );
 };
 
-export default HomeTabScreen;
+export default HomeScreen;
 
 var styles = StyleSheet.create({
   container: {

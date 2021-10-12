@@ -2,19 +2,19 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import ChatScreen from '../screens/chat/ChatScreen';
+import ChatScreen from '../screens/chatdetail/ChatDetailScreen';
 
 type Props = {props: {params: {params: {itemId: number}}}};
 
-const Chat = (props: any) => {
+const ChatDetail = (props: any) => {
   const Stack = createNativeStackNavigator();
 
   return (
     <Stack.Navigator
-      initialRouteName="Chat"
+      initialRouteName="ChatDetail"
       screenOptions={{headerShown: false}}>
       <Stack.Screen
-        name="Chat"
+        name="ChatDetail"
         component={ChatScreen}
         initialParams={props.route.params.params}
       />
@@ -22,4 +22,4 @@ const Chat = (props: any) => {
   );
 };
 
-export default Chat;
+export default ChatDetail;

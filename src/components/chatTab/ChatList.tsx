@@ -10,12 +10,13 @@ type Props = {
 
 const ChatList = ({chatLists, navigation}: Props) => {
   const goToChatRoom = () => {
-    navigation.navigate('Chat', {
+    navigation.navigate('ChatDetail', {
       params: {
         chatRoomId: chatLists.chatroomId,
       },
     });
   };
+
   return (
     <TouchableOpacity style={styles.container} onPress={goToChatRoom}>
       <View style={styles.leftSection}>

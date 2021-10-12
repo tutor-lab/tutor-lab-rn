@@ -1,85 +1,60 @@
-import React,{useState} from 'react';
-import {SafeAreaView, View, Image, StyleSheet,Text} from 'react-native';
+import React from 'react';
+import {
+  SafeAreaView,
+  View,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+} from 'react-native';
+import {WithLocalSvg} from 'react-native-svg/src';
 
-import {colors, height, width, icons} from '../../constants';
+import {Commonstyles, Button} from '../../components/common';
+import {colors, height, fonts, width, icons} from '../../constants';
 import {LoginBtn, TradeMark, SubBtn} from '../../components/login';
 import {LoginStackProp} from '../../types/navigation';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import MainScreen from '../../screens/home/MainScreen';
-import Main from '../../navigation/Main';
+import {color} from 'react-native-reanimated';
 
 interface Props {
   navigation: LoginStackProp;
 }
 
 const LoginIntroScreen = ({navigation}: Props) => {
-
-  const [isToken,setIsToken] = useState("")
-  const token = AsyncStorage.getItem('accessToken', (err, result) => {
-    setIsToken(result)
-    return result
-  });
-
-  console.log('isToken',isToken)
-  
+  console.log('???');
   return (
-    <>
-    <SafeAreaView style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={icons.logo} resizeMode="contain" />
-      </View>
-      <View style={styles.btnContainer}>
-        <LoginBtn
-          title={'튜티로 로그인하기'}
-          onPress={() => {
-            navigation.navigate('LoginMain', {user: '튜티'});
-          }}
-        />
-        <LoginBtn
-          title={'튜터로 로그인하기'}
-          onPress={() => {
-            navigation.navigate('LoginMain', {user: '튜터'});
-          }}
-        />
-      </View>
-      <View>
-        <SubBtn title={'회원가입'} onPress={() => navigation.navigate('Signup')} />
-      </View>
-      <View style={styles.footer}>
-        <TradeMark />
-      </View>
-    </SafeAreaView>  
-    {/* {isToken?
-    <><Main /></>:
-      <SafeAreaView style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={icons.logo} resizeMode="contain" />
-      </View>
-      <View style={styles.btnContainer}>
-        <LoginBtn
-          title={'튜티로 로그인하기'}
-          onPress={() => {
-            navigation.navigate('LoginMain', {user: '튜티'});
-          }}
-        />
-        <LoginBtn
-          title={'튜터로 로그인하기'}
-          onPress={() => {
-            navigation.navigate('LoginMain', {user: '튜터'});
-          }}
-        />
-      </View>
-      <View>
-        <SubBtn title={'회원가입'} onPress={() => navigation.navigate('Signup')} />
+    <SafeAreaView style={[Commonstyles.container, styles.container]}>
+      <View style={styles.padding}>
+        <View style={styles.logoContainer}>
+          <WithLocalSvg asset={icons.logo} />
+          <WithLocalSvg asset={icons.logo_text} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <View style={styles.buttonWrapper}>
+            <Button.Login
+              backgroundColor={colors.white}
+              textColor={colors.main}
+              onPress={() => navigation.navigate('LoginMain', {user: '튜티'})}
+              title={'튜티로 로그인'}
+            />
+          </View>
+          <View style={styles.buttonWrapper}>
+            <Button.Login
+              onPress={() => navigation.navigate('LoginMain', {user: '튜터'})}
+              title={'튜터로 로그인'}
+            />
+          </View>
+          <View style={styles.subWrapper}>
+            <Button.Login_Sub
+              onPress={() => navigation.navigate('Signup')}
+              title={'회원가입'}
+            />
+          </View>
+        </View>
       </View>
       <View style={styles.footer}>
         <TradeMark />
       </View>
-    </SafeAreaView>  
-    
-    } */}
-    
-    </>
+    </SafeAreaView>
   );
 };
 
@@ -87,20 +62,25 @@ export default LoginIntroScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: colors.white,
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  logoContainer: {marginTop: height * 213, marginBottom: height * 158},
-  logo: {
-    height: height * 57,
-    width: width * 60,
-    resizeMode: 'contain',
+  logoContainer: {alignItems: 'center'},
+  buttonContainer: {paddingVertical: 20},
+  buttonWrapper: {marginBottom: 10},
+  padding: {
+    paddingHorizontal: width * 86,
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
   },
-  btnContainer: {
-    height: 116,
-    justifyContent: 'space-between',
-    marginBottom: height * 30,
+  subWrapper: {alignItems: 'center', justifyContent: 'center'},
+  subText: {
+    textAlign: 'center',
+    fontSize: 15,
+    lineHeight: 22,
+    color: colors.light_gray,
   },
   footer: {position: 'absolute', bottom: 0, paddingBottom: height * 33},
 });

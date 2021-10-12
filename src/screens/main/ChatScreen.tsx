@@ -12,7 +12,7 @@ import {Header} from '../../components/common';
 import {SearchBar, ChatList} from '../../components/chatTab';
 import axios from 'axios';
 
-const ChatTabScreen = ({navigation}: any) => {
+const ChatScreen = ({navigation}: any) => {
   const [searchText, setSearchText] = useState('');
   const [contentList, setContentList] = useState([]);
 
@@ -56,7 +56,7 @@ const ChatTabScreen = ({navigation}: any) => {
   );
 };
 
-export default ChatTabScreen;
+export default ChatScreen;
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.white, alignItems: 'center'},

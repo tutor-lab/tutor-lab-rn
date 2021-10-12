@@ -23,7 +23,7 @@ const MyPageTabScreen = ({navigation}: Props) => {
         <Profile
           profile={Data.Profile}
           onPress={() =>
-            navigation.navigate('MyPage', {screen: 'ChangeProfile'})
+            navigation.navigate('MyPageList', {screen: 'ChangeProfile'})
           }
         />
         <View style={styles.bigBtnWrapper}>
@@ -33,7 +33,9 @@ const MyPageTabScreen = ({navigation}: Props) => {
               icon={item.icon}
               title={item.title}
               onPress={() =>
-                navigation.navigate('MyPage', {screen: `${item.navigation}`})
+                navigation.navigate('MyPageList', {
+                  screen: `${item.navigation}`,
+                })
               }
             />
           ))}
@@ -47,7 +49,7 @@ const MyPageTabScreen = ({navigation}: Props) => {
             key={item.id}
             list={item}
             onPress={() =>
-              navigation.navigate('MyPage', {screen: `${item.navigation}`})
+              navigation.navigate('MyPageList', {screen: `${item.navigation}`})
             }
           />
         ))}
@@ -57,7 +59,7 @@ const MyPageTabScreen = ({navigation}: Props) => {
             key={item.id}
             list={item}
             onPress={() =>
-              navigation.navigate('MyPage', {screen: `${item.navigation}`})
+              navigation.navigate('MyPageList', {screen: `${item.navigation}`})
             }
           />
         ))}

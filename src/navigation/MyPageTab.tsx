@@ -2,15 +2,15 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import MyPageTabScreen from '../screens/main/MyPageTabScreen';
+import MyPageScreen from '../screens/main/MyPageScreen';
 
 const MyPageTab = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-      initialRouteName="MyPageTab"
+      initialRouteName="MyPage"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="MyPageTab" component={MyPageTabScreen} />
+      <Stack.Screen name="MyPage" component={MyPageScreen} />
     </Stack.Navigator>
   );
 };

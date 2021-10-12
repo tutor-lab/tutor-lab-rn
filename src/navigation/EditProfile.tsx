@@ -2,7 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import EditProfileScreen from '../screens/editProfile/EditProfileScreen';
+import EditProfileListScreen from '../screens/editProfile/EditProfileListScreen';
 import EditInfoScreen from '../screens/editProfile/EditInfoScreen';
 import ChangePwdScreen from '../screens/editProfile/ChangePwdScreen';
 import SetClassScreen from '../screens/editProfile/SetClassScreen';
@@ -13,9 +13,9 @@ const EditProfile = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="EditProfile"
+      initialRouteName="EditProfileList"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+      <Stack.Screen name="EditProfileList" component={EditProfileListScreen} />
       <Stack.Screen name="EditInfo" component={EditInfoScreen} />
       <Stack.Screen name="ChangePwd" component={ChangePwdScreen} />
       <Stack.Screen name="SetClass" component={SetClassScreen} />
