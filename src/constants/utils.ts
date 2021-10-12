@@ -60,6 +60,10 @@ export const birthValidator = (value: string) => {
   }
 };
 
+export const pwdTypoCheck = (pwd1: string, pwd2: string) => {
+  return pwd1 === pwd2;
+};
+
 export default {
   numberWithCommas,
   parseToday,
@@ -69,4 +73,5 @@ export default {
   birthValidator,
   genderValdator,
   toggleGender,
+  pwdTypoCheck,
 };
