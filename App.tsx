@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import axios from 'axios';
 import {BACKEND_URL} from 'react-native-dotenv';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 import Login from './src/navigation/Login';
 import Signup from './src/navigation/Signup';
@@ -14,7 +14,7 @@ import Chat from './src/navigation/Chat';
 import MyPage from './src/navigation/MyPage';
 import EditProfile from './src/navigation/EditProfile';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [isToken, setIsToken] = useState('');
@@ -46,6 +46,7 @@ const App = () => {
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="MyPage" component={MyPage} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
+        {/*  */}
       </Stack.Navigator>
     </NavigationContainer>
   );

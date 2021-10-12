@@ -1,6 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {fonts, colors} from '../../constants';
 
 type Props = {
@@ -10,8 +9,8 @@ type Props = {
 
 const LoginIntroBtn = ({title, onPress}: Props) => {
   return (
-    <TouchableOpacity activeOpacity={1} onPress={onPress}>
-      <Text style={styles.text}>{title}</Text>
+    <TouchableOpacity onPress={onPress}>
+      <Text style={[fonts[400], styles.text]}>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -19,5 +18,10 @@ const LoginIntroBtn = ({title, onPress}: Props) => {
 export default LoginIntroBtn;
 
 const styles = StyleSheet.create({
-  text: {fontFamily: fonts.medium, color: colors.grey, fontSize: 14},
+  text: {
+    textAlign: 'center',
+    fontSize: 15,
+    lineHeight: 22,
+    color: colors.light_gray,
+  },
 });

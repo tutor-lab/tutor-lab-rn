@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import EditProfileScreen from '../screens/editProfile/EditProfileScreen';
 import EditInfoScreen from '../screens/editProfile/EditInfoScreen';
@@ -8,8 +8,8 @@ import ChangePwdScreen from '../screens/editProfile/ChangePwdScreen';
 import SetClassScreen from '../screens/editProfile/SetClassScreen';
 import WithdrawalScreen from '../screens/editProfile/WithdrawalScreen';
 
-const Detail = () => {
-  const Stack = createStackNavigator();
+const EditProfile = () => {
+  const Stack = createNativeStackNavigator<EditProfileStackParamList>();
 
   return (
     <Stack.Navigator
@@ -24,4 +24,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default EditProfile;
