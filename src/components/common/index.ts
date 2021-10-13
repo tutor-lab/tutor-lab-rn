@@ -16,6 +16,8 @@ import Header from './header';
 import Card from './card/Card';
 import Data from './Data';
 import Picker from './Picker';
+import Commonstyles from './Commonstyles';
+import ErrorText from './ErrorText';
 
 export {
   TextInputLabel,
@@ -36,4 +38,6 @@ export {
   UnSelected,
   Line,
   Picker,
+  Commonstyles,
+  ErrorText,
 };

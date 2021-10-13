@@ -19,6 +19,7 @@ import {
   Data,
   TextInputLabel,
   Picker,
+  Commonstyles,
 } from '../../components/common';
 import {Zone} from '../../types/data';
 import {Modals} from '../../components/editProfile';
@@ -172,9 +173,9 @@ const EditInfoScreen = ({navigation}: any) => {
       <Header.Basic title={'회원정보 수정'} navigation={navigation} />
       <KeyboardAwareScrollView scrollEnabled>
         <View style={styles.padding}>
-          <View style={styles.textInputContainer}>
+          <View style={Commonstyles.textInputContainer}>
             <TextInputLabel title={'이메일'} />
-            <View style={styles.textInputBox}>
+            <View style={Commonstyles.textInputWrapper}>
               <TextInput
                 value={email}
                 onChangeText={(t: string) => setEmail(t)}
@@ -182,9 +183,9 @@ const EditInfoScreen = ({navigation}: any) => {
               />
             </View>
           </View>
-          <View style={styles.textInputContainer}>
+          <View style={Commonstyles.textInputContainer}>
             <TextInputLabel title={'성명'} />
-            <View style={styles.textInputBox}>
+            <View style={Commonstyles.textInputWrapper}>
               <TextInput
                 value={name}
                 onChangeText={(t: string) => setName(t)}
@@ -192,12 +193,12 @@ const EditInfoScreen = ({navigation}: any) => {
               />
             </View>
           </View>
-          <View style={[styles.textInputContainer, styles.row]}>
+          <View style={[Commonstyles.textInputContainer, styles.row]}>
             <View style={styles.flex}>
               <TextInputLabel title={'성별'} />
               <TouchableOpacity
                 activeOpacity={0.5}
-                style={[styles.textInputBox, styles.rowWidth]}
+                style={[Commonstyles.textInputWrapper, styles.rowWidth]}
                 onPress={() => toggleGender(gender)}>
                 <View style={styles.textInputRow}>
                   <TextInput
@@ -213,7 +214,7 @@ const EditInfoScreen = ({navigation}: any) => {
             </View>
             <View style={styles.flex}>
               <TextInputLabel title={'출생년도'} />
-              <View style={[styles.textInputBox, styles.rowWidth]}>
+              <View style={[Commonstyles.textInputWrapper, styles.rowWidth]}>
                 <TextInput
                   keyboardType={'numeric'}
                   placeholder={'XXXX'}
@@ -224,9 +225,9 @@ const EditInfoScreen = ({navigation}: any) => {
               </View>
             </View>
           </View>
-          <View style={styles.textInputContainer}>
+          <View style={Commonstyles.textInputContainer}>
             <TextInputLabel title={'휴대폰 번호'} />
-            <View style={styles.textInputBox}>
+            <View style={Commonstyles.textInputWrapper}>
               <TextInput
                 value={number}
                 keyboardType={'numeric'}
@@ -236,11 +237,15 @@ const EditInfoScreen = ({navigation}: any) => {
               />
             </View>
           </View>
-          <View style={styles.textInputContainer}>
+          <View style={Commonstyles.textInputContainer}>
             <TextInputLabel title={'주'} />
             <TouchableOpacity
               activeOpacity={0.5}
-              style={[styles.textInputBox, styles.rowWidth, {width: '100%'}]}
+              style={[
+                Commonstyles.textInputWrapper,
+                styles.rowWidth,
+                {width: '100%'},
+              ]}
               onPress={() => togglePicker('주', states)}>
               <View style={styles.textInputRow}>
                 <TextInput editable={false} value={state} />
@@ -250,12 +255,12 @@ const EditInfoScreen = ({navigation}: any) => {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={[styles.textInputContainer, styles.row]}>
+          <View style={[Commonstyles.textInputContainer, styles.row]}>
             <View style={styles.flex}>
               <TextInputLabel title={'시/군'} />
               <TouchableOpacity
                 activeOpacity={0.5}
-                style={[styles.textInputBox, styles.rowWidth]}
+                style={[Commonstyles.textInputWrapper, styles.rowWidth]}
                 onPress={() => togglePicker('시/군', siGuns)}>
                 <View style={styles.textInputRow}>
                   <TextInput editable={false} value={siGun} />
@@ -269,7 +274,7 @@ const EditInfoScreen = ({navigation}: any) => {
               <TextInputLabel title={'동'} />
               <TouchableOpacity
                 activeOpacity={0.5}
-                style={[styles.textInputBox, styles.rowWidth]}
+                style={[Commonstyles.textInputWrapper, styles.rowWidth]}
                 onPress={() => togglePicker('동', dongs)}>
                 <View style={styles.textInputRow}>
                   <TextInput editable={false} value={dong} />
@@ -317,16 +322,9 @@ export default EditInfoScreen;
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.white},
   padding: {paddingHorizontal: width * 42, paddingTop: 3},
-  textInputBox: {
-    borderRadius: 10,
-    backgroundColor: colors.bg_color,
-    justifyContent: 'center',
-    height: 50,
-  },
   flex: {flex: 1},
   row: {flexDirection: 'row'},
   rowWidth: {width: '95%', flexDirection: 'row'},
-  textInputContainer: {paddingBottom: 13},
   textLabel: {paddingLeft: 18, fontSize: 14, color: colors.main},
   textInputRow: {
     flex: 1,
