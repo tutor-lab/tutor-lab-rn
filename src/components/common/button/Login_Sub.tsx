@@ -1,13 +1,13 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {fonts, colors} from '../../constants';
+import {fonts, colors} from '../../../constants';
 
 type Props = {
   title: String;
   onPress: () => void;
 };
 
-const LoginIntroBtn = ({title, onPress}: Props) => {
+const Login_Sub = ({title, onPress}: Props) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <Text style={[fonts[400], styles.text]}>{title}</Text>
@@ -15,7 +15,7 @@ const LoginIntroBtn = ({title, onPress}: Props) => {
   );
 };
 
-export default LoginIntroBtn;
+export default Login_Sub;
 
 const styles = StyleSheet.create({
   text: {

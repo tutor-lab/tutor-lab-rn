@@ -1,12 +1,12 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import LoginIntroScreen from '../screens/login/LoginIntroScreen';
 import LoginMainScreen from '../screens/login/LoginMainScreen';
 import FindIdScreen from '../screens/login/FindIdScreen';
 import FindPwdScreen from '../screens/login/FindPwdScreen';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const Login = () => {
   return (

@@ -16,7 +16,7 @@ import axios from 'axios';
 
 type Props = {navigation: any; route: {params: {itemId: number}}};
 
-const DetailScreen = ({navigation, route}: Props) => {
+const ClassDetailScreen = ({navigation, route}: Props) => {
   const [selection, setSelection] = useState<{
     introduction: boolean;
     review: boolean;
@@ -108,7 +108,7 @@ const DetailScreen = ({navigation, route}: Props) => {
   );
 };
 
-export default DetailScreen;
+export default ClassDetailScreen;
 
 var styles = StyleSheet.create({
   container: {

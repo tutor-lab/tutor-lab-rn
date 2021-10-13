@@ -7,3 +7,11 @@ type LoginStackParamList = {
   FindId: undefined;
   FindPwd: undefined;
 };
+
+type EditProfileStackParamList = {
+  EditProfileList: undefined;
+  EditInfo: undefined;
+  ChangePwd: {user: string};
+  SetClass: undefined;
+  Withdrawal: undefined;
+};

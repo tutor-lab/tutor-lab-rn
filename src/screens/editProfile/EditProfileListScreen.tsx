@@ -10,11 +10,11 @@ import {
   ImageSection,
   Modals,
   Data,
-} from '../../components/editProfile';
+} from '../../components/editprofile';
 
 type Props = {navigation: any};
 
-const EditProfileScreen = ({navigation}: Props) => {
+const EditProfileListScreen = ({navigation}: Props) => {
   const [modal, setModal] = useState<boolean>(false);
 
   const logout = () => {
@@ -59,7 +59,7 @@ const EditProfileScreen = ({navigation}: Props) => {
   );
 };
 
-export default EditProfileScreen;
+export default EditProfileListScreen;
 
 var styles = StyleSheet.create({
   container: {

@@ -11,7 +11,7 @@ import {
   TextInput,
   Button,
 } from '../../components/common';
-import {CheckBox} from '../../components/editProfile';
+import {CheckBox} from '../../components/editprofile';
 import {colors, width, fonts} from '../../constants';
 
 const WithdrawalScreen = ({navigation}) => {

@@ -16,6 +16,7 @@ const ChatList = ({chatLists, navigation}: Props) => {
       },
     });
   };
+
   return (
     <TouchableOpacity style={styles.container} onPress={goToChatRoom}>
       <View style={styles.leftSection}>

@@ -11,7 +11,7 @@ import {
   Count,
   Sort,
   Data,
-} from '../../components/homeTab';
+} from '../../components/hometab';
 import {Card} from '../../components/common';
 import axios from 'axios';
 

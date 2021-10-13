@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import axios from 'axios';
 import {BACKEND_URL} from 'react-native-dotenv';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 import Login from './src/navigation/Login';
 import Signup from './src/navigation/Signup';
 import Main from './src/navigation/Main';
 import Detail from './src/navigation/Detail';
-import TutorInfo from './src/navigation/TutorInfo';
-import Chat from './src/navigation/Chat';
-import MyPage from './src/navigation/MyPage';
+import TutorInfo from './src/screens/tutorInfo/TutorInfoScreen';
+import MyPage from './src/navigation/Mypage';
 import EditProfile from './src/navigation/EditProfile';
+import Chat from './src/screens/chat/ChatScreen';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [isToken, setIsToken] = useState('');
@@ -38,8 +38,8 @@ const App = () => {
         {/* {isToken?
         <Stack.Screen name="Main" component={Main} />
       : <Stack.Screen name="Login" component={Login} />} */}
-        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="TutorInfo" component={TutorInfo} />

@@ -1,4 +1,4 @@
-export const logo = require('../assets/icons/logo.png');
+export const logo = require('../assets/icons/logo.svg');
 export const category_menu = require('../assets/icons/category_menu.svg');
 export const category_arrow = require('../assets/icons/category_arrow.svg');
 export const lecture_back_arrow = require('../assets/icons/lecture_back_arrow.svg');

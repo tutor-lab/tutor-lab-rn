@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import PurchasedScreen from '../screens/mypage/PurchasedScreen';
 import WishListScreen from '../screens/mypage/WishListScreen';
@@ -11,11 +11,13 @@ import NoticeScreen from '../screens/mypage/NoticeScreen';
 import TermsScreen from '../screens/mypage/TermsScreen';
 import ContactUsScreen from '../screens/mypage/ContactUsScreen';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
-const MyPage = () => {
+const Mypage = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      initialRouteName={'EditProfile'}
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="Purchased" component={PurchasedScreen} />
       <Stack.Screen name="WishList" component={WishListScreen} />
@@ -32,4 +34,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default Mypage;

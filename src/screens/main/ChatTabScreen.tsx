@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {colors, width} from '../../constants';
 import {Header} from '../../components/common';
-import {SearchBar, ChatList} from '../../components/chatTab';
+import {SearchBar, ChatList} from '../../components/chattab';
 import axios from 'axios';
 
 const ChatTabScreen = ({navigation}: any) => {

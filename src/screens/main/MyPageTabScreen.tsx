@@ -9,7 +9,7 @@ import {
   Profile,
   Version,
   Data,
-} from '../../components/myPageTab';
+} from '../../components/mypagetab';
 import {Header, Line} from '../../components/common';
 
 type Props = {navigation: any};
@@ -33,7 +33,9 @@ const MyPageTabScreen = ({navigation}: Props) => {
               icon={item.icon}
               title={item.title}
               onPress={() =>
-                navigation.navigate('MyPage', {screen: `${item.navigation}`})
+                navigation.navigate('MyPage', {
+                  screen: `${item.navigation}`,
+                })
               }
             />
           ))}
