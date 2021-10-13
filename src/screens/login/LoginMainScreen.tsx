@@ -12,14 +12,14 @@ import {Button, TextInput} from '../../components/common';
 
 import axios from 'axios';
 import {authorize} from 'react-native-app-auth';
-import {
-  KakaoOAuthToken,
-  KakaoProfile,
-  getProfile as getKakaoProfile,
-  login,
-  logout,
-  unlink,
-} from '@react-native-seoul/kakao-login';
+// import {
+//   KakaoOAuthToken,
+//   KakaoProfile,
+//   getProfile as getKakaoProfile,
+//   login,
+//   logout,
+//   unlink,
+// } from '@react-native-seoul/kakao-login';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -42,26 +42,26 @@ const LoginMainScreen = ({route, navigation}: Props) => {
   const [password, setPassword] = useState('');
   const [result, setResult] = useState<string>('');
   const [authState, setAuthState] = useState(defaultAuthState);
-  const configs: any = {
-    google: {
-      issuer: 'https://accounts.google.com',
-      clientId: GOOGLE_CLIENT_ID,
-      redirectUrl: 'https://f35dd0783aa2.ngrok.io/oauth/google/callback',
-      scopes: ['openid', 'profile', 'email'],
-      usePKCE: false,
-    },
-  };
+  // const configs: any = {
+  //   google: {
+  //     issuer: 'https://accounts.google.com',
+  //     clientId: GOOGLE_CLIENT_ID,
+  //     redirectUrl: 'https://f35dd0783aa2.ngrok.io/oauth/google/callback',
+  //     scopes: ['openid', 'profile', 'email'],
+  //     usePKCE: false,
+  //   },
+  // };
 
-  useEffect(() => {
-    configureGoogleSign();
-  }, []);
+  // useEffect(() => {
+  //   configureGoogleSign();
+  // }, []);
 
-  function configureGoogleSign() {
-    GoogleSignin.configure({
-      webClientId: GOOGLE_WEB_CLIENT_ID,
-      offlineAccess: false,
-    });
-  }
+  // function configureGoogleSign() {
+  //   GoogleSignin.configure({
+  //     webClientId: GOOGLE_WEB_CLIENT_ID,
+  //     offlineAccess: false,
+  //   });
+  // }
 
   const handleAuthorize = useCallback(
     async provider => {
@@ -106,63 +106,63 @@ const LoginMainScreen = ({route, navigation}: Props) => {
       });
   };
 
-  const signInWithKakao = async (): Promise<void> => {
-    const token: KakaoOAuthToken = await login();
+  // const signInWithKakao = async (): Promise<void> => {
+  //   const token: KakaoOAuthToken = await login();
 
-    // console.log("token=",token)
-    setResult(JSON.stringify(token));
-    const profile: KakaoProfile = await getKakaoProfile();
-    // console.log("profile=",profile)
-    handleAuthorize('auth0');
-  };
+  //   // console.log("token=",token)
+  //   setResult(JSON.stringify(token));
+  //   const profile: KakaoProfile = await getKakaoProfile();
+  //   // console.log("profile=",profile)
+  //   handleAuthorize('auth0');
+  // };
 
-  const signOutWithKakao = async (): Promise<void> => {
-    const message = await logout();
+  // const signOutWithKakao = async (): Promise<void> => {
+  //   const message = await logout();
 
-    setResult(message);
-  };
+  //   setResult(message);
+  // };
 
-  const getProfile = async (): Promise<void> => {
-    const profile: KakaoProfile = await getKakaoProfile();
-    console.log('profile=', profile);
+  // const getProfile = async (): Promise<void> => {
+  //   const profile: KakaoProfile = await getKakaoProfile();
+  //   console.log('profile=', profile);
 
-    setResult(JSON.stringify(profile));
-  };
+  //   setResult(JSON.stringify(profile));
+  // };
 
-  const unlinkKakao = async (): Promise<void> => {
-    const message = await unlink();
+  // const unlinkKakao = async (): Promise<void> => {
+  //   const message = await unlink();
 
-    setResult(message);
-  };
+  //   setResult(message);
+  // };
 
-  async function googleSignIn() {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
+  // async function googleSignIn() {
+  //   try {
+  //     await GoogleSignin.hasPlayServices();
+  //     const userInfo = await GoogleSignin.signIn();
 
-      // console.log("userInfo==",userInfo);
+  //     // console.log("userInfo==",userInfo);
 
-      handleAuthorize('google');
-      // setUserInfo(userInfo);
-      // setError(null);
-      // setIsLoggedIn(true);
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // when user cancels sign in process,
-        Alert.alert('Process Cancelled');
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // when in progress already
-        Alert.alert('Process in progress');
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // when play services not available
-        Alert.alert('Play services are not available');
-      } else {
-        // some other error
-        Alert.alert('Something else went wrong... ', error.toString());
-        // setError(error);
-      }
-    }
-  }
+  //     handleAuthorize('google');
+  //     // setUserInfo(userInfo);
+  //     // setError(null);
+  //     // setIsLoggedIn(true);
+  //   } catch (error) {
+  //     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+  //       // when user cancels sign in process,
+  //       Alert.alert('Process Cancelled');
+  //     } else if (error.code === statusCodes.IN_PROGRESS) {
+  //       // when in progress already
+  //       Alert.alert('Process in progress');
+  //     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+  //       // when play services not available
+  //       Alert.alert('Play services are not available');
+  //     } else {
+  //       // some other error
+  //       Alert.alert('Something else went wrong... ', error.toString());
+  //       // setError(error);
+  //     }
+  //   }
+  // }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -188,7 +188,7 @@ const LoginMainScreen = ({route, navigation}: Props) => {
           <View style={styles.btnContainer}>
             <Button.Button title={'로그인 하기'} onPress={() => onLogin()} />
           </View>
-          <View style={styles.btnContainer}>
+          {/* <View style={styles.btnContainer}>
             <Button.Button
               title={'카카오로 로그인 하기'}
               onPress={() => signInWithKakao()}
@@ -199,7 +199,7 @@ const LoginMainScreen = ({route, navigation}: Props) => {
               title={'카카오로 로그아웃 하기'}
               onPress={() => signOutWithKakao()}
             />
-          </View>
+          </View> */}
           <View style={styles.btnContainer}>
             <GoogleSigninButton
               style={{width: 192, height: 48}}

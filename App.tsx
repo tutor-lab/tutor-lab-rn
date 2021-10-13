@@ -18,12 +18,12 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [isToken, setIsToken] = useState('');
-  const token = AsyncStorage.getItem('accessToken', (err, result) => {
+  const token = AsyncStorage.getItem('accessToken', (err, result: any) => {
     setIsToken(result);
     return result;
   });
 
-  axios.defaults.baseURL = BACKEND_URL;
+  axios.defaults.baseURL = 'http://3.35.255.192:8081';
   axios.interceptors.request.use(async function (config) {
     const token = await AsyncStorage.getItem('accessToken');
     if (token) {
