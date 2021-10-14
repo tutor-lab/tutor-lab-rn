@@ -12,7 +12,7 @@ const Main = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="ChatTab"
+      initialRouteName="HomeTab"
       backBehavior="initialRoute"
       screenOptions={{headerShown: false}}
       tabBar={props => <TabBar {...props} />}>

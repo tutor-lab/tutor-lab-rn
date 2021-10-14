@@ -1,16 +1,12 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {View, SafeAreaView, StyleSheet, Alert} from 'react-native';
+import {View, SafeAreaView, StyleSheet, Alert, Android} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {RouteProp} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {GOOGLE_CLIENT_ID, GOOGLE_WEB_CLIENT_ID} from 'react-native-dotenv';
-
-import {height, colors} from '../../constants';
-import {TradeMark, SubBtn, Title} from '../../components/login';
-import {Button, TextInput} from '../../components/common';
-
 import axios from 'axios';
+import {WithLocalSvg} from 'react-native-svg/src';
 import {authorize} from 'react-native-app-auth';
 import {
   KakaoOAuthToken,
@@ -26,8 +22,16 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
+import {height, width, icons} from '../../constants';
+import {
+  Button,
+  TextInput,
+  ErrorText,
+  Commonstyles,
+} from '../../components/common';
+
 interface Props {
-  navigation: StackNavigationProp<LoginStackParamList>;
+  navigation: NativeStackNavigationProp<LoginStackParamList>;
   route: RouteProp<LoginStackParamList, 'LoginMain'>;
 }
 const defaultAuthState = {
@@ -38,8 +42,8 @@ const defaultAuthState = {
   refreshToken: '',
 };
 const LoginMainScreen = ({route, navigation}: Props) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState({text: '', error: ''});
+  const [password, setPassword] = useState({text: '', error: ''});
   const [result, setResult] = useState<string>('');
   const [authState, setAuthState] = useState(defaultAuthState);
   const configs: any = {
@@ -82,28 +86,41 @@ const LoginMainScreen = ({route, navigation}: Props) => {
     [authState],
   );
 
-  const idOnChange = (text: string) => {
-    setUsername(text);
-  };
-
-  const pwdOnChange = (text: string) => {
-    setPassword(text);
-  };
   const onLogin = () => {
     AsyncStorage.clear();
-    axios
-      .post('/login', {
-        username: username,
-        password: password,
-      })
-      .then(function (response) {
-        AsyncStorage.setItem('accessToken', response.data.split(' ')[1]);
-        navigation.navigate('Main');
-        // console.log(Object.keys(response.headers))
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (username.text.length === 0) {
+      setUsername({text: '', error: '아이디를 입력해 주세요.'});
+    } else if (password.text.length === 0) {
+      setUsername({...username, error: ''});
+      setPassword({text: '', error: '비밀번호를 입력해 주세요.'});
+    } else {
+      axios
+        .post('/login', {
+          username: username.text,
+          password: password.text,
+        })
+        .then(function (response) {
+          const statusCode = response.status;
+          if (statusCode === 200) {
+            AsyncStorage.setItem('accessToken', response.data.split(' ')[1]);
+            navigation.replace('Main');
+          }
+          // console.log(Object.keys(response.headers))
+        })
+        .catch(function (error) {
+          const statusCode = error.response.data.code;
+          if (statusCode === 401) {
+            setUsername({
+              text: '',
+              error: '아이디 또는 비밀번호를 잘못 입력하셨습니다.',
+            });
+            setPassword({
+              text: '',
+              error: '아이디 또는 비밀번호를 잘못 입력하셨습니다.',
+            });
+          }
+        });
+    }
   };
 
   const signInWithKakao = async (): Promise<void> => {
@@ -139,9 +156,7 @@ const LoginMainScreen = ({route, navigation}: Props) => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-
       // console.log("userInfo==",userInfo);
-
       handleAuthorize('google');
       // setUserInfo(userInfo);
       // setError(null);
@@ -165,65 +180,71 @@ const LoginMainScreen = ({route, navigation}: Props) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView>
-        <View style={styles.container}>
-          <View style={styles.titleContainer}>
-            <Title text={`${route.params.user} 로그인`} />
+    <SafeAreaView style={[Commonstyles.container, styles.container]}>
+      <KeyboardAwareScrollView style={styles.scroll}>
+        <View style={styles.padding}>
+          <View style={styles.logoContainer}>
+            <WithLocalSvg asset={icons.logo} />
           </View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              backgroundColor={colors.skyBlue}
-              value={username}
-              placeholder={'ID(Email)'}
-              onChangeText={(e: string) => idOnChange(e)}
-            />
-            <TextInput
-              backgroundColor={colors.skyBlue}
-              value={password}
-              placeholder={'Password'}
-              onChangeText={(e: string) => pwdOnChange(e)}
-            />
-          </View>
-          <View style={styles.btnContainer}>
-            <Button.Button title={'로그인 하기'} onPress={() => onLogin()} />
-          </View>
-          <View style={styles.btnContainer}>
-            <Button.Button
-              title={'카카오로 로그인 하기'}
-              onPress={() => signInWithKakao()}
-            />
-          </View>
-          <View style={styles.btnContainer}>
-            <Button.Button
-              title={'카카오로 로그아웃 하기'}
-              onPress={() => signOutWithKakao()}
-            />
-          </View>
-          <View style={styles.btnContainer}>
+          <View style={{marginTop: height * 72}}>
+            <View style={Commonstyles.textInputContainer}>
+              <View style={Commonstyles.textInputWrapper}>
+                <TextInput
+                  value={username.text}
+                  placeholder={'ID(Email)'}
+                  onChangeText={(e: string) =>
+                    setUsername({...username, text: e})
+                  }
+                />
+              </View>
+              {username.error.length !== 0 && (
+                <ErrorText text={username.error} />
+              )}
+            </View>
+            <View style={Commonstyles.textInputContainer}>
+              <View style={Commonstyles.textInputWrapper}>
+                <TextInput
+                  secureTextEntry
+                  value={password.text}
+                  placeholder={'Password'}
+                  onChangeText={(e: string) =>
+                    setPassword({...password, text: e})
+                  }
+                />
+              </View>
+              {password.error.length !== 0 && (
+                <ErrorText text={password.error} />
+              )}
+            </View>
+            <View style={styles.buttonWrapper}>
+              <Button.Login title={'로그인 하기'} onPress={() => onLogin()} />
+            </View>
+            <View style={styles.buttonWrapper}>
+              <Button.Login
+                title={'카카오로 로그인 하기'}
+                onPress={() => signInWithKakao()}
+              />
+            </View>
             <GoogleSigninButton
-              style={{width: 192, height: 48}}
+              style={{width: '100%'}}
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Dark}
               onPress={() => googleSignIn()}
             />
-          </View>
-          <View style={styles.subBtnContaier}>
-            <View style={styles.subBtnBox01}>
-              <SubBtn
-                title={'아이디 찾기'}
-                onPress={() => navigation.navigate('FindId')}
-              />
+            <View style={styles.row}>
+              <View style={styles.subBtnWrapper}>
+                <Button.Login_Sub
+                  title={'아이디 찾기'}
+                  onPress={() => navigation.navigate('FindId')}
+                />
+              </View>
+              <View style={styles.subBtnWrapper}>
+                <Button.Login_Sub
+                  title={'비밀번호 찾기'}
+                  onPress={() => navigation.navigate('FindPwd')}
+                />
+              </View>
             </View>
-            <View style={styles.subBtnBox02}>
-              <SubBtn
-                title={'비밀번호 찾기'}
-                onPress={() => navigation.navigate('FindPwd')}
-              />
-            </View>
-          </View>
-          <View style={styles.footer}>
-            <TradeMark />
           </View>
         </View>
       </KeyboardAwareScrollView>
@@ -234,20 +255,21 @@ const LoginMainScreen = ({route, navigation}: Props) => {
 export default LoginMainScreen;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: colors.white, alignItems: 'center'},
-  titleContainer: {marginTop: height * 128, marginBottom: height * 127},
-  inputContainer: {
-    height: 106,
-    justifyContent: 'space-between',
-    marginBottom: height * 39,
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  btnContainer: {marginBottom: height * 14},
-  subBtnContaier: {
-    flexDirection: 'row',
+  scroll: {width: '100%'},
+  padding: {
+    paddingHorizontal: width * 63,
+    width: '100%',
+    height: '100%',
   },
-  subBtnBox01: {flex: 1, alignItems: 'flex-end', marginRight: 15},
-  subBtnBox02: {flex: 1, alignItems: 'flex-start', marginLeft: 15},
-  footer: {
-    paddingTop: height * 160,
+  logoContainer: {
+    marginTop: height * 240,
+    alignItems: 'center',
   },
+  buttonWrapper: {marginVertical: 6.5},
+  row: {flexDirection: 'row'},
+  subBtnWrapper: {flex: 1, alignItems: 'center'},
 });
