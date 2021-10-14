@@ -18,6 +18,7 @@ import Data from './Data';
 import Picker from './Picker';
 import Commonstyles from './Commonstyles';
 import ErrorText from './ErrorText';
+import Switch from './Switch';
 
 export {
   TextInputLabel,
@@ -40,4 +41,5 @@ export {
   Picker,
   Commonstyles,
   ErrorText,
+  Switch,
 };

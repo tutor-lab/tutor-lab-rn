@@ -1,6 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {fonts, colors, width} from '../../../constants';
 
 type Props = {

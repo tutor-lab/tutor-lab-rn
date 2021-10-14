@@ -20,7 +20,6 @@ interface Props {
 }
 
 const LoginIntroScreen = ({navigation}: Props) => {
-  console.log('???');
   return (
     <SafeAreaView style={[Commonstyles.container, styles.container]}>
       <View style={styles.padding}>
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logoContainer: {alignItems: 'center'},
+  logoContainer: {marginTop: height * 240, alignItems: 'center'},
   buttonContainer: {paddingVertical: 20},
   buttonWrapper: {marginBottom: 10},
   padding: {
@@ -73,7 +72,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    justifyContent: 'center',
   },
   subWrapper: {alignItems: 'center', justifyContent: 'center'},
   subText: {
