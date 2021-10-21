@@ -38,16 +38,24 @@ type Props = {
   title: string;
   subTitle: string;
   lecturePrices: any;
-  systemTypes:any;
-  thumbnail:string;
+  systemTypes: any;
+  thumbnail: string;
 };
 
-const Detail = ({data, title, subTitle, lecturePrices,systemTypes,thumbnail}: Props) => {
+const Detail = ({
+  data,
+  title,
+  subTitle,
+  lecturePrices,
+  systemTypes,
+  thumbnail,
+}: Props) => {
+  console.log('lecturePrices===', lecturePrices[0]);
   return (
     <>
       <View style={styles.image}>
         <Image
-          source={{uri:thumbnail}}
+          source={{uri: thumbnail}}
           resizeMode="contain"
           style={{width: '100%', height: 280, zIndex: 1}}
         />
@@ -57,10 +65,7 @@ const Detail = ({data, title, subTitle, lecturePrices,systemTypes,thumbnail}: Pr
       </View>
       <View style={styles.detail}>
         <View style={styles.remote}>
-     
           <Remote remote={systemTypes} />
-  
-          
         </View>
         <View style={styles.title}>
           <Title title={title} />
@@ -89,7 +94,13 @@ const Detail = ({data, title, subTitle, lecturePrices,systemTypes,thumbnail}: Pr
             <Percent discount={data.discount} />
           </View> */}
           <View style={styles.price}>
-            <Price price={lecturePrices.totalCost} />
+            <Price
+              price={
+                lecturePrices[0] === undefined
+                  ? ''
+                  : lecturePrices[0].pertimeCost
+              }
+            />
           </View>
         </View>
         {/* <View>

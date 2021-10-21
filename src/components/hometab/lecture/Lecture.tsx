@@ -30,7 +30,7 @@ const Lecture = ({lecture, setLecture}: Props) => {
         )}
       </TouchableOpacity>
       <View style={styles.divider} />
-      <TouchableOpacity
+      {/* <TouchableOpacity
         activeOpacity={1}
         onPress={() => setLecture({all: false, custom: true})}
         style={styles.touchable}>
@@ -39,7 +39,7 @@ const Lecture = ({lecture, setLecture}: Props) => {
         ) : (
           <UnSelected text={'맞춤 강의'} />
         )}
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

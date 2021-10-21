@@ -56,16 +56,16 @@ const LoginMainScreen = ({route, navigation}: Props) => {
     },
   };
 
-  useEffect(() => {
-    configureGoogleSign();
-  }, []);
+  // useEffect(() => {
+  //   configureGoogleSign();
+  // }, []);
 
-  function configureGoogleSign() {
-    GoogleSignin.configure({
-      webClientId: GOOGLE_WEB_CLIENT_ID,
-      offlineAccess: false,
-    });
-  }
+  // function configureGoogleSign() {
+  //   GoogleSignin.configure({
+  //     webClientId: GOOGLE_WEB_CLIENT_ID,
+  //     offlineAccess: false,
+  //   });
+  // }
 
   const handleAuthorize = useCallback(
     async provider => {
@@ -219,7 +219,7 @@ const LoginMainScreen = ({route, navigation}: Props) => {
             <View style={styles.buttonWrapper}>
               <Button.Login title={'로그인 하기'} onPress={() => onLogin()} />
             </View>
-            <View style={styles.buttonWrapper}>
+            {/* <View style={styles.buttonWrapper}>
               <Button.Login
                 title={'카카오로 로그인 하기'}
                 onPress={() => signInWithKakao()}
@@ -230,7 +230,7 @@ const LoginMainScreen = ({route, navigation}: Props) => {
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Dark}
               onPress={() => googleSignIn()}
-            />
+            /> */}
             <View style={styles.row}>
               <View style={styles.subBtnWrapper}>
                 <Button.Login_Sub
