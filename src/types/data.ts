@@ -81,3 +81,10 @@ export type Zone = {
   label: string;
   value: string;
 };
+
+export type SettingType = {
+  id: number;
+  title: string;
+  describe: string;
+  enabled: boolean;
+};
