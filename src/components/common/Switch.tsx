@@ -15,7 +15,7 @@ const Switch = ({
   onColor = colors.main,
   offColor = colors.line,
 }: Props) => {
-  const [aniValue, setAniValue] = useState(new Animated.Value(0));
+  const [aniValue] = useState(new Animated.Value(0));
   const color = enabled ? onColor : offColor;
 
   const moveSwitchToggle = aniValue.interpolate({

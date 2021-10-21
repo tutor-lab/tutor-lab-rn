@@ -316,6 +316,21 @@ export const WithdrawalCheckList = [
   },
 ];
 
+export const Setting = [
+  {
+    id: 0,
+    title: '채팅 알림',
+    describe: '튜터를 포함한 타인에게 메세지가 도착하면 알려드립니다.',
+    enabled: false,
+  },
+  {
+    id: 1,
+    title: '댓글 알림',
+    describe: '자유게시판에 작성한 글에 새 댓글이 등록되면 알려드립니다.',
+    enabled: false,
+  },
+];
+
 export default {
   Card,
   DifficultyData,
@@ -323,4 +338,5 @@ export default {
   Gender,
   WithdrawalDescription,
   WithdrawalCheckList,
+  Setting,
 };
