@@ -24,9 +24,9 @@ const ReviewListScreen = ({navigation}) => {
   const renderScene = ({route}: any) => {
     switch (route.key) {
       case 'first':
-        return <ReviewList />;
-      case 'second':
         return <ReviewWrite />;
+      case 'second':
+        return <ReviewList />;
       default:
         return null;
     }

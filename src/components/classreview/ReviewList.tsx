@@ -1,13 +1,18 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, Text} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
+
+import {Commonstyles} from '../../components/common';
+import {ListCard} from '../classreview';
 
 const ReviewList = () => {
   return (
-    <View>
-      <Text>ReviewList</Text>
-    </View>
+    <ScrollView style={Commonstyles.container}>
+      <ListCard />
+    </ScrollView>
   );
 };
 
 export default ReviewList;
+
+const styles = StyleSheet.create({});

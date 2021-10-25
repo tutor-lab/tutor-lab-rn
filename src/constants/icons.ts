@@ -41,6 +41,7 @@ export const paymentList_checked = require('../assets/icons/paymentList_checked.
 export const paymentList_unchecked = require('../assets/icons/paymentList_unchecked.svg');
 export const cancel = require('../assets/icons/cancel.svg');
 export const picker = require('../assets/icons/picker.svg');
+export const review_none = require('../assets/icons/review_none.svg');
 
 export default {
   logo,
@@ -86,4 +87,5 @@ export default {
   wishlist,
   purchased,
   picker,
+  review_none,
 };

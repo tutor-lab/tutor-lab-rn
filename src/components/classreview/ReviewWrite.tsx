@@ -1,12 +1,15 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, Text} from 'react-native';
+import {ScrollView} from 'react-native';
+import {Commonstyles} from '../../components/common';
+
+import {Empty, WriteCard} from '../../components/classreview';
 
 const ReviewWrite = () => {
   return (
-    <View>
-      <Text>ReviewWrite</Text>
-    </View>
+    <ScrollView style={Commonstyles.container}>
+      <WriteCard />
+    </ScrollView>
   );
 };
 
