@@ -13,6 +13,7 @@ import TutorInfo from './src/screens/tutorInfo/TutorInfoScreen';
 import MyPage from './src/navigation/Mypage';
 import EditProfile from './src/navigation/EditProfile';
 import Chat from './src/screens/chat/ChatScreen';
+import ClassReview from './src/navigation/ClassReview';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,7 @@ const App = () => {
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="MyPage" component={MyPage} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="ClassReview" component={ClassReview} />
       </Stack.Navigator>
     </NavigationContainer>
   );
