@@ -8,9 +8,8 @@ import {
   List,
   Profile,
   Version,
-  Data,
 } from '../../components/mypagetab';
-import {Header, Line} from '../../components/common';
+import {Header, Line, Data} from '../../components/common';
 
 type Props = {navigation: any};
 
@@ -21,13 +20,13 @@ const MyPageTabScreen = ({navigation}: Props) => {
       <Header.MyPageTab />
       <View style={styles.padding}>
         <Profile
-          profile={Data.Profile}
+          profile={Data.MypageProfile}
           onPress={() =>
             navigation.navigate('MyPage', {screen: 'ChangeProfile'})
           }
         />
         <View style={styles.bigBtnWrapper}>
-          {Data.Btn_Big.map(item => (
+          {Data.MypageBtn_BigData.map(item => (
             <Btn_Big
               key={item.id}
               icon={item.icon}
@@ -44,17 +43,17 @@ const MyPageTabScreen = ({navigation}: Props) => {
       <Line height={8} />
       <View style={styles.padding}>
         <ListTitle title={'계정정보'} />
-        {Data.ListInfo.map(item => (
+        {Data.MypageListInfoData.map(item => (
           <List
             key={item.id}
             list={item}
-            onPress={() =>
-              navigation.navigate('MyPage', {screen: `${item.navigation}`})
-            }
+            onPress={() => {
+              navigation.navigate('MyPage', {screen: `${item.navigation}`});
+            }}
           />
         ))}
         <ListTitle title={'TUTOR LAB'} />
-        {Data.ListExtra.map(item => (
+        {Data.MypageListExtraData.map(item => (
           <List
             key={item.id}
             list={item}

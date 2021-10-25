@@ -1,3 +1,5 @@
+import {icons} from '../../constants';
+
 const Card = [
   {
     content: '<p>본문</p>',
@@ -331,6 +333,29 @@ export const Setting = [
   },
 ];
 
+export const MypageBtn_BigData = [
+  {id: 0, title: '구매한 강의', icon: icons.purchased, navigation: 'Purchased'},
+  {id: 1, title: '위시리스트', icon: icons.wishlist, navigation: 'WishList'},
+];
+export const MypageListInfoData = [
+  // {id: 0, title: '강의 요청', navigation: 'RequireClass', lastIdx: false},
+  {
+    id: 1,
+    title: '강의 후기',
+    navigation: 'ClassReview',
+    lastIdx: false,
+  },
+  {id: 2, title: '설정', navigation: 'Setting', lastIdx: true},
+];
+
+export const MypageListExtraData = [
+  {id: 0, title: '공지사항', navigation: 'Notice', lastIdx: false},
+  {id: 1, title: '이용약관', navigation: 'Terms', lastIdx: false},
+  {id: 2, title: '문의하기', navigation: 'ContactUs', lastIdx: false},
+];
+
+export const MypageProfile = {name: '김민영', image: null};
+
 export default {
   Card,
   DifficultyData,
@@ -339,4 +364,8 @@ export default {
   WithdrawalDescription,
   WithdrawalCheckList,
   Setting,
+  MypageBtn_BigData,
+  MypageListInfoData,
+  MypageListExtraData,
+  MypageProfile,
 };
