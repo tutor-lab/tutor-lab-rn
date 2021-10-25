@@ -2,12 +2,12 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {View, Text} from 'react-native';
 
-const ReviewWriteScreen = () => {
+const ReviewList = () => {
   return (
     <View>
-      <Text>ReviewListScreen</Text>
+      <Text>ReviewList</Text>
     </View>
   );
 };
 
-export default ReviewWriteScreen;
+export default ReviewList;
