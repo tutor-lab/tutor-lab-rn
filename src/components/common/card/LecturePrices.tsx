@@ -25,7 +25,7 @@ const LecturePrices = ({lecturePrices}: Props) => {
       <View
         style={{flexDirection: 'row', alignItems: 'center', height: '100%'}}>
         <Text style={styles.divider}>{lecturePrices.totalTime}</Text>
-        <Text style={[styles.divider, fonts[400]]}>시간 기준</Text>
+        <Text style={[fonts[400], styles.divider]}>시간 기준</Text>
       </View>
     </View>
   );

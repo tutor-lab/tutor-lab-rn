@@ -36,6 +36,7 @@ const ClassDetailScreen = ({navigation, route}: Props) => {
 
   useEffect(() => {
     axios.get(`/lectures/${route.params.itemId}`).then(res => {
+      console.log(res.data);
       setContent(res.data.content);
       setDifficultyType(res.data.difficultyType);
       setIntroduce(res.data.introduce);

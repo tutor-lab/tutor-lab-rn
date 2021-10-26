@@ -11,12 +11,12 @@ import {
   Title,
   Explain,
   Heart,
-  Star,
   Review,
   Percent,
   Price,
   HashTag,
 } from './index';
+import {StarRating} from '../../common';
 
 type Props = {
   data: {
@@ -38,16 +38,23 @@ type Props = {
   title: string;
   subTitle: string;
   lecturePrices: any;
-  systemTypes:any;
-  thumbnail:string;
+  systemTypes: any;
+  thumbnail: string;
 };
 
-const Detail = ({data, title, subTitle, lecturePrices,systemTypes,thumbnail}: Props) => {
+const Detail = ({
+  data,
+  title,
+  subTitle,
+  lecturePrices,
+  systemTypes,
+  thumbnail,
+}: Props) => {
   return (
     <>
       <View style={styles.image}>
         <Image
-          source={{uri:thumbnail}}
+          source={{uri: thumbnail}}
           resizeMode="contain"
           style={{width: '100%', height: 280, zIndex: 1}}
         />
@@ -57,10 +64,7 @@ const Detail = ({data, title, subTitle, lecturePrices,systemTypes,thumbnail}: Pr
       </View>
       <View style={styles.detail}>
         <View style={styles.remote}>
-     
           <Remote remote={systemTypes} />
-  
-          
         </View>
         <View style={styles.title}>
           <Title title={title} />
@@ -77,6 +81,7 @@ const Detail = ({data, title, subTitle, lecturePrices,systemTypes,thumbnail}: Pr
               <WithLocalSvg asset={icons.line_vertical} />
             </View>
             <View style={styles.star}>
+            <StarRating rating = {5.0} size = {11}/>
               <Star rating={data.rating} />
             </View>
             <View style={styles.review}>

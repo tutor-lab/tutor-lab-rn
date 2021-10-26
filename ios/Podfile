@@ -14,6 +14,8 @@ target 'tutorlab' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'react-native-viewpager', :path => '../node_modules/@react-native-community/viewpager'
+
   target 'tutorlabTests' do
     inherit! :complete
     # Pods for testing

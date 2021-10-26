@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'react-native-gesture-handler';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {WithLocalSvg} from 'react-native-svg/src';
 
 import {fonts, colors, icons} from '../../constants';
-import {Commonstyles, Line} from '../../components/common';
+import {Commonstyles, Line, StarRating} from '../../components/common';
 
 const ListCard = () => {
   return (
@@ -36,7 +36,9 @@ const ListCard = () => {
       <Line />
       <View style={[Commonstyles.padding, styles.padding]}>
         <View style={styles.row}>
-          <View style={styles.star}>{/* 별 */}</View>
+          <View style={styles.star}>
+            <StarRating rating={3.5} size={10} />
+          </View>
           <View>
             <Text style={styles.date}>2021.07.01</Text>
           </View>
@@ -60,7 +62,7 @@ export default ListCard;
 
 const styles = StyleSheet.create({
   padding: {paddingVertical: 15},
-  star: {width: 66, marginLeft: 12},
+  star: {width: 66, marginRight: 12},
   row: {flexDirection: 'row', alignItems: 'center'},
   date: {
     fontFamily: fonts.montserrat_500,
