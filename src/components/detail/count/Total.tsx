@@ -15,11 +15,11 @@ const Total = ({percent, score}: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.text, fonts[400]]}>수강생의 </Text>
+      <Text style={[fonts[400], styles.text]}>수강생의 </Text>
       <Text style={styles.count}>{percent}</Text>
-      <Text style={[styles.text, fonts[400]]}>%가 </Text>
+      <Text style={[fonts[400], styles.text]}>%가 </Text>
       <Text style={styles.count}>{sliceScore(score)}</Text>
-      <Text style={[styles.text, fonts[400]]}>점을 주었습니다!</Text>
+      <Text style={[fonts[400], styles.text]}>점을 주었습니다!</Text>
     </View>
   );
 };

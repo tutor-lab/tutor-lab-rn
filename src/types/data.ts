@@ -88,3 +88,21 @@ export type SettingType = {
   describe: string;
   enabled: boolean;
 };
+
+export type ClassDetailType = {
+  discount: number;
+  explain: string;
+  hashtag: string[];
+  heart: number;
+  lectureSubjects: {id: number; krSubject: string; parent: number}[];
+  lecture_count: number;
+  price: string;
+  rating: number;
+  remote: string[];
+  review: number;
+  review_count: number;
+  store_count: number;
+  tag: string[];
+  title: string;
+  tutor: string;
+};
