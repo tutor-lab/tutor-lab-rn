@@ -9,7 +9,7 @@ const Review = ({review}: Props) => {
   return (
     <>
       <Text style={styles.count}>{review}</Text>
-      <Text style={[styles.count, fonts[400]]}>개 후기</Text>
+      <Text style={[fonts[400], styles.count]}>개 후기</Text>
     </>
   );
 };

@@ -3,7 +3,6 @@ import ImageSection from './ImageSection';
 import Title from './Title';
 import Tutor from './Tutor';
 import Heart from './Heart';
-import Star from './Star';
 import Review from './Review';
 import SystemTypes from './SystemTypes';
 import Percent from './Percent';
@@ -17,7 +16,6 @@ export {
   Title,
   Tutor,
   Heart,
-  Star,
   Review,
   SystemTypes,
   Percent,

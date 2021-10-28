@@ -2,7 +2,6 @@ import Remote from './card/Remote';
 import Title from './card/Title';
 import Explain from './card/Explain';
 import Heart from './card/Heart';
-import Star from './card/Star';
 import Review from './card/Review';
 import Step from './card/Step';
 import Percent from './card/Percent';
@@ -26,7 +25,6 @@ export {
   Title,
   Explain,
   Heart,
-  Star,
   Review,
   Percent,
   Price,

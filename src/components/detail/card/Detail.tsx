@@ -11,12 +11,12 @@ import {
   Title,
   Explain,
   Heart,
-  Star,
   Review,
   Percent,
   Price,
   HashTag,
 } from './index';
+import {StarRating} from '../../common';
 
 type Props = {
   data: {
@@ -50,7 +50,7 @@ const Detail = ({
   systemTypes,
   thumbnail,
 }: Props) => {
-  console.log('lecturePrices===', lecturePrices[0]);
+
   return (
     <>
       <View style={styles.image}>
@@ -82,6 +82,7 @@ const Detail = ({
               <WithLocalSvg asset={icons.line_vertical} />
             </View>
             <View style={styles.star}>
+            <StarRating rating = {5.0} size = {11}/>
               <Star rating={data.rating} />
             </View>
             <View style={styles.review}>

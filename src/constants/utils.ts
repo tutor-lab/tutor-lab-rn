@@ -1,4 +1,5 @@
 import {Data} from '../components/common';
+import {icons} from '../constants';
 import {Gender} from '../types/data';
 
 export const numberWithCommas = x => {
@@ -64,6 +65,25 @@ export const pwdTypoCheck = (pwd1: string, pwd2: string) => {
   return pwd1 === pwd2;
 };
 
+const handleRating = (value: number) => {
+  let starArray: {id: number; icon: any}[] = [];
+  let count = 0;
+
+  while (count !== 5) {
+    let empty = count + 0.25;
+    let half = count + 0.75;
+    if (value < empty) {
+      starArray = starArray.concat({id: count, icon: icons.star_blank});
+    } else if (value >= empty && value < half) {
+      starArray = starArray.concat({id: count, icon: icons.star_half});
+    } else {
+      starArray = starArray.concat({id: count, icon: icons.star});
+    }
+    count += 1;
+  }
+  return starArray;
+};
+
 export default {
   numberWithCommas,
   parseToday,
@@ -74,4 +94,5 @@ export default {
   genderValdator,
   toggleGender,
   pwdTypoCheck,
+  handleRating,
 };

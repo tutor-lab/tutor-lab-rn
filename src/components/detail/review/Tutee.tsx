@@ -1,9 +1,9 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {WithLocalSvg} from 'react-native-svg';
 
-import {colors, icons, fonts} from '../../../constants';
+import {colors, fonts} from '../../../constants';
+import {StarRating} from '../../common';
 
 type Props = {
   data: {
@@ -30,15 +30,7 @@ const Tutee = ({data}: Props) => {
               <Text style={[fonts[500], styles.tutee_name]}>{data.name}</Text>
             </View>
             <View style={styles.rating_box}>
-              <WithLocalSvg asset={icons.star} height={11.5} width={11.5} />
-              <WithLocalSvg asset={icons.star} height={11.5} width={11.5} />
-              <WithLocalSvg asset={icons.star} height={11.5} width={11.5} />
-              <WithLocalSvg asset={icons.star} height={11.5} width={11.5} />
-              <WithLocalSvg
-                asset={icons.star_half}
-                height={11.5}
-                width={11.5}
-              />
+              <StarRating rating={4.5} size={11} />
             </View>
           </View>
         </View>

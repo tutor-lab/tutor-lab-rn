@@ -10,12 +10,12 @@ import {
   Title,
   SystemTypes,
   Heart,
-  Star,
   Review,
   Percent,
   LecturePrices,
   LectureSubjects,
 } from './index';
+import {StarRating} from '../';
 import {LectureList} from '../../../types/data';
 
 type Props = {
@@ -68,7 +68,7 @@ const Card = ({data, onPress}: Props) => {
             <WithLocalSvg asset={icons.line_vertical} />
           </View> */}
           <View style={styles.star}>
-            <Star rating={5} />
+            <StarRating rating={4.5} size={11} />
           </View>
           <View style={styles.review}>
             <Review review={28} />
@@ -112,7 +112,7 @@ var styles = StyleSheet.create({
   title: {marginTop: 7},
   tutor: {height: 20, flexDirection: 'row', alignItems: 'center', marginTop: 8},
   heart: {flexDirection: 'row', alignItems: 'center'},
-  star: {flexDirection: 'row', alignItems: 'center'},
+  star: {flexDirection: 'row', alignItems: 'center', width: 60},
   review: {flexDirection: 'row', alignItems: 'center', paddingLeft: 4},
   count: {
     height: 18,
