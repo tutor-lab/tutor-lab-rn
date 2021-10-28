@@ -30,8 +30,9 @@ const ChatScreen = ({navigation, route}: Props) => {
   const [user, setUser] = useState<any>([]);
   const [sendMsgCnt, setSendMsgCnt] = useState(0);
 
+  console.log('initroute', route.params.params.chatRoomId);
   const ws = new WebSocket(
-    `ws://3.35.255.192:8081/ws/chat/${route.params.chatRoomId}`,
+    `ws://192.168.0.10:9090/ws/chat/${route.params.params.chatRoomId}`,
   );
 
   useEffect(() => {
@@ -62,7 +63,7 @@ const ChatScreen = ({navigation, route}: Props) => {
         message: data,
         sessionId: '',
         // sessionId 어떻게 보낼것인지
-        chatroomId: route.params.chatRoomId,
+        chatroomId: route.params.params.chatRoomId,
         type: 'message',
       }),
     );
@@ -84,7 +85,7 @@ const ChatScreen = ({navigation, route}: Props) => {
   const getPrevChat = async () => {
     try {
       await axios
-        .get(`/tutees/my-chatrooms/${route.params.chatRoomId}`)
+        .get(`/tutees/my-chatrooms/${route.params.params.chatRoomId}`)
         .then(response => {
           setMessageList(response.data);
           return response;

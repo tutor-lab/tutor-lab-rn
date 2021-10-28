@@ -21,11 +21,11 @@ const Main = () => {
         component={HomeTab}
         options={{tabBarLabel: '홈'}}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="FreeBoardTab"
         component={FreeBoardTab}
         options={{tabBarLabel: '자유게시판'}}
-      />
+      /> */}
       <Tab.Screen
         name="ChatTab"
         component={ChatTab}

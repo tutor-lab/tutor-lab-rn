@@ -19,7 +19,9 @@ import Picker from './Picker';
 import Commonstyles from './Commonstyles';
 import ErrorText from './ErrorText';
 import Switch from './Switch';
+import SelectInputFull from './SelectInputFull';
 import StarRating from './StarRating';
+
 
 export {
   TextInputLabel,
@@ -43,5 +45,7 @@ export {
   Commonstyles,
   ErrorText,
   Switch,
+  SelectInputFull,
   StarRating,
+
 };

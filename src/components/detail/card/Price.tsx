@@ -10,7 +10,7 @@ const Price = ({price}: Props) => {
     <>
       <Text style={styles.price}>{price}</Text>
       <Text style={[fonts[700], styles.text]}> 원</Text>
-      <Text style={[fonts[400], styles.divider]}>{'  '}/ 1개월 기준</Text>
+      <Text style={[fonts[400], styles.divider]}>{'  '}/ 1시간 기준</Text>
     </>
   );
 };

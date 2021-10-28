@@ -50,6 +50,7 @@ const Detail = ({
   systemTypes,
   thumbnail,
 }: Props) => {
+
   return (
     <>
       <View style={styles.image}>
@@ -94,7 +95,13 @@ const Detail = ({
             <Percent discount={data.discount} />
           </View> */}
           <View style={styles.price}>
-            <Price price={lecturePrices.totalCost} />
+            <Price
+              price={
+                lecturePrices[0] === undefined
+                  ? ''
+                  : lecturePrices[0].pertimeCost
+              }
+            />
           </View>
         </View>
         {/* <View>

@@ -9,6 +9,7 @@ type Props = {
 };
 
 const ChatList = ({chatLists, navigation}: Props) => {
+  console.log('chatLists=', chatLists);
   const goToChatRoom = () => {
     navigation.navigate('Chat', {
       params: {
@@ -26,7 +27,9 @@ const ChatList = ({chatLists, navigation}: Props) => {
             <View style={styles.tutorBox}>
               <Text style={[fonts[500], styles.tutorText01]}>튜터</Text>
             </View>
-            <Text style={[fonts[500], styles.tutorText02]}>김하나</Text>
+            <Text style={[fonts[500], styles.tutorText02]}>
+              {chatLists.tutorNickname}
+            </Text>
           </View>
           <Text
             numberOfLines={2}
