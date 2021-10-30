@@ -3,5 +3,6 @@ import WriteCard from './WriteCard';
 import ListCard from './ListCard';
 import ReviewList from './ReviewList';
 import Empty from './Empty';
+import WriteFotter from './WriteFooter';
 
-export {ReviewList, ListCard, ReviewWrite, WriteCard, Empty};
+export {ReviewList, WriteFotter, ListCard, ReviewWrite, WriteCard, Empty};
