@@ -356,6 +356,14 @@ export const MypageListExtraData = [
 
 export const MypageProfile = {name: '김민영', image: null};
 
+export const StarSelectData = [
+  {id: 0, isSelected: true},
+  {id: 1, isSelected: true},
+  {id: 2, isSelected: true},
+  {id: 3, isSelected: true},
+  {id: 4, isSelected: true},
+];
+
 export default {
   Card,
   DifficultyData,
@@ -368,4 +376,5 @@ export default {
   MypageListInfoData,
   MypageListExtraData,
   MypageProfile,
+  StarSelectData,
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {View, SafeAreaView, Image, Text, StyleSheet} from 'react-native';
 import {WithLocalSvg} from 'react-native-svg';
@@ -10,11 +10,18 @@ import {
   Line,
   Button,
   TextInput,
+  Data,
 } from '../../components/common';
-import {WriteFotter} from '../../components/classreview';
+import {WriteFotter, StarSelect} from '../../components/classreview';
 import {icons, colors, fonts} from '../../constants';
+import useSelectStar from '../../hooks/useSelectStar';
 
 const ReviewWriteScreen = ({navigation}) => {
+  const [rating, setRating] = useState<number>(5); //초기에는 무조건 별점 5!
+  const [starData, onSelectStar] = useSelectStar(Data.StarSelectData);
+
+  // const findRating = starData.filter((item: any) => item.isSelected).length; 최종별점
+
   return (
     <SafeAreaView style={Commonstyles.container}>
       <KeyboardAwareScrollView>
@@ -46,12 +53,13 @@ const ReviewWriteScreen = ({navigation}) => {
         <View style={styles.padding}>
           <Text style={[fonts[400], styles.title]}>강의는 만족하셨나요?</Text>
           <View style={styles.ratingBox}>
-            <WithLocalSvg asset={icons.star} height={40} width={40} />
-            <WithLocalSvg asset={icons.star} height={40} width={40} />
-            <WithLocalSvg asset={icons.star} height={40} width={40} />
-            <WithLocalSvg asset={icons.star} height={40} width={40} />
-            <WithLocalSvg asset={icons.star} height={40} width={40} />
-            {/* 임시 */}
+            {starData.map(item => (
+              <StarSelect
+                key={item.id}
+                star={item}
+                onSelectStar={onSelectStar}
+              />
+            ))}
           </View>
         </View>
         <Line height={8} />
