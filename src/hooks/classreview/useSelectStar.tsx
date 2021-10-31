@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react';
-import {Data} from '../components/common';
+import {Data} from '../../components/common';
 
 const useSelectStar = (initialVal = Data.StarSelectData) => {
   const [stars, setStars] =
