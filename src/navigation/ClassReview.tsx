@@ -4,7 +4,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import ReviewListScreen from '../screens/classreview/ReviewListScreen';
 import ReviewWriteScreen from '../screens/classreview/ReviewWriteScreen';
-import ReviewDetailScreen from '../screens/classreview/ReviewDetailScreen';
 
 const ClassReview = () => {
   const Stack = createNativeStackNavigator();
@@ -15,7 +14,6 @@ const ClassReview = () => {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="ReviewList" component={ReviewListScreen} />
       <Stack.Screen name="ReviewWrite" component={ReviewWriteScreen} />
-      <Stack.Screen name="ReviewDetail" component={ReviewDetailScreen} />
     </Stack.Navigator>
   );
 };

@@ -4,7 +4,7 @@ import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {fonts, colors} from '../../constants';
 import {Commonstyles, Line} from '../../components/common';
 
-const WriteCard = () => {
+const WriteCard = ({navigation}) => {
   return (
     <View>
       <View style={[Commonstyles.padding, styles.padding]}>
@@ -30,7 +30,9 @@ const WriteCard = () => {
           </View>
         </View>
         <View style={styles.rightSection}>
-          <TouchableOpacity style={styles.writeBtn}>
+          <TouchableOpacity
+            style={styles.writeBtn}
+            onPress={() => navigation.navigate('ReviewWrite')}>
             <Text style={[fonts[700], {color: colors.main, fontSize: 13}]}>
               후기작성
             </Text>

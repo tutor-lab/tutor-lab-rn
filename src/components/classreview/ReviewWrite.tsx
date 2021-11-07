@@ -5,10 +5,10 @@ import {Commonstyles} from '../../components/common';
 
 import {Empty, WriteCard} from '../../components/classreview';
 
-const ReviewWrite = () => {
+const ReviewWrite = ({navigation}) => {
   return (
     <ScrollView style={Commonstyles.container}>
-      <WriteCard />
+      <WriteCard navigation={navigation} />
     </ScrollView>
   );
 };

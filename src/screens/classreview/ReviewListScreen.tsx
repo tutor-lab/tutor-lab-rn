@@ -2,7 +2,6 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {
   SafeAreaView,
-  View,
   StyleSheet,
   useWindowDimensions,
   Text,
@@ -24,9 +23,9 @@ const ReviewListScreen = ({navigation}) => {
   const renderScene = ({route}: any) => {
     switch (route.key) {
       case 'first':
-        return <ReviewWrite />;
+        return <ReviewWrite navigation={navigation} />;
       case 'second':
-        return <ReviewList />;
+        return <ReviewList navigation={navigation} />;
       default:
         return null;
     }
