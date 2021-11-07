@@ -48,7 +48,9 @@ const MyPageTabScreen = ({navigation}: Props) => {
             key={item.id}
             list={item}
             onPress={() => {
-              navigation.navigate('MyPage', {screen: `${item.navigation}`});
+              item.navigation === 'ClassReview'
+                ? navigation.navigate(item.navigation)
+                : navigation.navigate('MyPage', {screen: `${item.navigation}`});
             }}
           />
         ))}

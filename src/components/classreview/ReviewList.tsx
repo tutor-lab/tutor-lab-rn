@@ -6,7 +6,7 @@ import {Commonstyles} from '../../components/common';
 import {ListCard} from '../classreview';
 import {Modals} from '../../components/editprofile';
 
-const ReviewList = () => {
+const ReviewList = ({navigation}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalText, setModalText] = useState({
     title: '',
@@ -29,7 +29,10 @@ const ReviewList = () => {
             textCancel={'아니요'}
             textOk={'예'}
             onPressCancel={() => setIsModalVisible(false)}
-            onPressOk={() => setIsModalVisible(false)}
+            onPressOk={() => {
+              setIsModalVisible(false);
+              navigation.navigate('ReviewWrite');
+            }}
           />
         </Modals.Container>
       )}
