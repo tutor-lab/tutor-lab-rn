@@ -24,7 +24,7 @@ const App = () => {
     return result;
   });
 
-  axios.defaults.baseURL = 'http://192.168.0.10:9090';
+  axios.defaults.baseURL = BACKEND_URL;
   axios.interceptors.request.use(async function (config) {
     const token = await AsyncStorage.getItem('accessToken');
     if (token) {
@@ -39,9 +39,8 @@ const App = () => {
         {/* {isToken?
         <Stack.Screen name="Main" component={Main} />
       : <Stack.Screen name="Login" component={Login} />} */}
-        <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Login" component={Login} />
-
+        <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="TutorInfo" component={TutorInfo} />
