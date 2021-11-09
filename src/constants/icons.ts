@@ -42,6 +42,9 @@ export const paymentList_unchecked = require('../assets/icons/paymentList_unchec
 export const cancel = require('../assets/icons/cancel.svg');
 export const picker = require('../assets/icons/picker.svg');
 export const review_none = require('../assets/icons/review_none.svg');
+export const location = require('../assets/icons/location.svg');
+export const location_picker = require('../assets/icons/location_picker.svg');
+export const location_arrow = require('../assets/icons/location_arrow.svg');
 
 export default {
   logo,
@@ -88,4 +91,7 @@ export default {
   purchased,
   picker,
   review_none,
+  location,
+  location_picker,
+  location_arrow,
 };

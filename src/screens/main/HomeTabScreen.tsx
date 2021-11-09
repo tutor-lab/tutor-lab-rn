@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
-import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
+import {View, SafeAreaView, ScrollView, StyleSheet, Text} from 'react-native';
 
-import {colors, width, height} from '../../constants';
+import {useToggleModal} from '../../hooks/common';
+import {colors, fonts, width, height} from '../../constants';
 import {
   Header,
   Lecture,
@@ -11,6 +12,7 @@ import {
   Count,
   Sort,
   Data,
+  LocationModal,
 } from '../../components/hometab';
 import {Card} from '../../components/common';
 import axios from 'axios';
@@ -20,6 +22,7 @@ type Props = {
 };
 
 const HomeTabScreen = ({navigation}: Props) => {
+  const [locationModal, onToggleModal] = useToggleModal(false);
   const [search, setSearch] = useState<string>('');
   const [alert, setAlert] = useState<boolean>(false);
   const [lecture, setLecture] = useState<{
@@ -43,6 +46,7 @@ const HomeTabScreen = ({navigation}: Props) => {
         console.log(error);
       });
   }, []);
+  console.log(locationModal);
   return (
     // <View style={{height: '100%'}}>
     //   <LinearGradient
@@ -50,43 +54,47 @@ const HomeTabScreen = ({navigation}: Props) => {
     //     style={styles.linearGradient}></LinearGradient>
     // </View>
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scroll}>
-        <View style={styles.padding}>
-          <View style={styles.header}>
-            <Header alert={alert} />
+      {locationModal ? (
+        <LocationModal />
+      ) : (
+        <ScrollView contentContainerStyle={styles.scroll}>
+          <View style={styles.padding}>
+            <View style={styles.header}>
+              <Header alert={alert} onPress={onToggleModal} />
+            </View>
+            <View style={styles.lecture}>
+              <Lecture lecture={lecture} setLecture={setLecture} />
+            </View>
+            <View style={styles.searchBar}>
+              <SearchBar
+                value={search}
+                onChangeText={(e: string) => onChange(e)}
+              />
+            </View>
+            <View style={styles.filter}>
+              <Filter data={Data.Filter} />
+            </View>
+            <View style={styles.middle}>
+              <Count count={lectureCount} />
+              <Sort />
+            </View>
+            <View style={styles.card}>
+              {lectureList.map(data => (
+                <View key={data.id}>
+                  <Card
+                    data={data}
+                    onPress={() =>
+                      navigation.navigate('Detail', {
+                        itemId: data.id,
+                      })
+                    }
+                  />
+                </View>
+              ))}
+            </View>
           </View>
-          <View style={styles.lecture}>
-            <Lecture lecture={lecture} setLecture={setLecture} />
-          </View>
-          <View style={styles.searchBar}>
-            <SearchBar
-              value={search}
-              onChangeText={(e: string) => onChange(e)}
-            />
-          </View>
-          <View style={styles.filter}>
-            <Filter data={Data.Filter} />
-          </View>
-          <View style={styles.middle}>
-            <Count count={lectureCount} />
-            <Sort />
-          </View>
-          <View style={styles.card}>
-            {lectureList.map(data => (
-              <View key={data.id}>
-                <Card
-                  data={data}
-                  onPress={() =>
-                    navigation.navigate('Detail', {
-                      itemId: data.id,
-                    })
-                  }
-                />
-              </View>
-            ))}
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };
