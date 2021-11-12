@@ -17,11 +17,15 @@ export default function BottomTab({isFocused, index, label, onPress}: ITab) {
       index: 1,
       icon: isFocused ? icons.free_board_selected : icons.free_board_unselected,
     },
-    {index: 2, icon: isFocused ? icons.chat_selected : icons.chat_unselected},
     {
-      index: 3,
+      index: 2,
       icon: isFocused ? icons.my_page_selected : icons.my_page_unselected,
     },
+    // {index: 2, icon: isFocused ? icons.chat_selected : icons.chat_unselected},
+    // {
+    //   index: 3,
+    //   icon: isFocused ? icons.my_page_selected : icons.my_page_unselected,
+    // },
   ];
 
   return (
