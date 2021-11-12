@@ -6,15 +6,4 @@ import Filter from './filter/Filter';
 import Count from './Count';
 import Sort from './Sort';
 import Data from './Data';
-import LocationModal from './LocationModal';
-export {
-  Lecture,
-  SearchBar,
-  SearchBarNoLogo,
-  Header,
-  Filter,
-  Count,
-  Sort,
-  LocationModal,
-  Data,
-};
+export {Lecture, SearchBar, SearchBarNoLogo, Header, Filter, Count, Sort, Data};

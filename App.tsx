@@ -14,7 +14,7 @@ import MyPage from './src/navigation/Mypage';
 import EditProfile from './src/navigation/EditProfile';
 import Chat from './src/screens/chat/ChatScreen';
 import ClassReview from './src/navigation/ClassReview';
-
+import LocationModal from './src/screens/main/LocationModal';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -39,8 +39,8 @@ const App = () => {
         {/* {isToken?
         <Stack.Screen name="Main" component={Main} />
       : <Stack.Screen name="Login" component={Login} />} */}
-        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="TutorInfo" component={TutorInfo} />
@@ -48,6 +48,7 @@ const App = () => {
         <Stack.Screen name="MyPage" component={MyPage} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="ClassReview" component={ClassReview} />
+        <Stack.Screen name="LocationModal" component={LocationModal} />
       </Stack.Navigator>
     </NavigationContainer>
   );
