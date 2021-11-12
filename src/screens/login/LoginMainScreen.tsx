@@ -87,7 +87,7 @@ const LoginMainScreen = ({route, navigation}: Props) => {
   );
 
   const onLogin = () => {
-    AsyncStorage.clear();
+    AsyncStorage.removeItem('accessToken');
     if (username.text.length === 0) {
       setUsername({text: '', error: '아이디를 입력해 주세요.'});
     } else if (password.text.length === 0) {
@@ -102,7 +102,7 @@ const LoginMainScreen = ({route, navigation}: Props) => {
         .then(function (response) {
           const statusCode = response.status;
           if (statusCode === 200) {
-            AsyncStorage.setItem('accessToken', response.data.split(' ')[1]);
+            AsyncStorage.mergeItem('accessToken', response.data.split(' ')[1]);
             navigation.replace('Main');
           }
           // console.log(Object.keys(response.headers))
