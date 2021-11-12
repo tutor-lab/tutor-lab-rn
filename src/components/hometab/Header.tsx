@@ -4,9 +4,9 @@ import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {WithLocalSvg} from 'react-native-svg/src';
 import {fonts, icons, colors} from '../../constants';
 
-type Props = {alert: boolean; onPress: boolean | (() => void)};
+type Props = {alert: boolean; onPress: any; zone: string};
 
-const Header = ({alert, onPress}: Props) => {
+const Header = ({zone, alert, onPress}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.left}>
@@ -14,7 +14,7 @@ const Header = ({alert, onPress}: Props) => {
           style={styles.address}
           activeOpacity={1}
           onPress={onPress}>
-          <Text style={[fonts[700], styles.text]}>서울시 관악구</Text>
+          <Text style={[fonts[700], styles.text]}>{zone}</Text>
           <WithLocalSvg asset={icons.down} />
         </TouchableOpacity>
       </View>
