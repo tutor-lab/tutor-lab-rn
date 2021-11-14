@@ -21,6 +21,8 @@ const LocationModal = ({navigation}: Props) => {
   const [siGuns, setSiGuns] = useState<Zone[] | undefined>(); //시/군 데이터
   const [dong, setDong] = useState<string>('');
   const [dongs, setDongs] = useState<Zone[] | undefined>(); //동 데이터
+  const [prevState, setPrevState] = useState('');
+  const [prevSiGun, setPrevSiGun] = useState('');
 
   const togglePicker = (title: string, items: Zone[] | undefined) => {
     setPickerTitle(title);
@@ -50,12 +52,13 @@ const LocationModal = ({navigation}: Props) => {
       const userZone = JSON.parse(result);
       if (userZone) {
         setState(userZone.state);
+        setPrevState(userZone.state);
         setSiGun(userZone.siGun);
+        setPrevSiGun(userZone.siGun);
         setDong(userZone.dong);
       }
     });
   }, []);
-
   useEffect(() => {
     axios
       .get('/addresses/states')
@@ -73,6 +76,11 @@ const LocationModal = ({navigation}: Props) => {
       axios
         .get(encodeURI(uri))
         .then(response => {
+          if (prevState !== state && prevState.length !== 0) {
+            setPrevState(state);
+            setSiGun('');
+            setDong('');
+          }
           setSiGuns(response.data);
         })
         .catch(e => console.log(e));
@@ -80,14 +88,17 @@ const LocationModal = ({navigation}: Props) => {
     if (state.length !== 0) {
       onSetSiGuns();
     }
-  }, [state]);
-
+  }, [prevState, state]);
   useEffect(() => {
     const onSetDongs = () => {
       const uri = `/addresses/dongs?state=${state}&siGunGu=${siGun}`;
       axios
         .get(encodeURI(uri))
         .then(response => {
+          if (prevSiGun !== siGun && prevSiGun.length !== 0) {
+            setPrevSiGun(siGun);
+            setDong('');
+          }
           setDongs(response.data);
         })
         .catch(e => console.log(e));
@@ -95,7 +106,7 @@ const LocationModal = ({navigation}: Props) => {
     if (state.length !== 0 && siGun.length !== 0) {
       onSetDongs();
     }
-  }, [siGun, state]);
+  }, [prevSiGun, siGun, state]);
 
   return (
     <View style={styles.container}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {WithLocalSvg} from 'react-native-svg/src';
@@ -7,6 +7,13 @@ import {fonts, icons, colors} from '../../constants';
 type Props = {alert: boolean; onPress: any; zone: string};
 
 const Header = ({zone, alert, onPress}: Props) => {
+  let splitState = zone.split(' ');
+  const [exceptDong, setExceptDong] = useState('');
+
+  useEffect(() => {
+    setExceptDong(`${splitState[0]} ${splitState[1]}`);
+  }, [splitState]);
+
   return (
     <View style={styles.container}>
       <View style={styles.left}>
@@ -14,7 +21,9 @@ const Header = ({zone, alert, onPress}: Props) => {
           style={styles.address}
           activeOpacity={1}
           onPress={onPress}>
-          <Text style={[fonts[700], styles.text]}>{zone}</Text>
+          <Text style={[fonts[700], styles.text]}>
+            {zone.length === 0 ? '전체 지역 조회' : exceptDong}
+          </Text>
           <WithLocalSvg asset={icons.down} />
         </TouchableOpacity>
       </View>
