@@ -42,15 +42,16 @@ const HomeTabScreen = ({navigation}: Props) => {
       const userZone = JSON.parse(result);
       if (userZone) {
         console.log(userZone);
-        setZone(`${userZone.state} ${userZone.siGun}`);
+        setZone(`${userZone.state} ${userZone.siGun} ${userZone.dong}`);
       }
     });
   }, []);
 
   useEffect(() => {
     axios
-      .get('/lectures')
+      .get(`/lectures?zone=${zone}`)
       .then(function (response) {
+        console.log(zone);
         setLectureList(response.data.content);
         setLectureCount(response.data.content.length);
       })
