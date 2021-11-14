@@ -41,7 +41,6 @@ const HomeTabScreen = ({navigation}: Props) => {
     AsyncStorage.getItem('zone', (_err, result) => {
       const userZone = JSON.parse(result);
       if (userZone) {
-        console.log(userZone);
         setZone(`${userZone.state} ${userZone.siGun} ${userZone.dong}`);
       }
     });
@@ -51,7 +50,6 @@ const HomeTabScreen = ({navigation}: Props) => {
     axios
       .get(`/lectures?zone=${zone}`)
       .then(function (response) {
-        console.log(zone);
         setLectureList(response.data.content);
         setLectureCount(response.data.content.length);
       })
@@ -59,6 +57,7 @@ const HomeTabScreen = ({navigation}: Props) => {
         console.log(error);
       });
   }, []);
+
   return (
     // <View style={{height: '100%'}}>
     //   <LinearGradient
