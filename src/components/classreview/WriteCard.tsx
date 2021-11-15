@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import {fonts, colors} from '../../constants';
 import {Commonstyles, Line} from '../../components/common';
+import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 
 type Props = {
   data: any;
@@ -56,7 +57,17 @@ const WriteCard = ({data, navigation}: Props) => {
         <View style={styles.rightSection}>
           <TouchableOpacity
             style={styles.writeBtn}
-            onPress={() => navigation.navigate('ReviewWrite')}>
+            onPress={() =>
+              navigation.navigate('ReviewWrite', {
+                id: data.item.id,
+                thumbnail: data.item.thumbnail,
+                title: data.item.title,
+                nickname: data.item.lectureTutor.nickname,
+                systemTypes: data.item.systemTypes[0],
+                lecturePrices: data.item.lecturePrices[0],
+                lectureSubjects: data.item.lectureSubjects,
+              })
+            }>
             <Text style={[fonts[700], {color: colors.main, fontSize: 13}]}>
               후기작성
             </Text>

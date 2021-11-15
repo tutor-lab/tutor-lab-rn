@@ -45,19 +45,10 @@ const ReviewWrite = ({navigation}) => {
     <WriteCard data={data} navigation={navigation} />
   );
 
-  /*
-      <MyListItem
-        id={item.id}
-        onPressItem={this._onPressItem}
-        selected={!!this.state.selected.get(item.id)}
-        title={item.title}
-    />
-
-  */
   return reviewData ? (
     <FlatList
       data={reviewData}
-      renderItem={data => renderItem(data)}
+      renderItem={(data: any) => renderItem(data)}
       keyExtractor={item => item.id}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.8}
