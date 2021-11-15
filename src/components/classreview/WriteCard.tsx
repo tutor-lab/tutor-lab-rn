@@ -1,32 +1,56 @@
-import React from 'react';
+import React, {memo} from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import {fonts, colors} from '../../constants';
 import {Commonstyles, Line} from '../../components/common';
 
-const WriteCard = ({navigation}) => {
+type Props = {
+  data: any;
+  navigation: any;
+};
+const WriteCard = ({data, navigation}: Props) => {
   return (
     <View>
-      <View style={[Commonstyles.padding, styles.padding]}>
-        <Text style={styles.date}>2021.07.01</Text>
-      </View>
-      <Line />
       <View style={[Commonstyles.padding, styles.padding, styles.row]}>
         <View style={styles.leftSection}>
-          <View style={styles.imageWrapper}>{/* 이미지 */}</View>
+          <View style={styles.imageWrapper}>
+            <Image
+              source={{uri: `${data.item.thumbnail}`}}
+              resizeMode={'cover'}
+              style={styles.image}
+            />
+          </View>
           <View style={styles.textSection}>
             <Text style={[fonts[400], styles.text, {color: colors.light_gray}]}>
-              김하나
+              {data.item.lectureTutor.nickname}
             </Text>
             <Text
               style={[fonts[400], styles.text]}
               numberOfLines={2}
               ellipsizeMode="tail">
-              금융권 취업을 위한 데이터 분석 및 모델링
+              {data.item.title}
             </Text>
-            <Text style={[fonts[400], styles.text, {color: colors.light_gray}]}>
-              온라인 / 그룹
-            </Text>
+            <View style={{flexDirection: 'row'}}>
+              {data.item.systemTypes.map((list: any) => (
+                <Text
+                  key={list}
+                  style={[fonts[400], styles.text, {color: colors.light_gray}]}>
+                  {list.name}{' '}
+                </Text>
+              ))}
+              <Text
+                style={[fonts[400], styles.text, {color: colors.light_gray}]}>
+                /
+              </Text>
+              {data.item.lecturePrices.map((list: any) => (
+                <Text
+                  key={list}
+                  style={[fonts[400], styles.text, {color: colors.light_gray}]}>
+                  {' '}
+                  {list.isGroupStr}{' '}
+                </Text>
+              ))}
+            </View>
           </View>
         </View>
         <View style={styles.rightSection}>
@@ -44,7 +68,7 @@ const WriteCard = ({navigation}) => {
   );
 };
 
-export default WriteCard;
+export default memo(WriteCard);
 
 const styles = StyleSheet.create({
   padding: {paddingVertical: 15},
@@ -57,9 +81,9 @@ const styles = StyleSheet.create({
   imageWrapper: {
     height: 70,
     width: 70,
-    backgroundColor: colors.skyBlue,
     borderRadius: 6,
   },
+  image: {height: '100%', width: '100%', borderRadius: 6},
   text: {fontSize: 12},
   leftSection: {flex: 3, flexDirection: 'row'},
   textSection: {marginLeft: 12, flex: 1},
