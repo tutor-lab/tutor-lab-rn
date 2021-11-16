@@ -7,13 +7,15 @@ import {
   Text,
 } from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
-
 import {Commonstyles, Header} from '../../components/common';
 import {colors, fonts} from '../../constants';
 import {ReviewList, ReviewWrite} from '../../components/classreview';
+import {useNavigation} from '@react-navigation/native';
 
-const ReviewListScreen = ({navigation}) => {
+const ReviewListScreen = ({}) => {
+  const navigation = useNavigation();
   const layout = useWindowDimensions();
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: '후기작성'},

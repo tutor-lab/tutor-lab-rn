@@ -7,16 +7,17 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
+  Keyboard,
 } from 'react-native';
-import {WithLocalSvg} from 'react-native-svg';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
+import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 import {
   Header,
   Commonstyles,
   Line,
   Button,
-  TextInput,
   Data,
   ErrorText,
   Modal,
@@ -26,20 +27,52 @@ import {WriteFotter, StarSelect} from '../../components/classreview';
 import {colors, fonts} from '../../constants';
 import {useInput} from '../../hooks/common';
 import {useSelectStar} from '../../hooks/classreview';
+import {err} from 'react-native-svg/src/xml';
 
-const ReviewWriteScreen = ({navigation}) => {
+type Props = {
+  route: {
+    params: {
+      id: number;
+      thumbnail: string;
+      title: string;
+      nickname: string;
+      systemTypes: any;
+      lecturePrices: any;
+      lectureSubjects: any;
+    };
+  };
+};
+
+const ReviewWriteScreen = ({route}: Props) => {
+  const id = route.params.id;
+  const navigation = useNavigation();
   const input = useRef<ElementType>(null);
-  const [rating, setRating] = useState<number>(5); //초기에는 무조건 별점 5!
   const [starData, onSelectStar] = useSelectStar(Data.StarSelectData);
   const [review, onChangeReview] = useInput('');
   const [isModal, setIsModal] = useState(false);
+  const [error, setError] = useState('');
 
-  const onSubmit = () => {
-    if (review.length > 20) {
+  const onSubmit = async () => {
+    if (review.length < 20) {
+      Keyboard.dismiss();
+      setError('20글자수가 넘어야 합니다.');
     } else {
-      // const findRating = starData.filter((item: any) => item.isSelected).length; 최종별점
-      // 제출 api
-      setIsModal(true);
+      setError('');
+      const rating = starData.filter((item: any) => item.isSelected).length;
+      axios
+        .post(`/tutees/my-lectures/${id}/reviews`, {
+          content: review,
+          score: rating,
+        })
+        .then(function (response) {
+          if (response.status === 201) {
+            setIsModal(true);
+          }
+        })
+        .catch(function (error) {
+          Keyboard.dismiss();
+          console.log(error.message);
+        });
     }
   };
 
@@ -51,9 +84,9 @@ const ReviewWriteScreen = ({navigation}) => {
           <View style={styles.imageBox}>
             {/* 이미지 */}
             <Image
-              style={styles.image}
+              source={{uri: `${route.params.thumbnail}`}}
               resizeMode={'cover'}
-              source={require('../../assets/images/detail.png')}
+              style={styles.thumbnail}
             />
           </View>
           <View style={styles.classInfo}>
@@ -61,13 +94,34 @@ const ReviewWriteScreen = ({navigation}) => {
               numberOfLines={1}
               ellipsizeMode="tail"
               style={[fonts[400], styles.classTitle]}>
-              금융권 취업을 위한 데이터 분석 및 모델링 분석 및 모델링
+              {route.params.title}
             </Text>
-            <Text style={[fonts[400], styles.classTitle]}>SQL, R, Python</Text>
-            <Text style={[fonts[400], styles.classExtra]}>김하나</Text>
+            <View style={{flexDirection: 'row'}}>
+              {route.params.lectureSubjects.map(
+                (item: {
+                  krSubject: string;
+                  learningKind: string;
+                  learningKindId: any;
+                }) => (
+                  <Text style={[fonts[400], styles.classTitle]}>
+                    {item.krSubject}{' '}
+                  </Text>
+                ),
+              )}
+            </View>
             <Text style={[fonts[400], styles.classExtra]}>
-              옵션: 1.온라인 / 2.그룹
+              {route.params.nickname}
             </Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[fonts[400], styles.classExtra]}>옵션: </Text>
+              <Text style={[fonts[400], styles.classExtra]}>
+                {route.params.systemTypes.name}
+              </Text>
+              <Text style={[fonts[400], styles.classExtra]}> / </Text>
+              <Text style={[fonts[400], styles.classExtra]}>
+                {route.params.lecturePrices.isGroupStr}
+              </Text>
+            </View>
           </View>
         </View>
         <Line height={8} />
@@ -91,18 +145,19 @@ const ReviewWriteScreen = ({navigation}) => {
             style={styles.textInputWrapper}
             onPress={() => input.current.focus()}>
             <TextInput
+              multiline
+              value={review}
               ref={input}
               placeholder={'최소 20자 이상 작성해주세요.'}
-              value={review}
-              multiline
               onChangeText={onChangeReview}
             />
           </TouchableOpacity>
         </View>
+        {error.length !== 0 && <ErrorText text={error} />}
         <Line height={8} />
         <WriteFotter />
       </KeyboardAwareScrollView>
-      <Button.Button_Bottom title={'등록'} onPress={() => ''} />
+      <Button.Button_Bottom title={'등록'} onPress={() => onSubmit()} />
       {isModal && (
         <Modals.Container setVisible={setIsModal} visible={isModal}>
           <Modals.Title text={'후기 등록 완료'} />
@@ -112,7 +167,7 @@ const ReviewWriteScreen = ({navigation}) => {
           <Modals.OneBtn
             onPress={() => {
               setIsModal(false);
-              navigation.goBack();
+              navigation.navigate('ReviewList');
             }}
             text={'확인'}
           />
@@ -127,6 +182,7 @@ export default ReviewWriteScreen;
 const styles = StyleSheet.create({
   image: {borderRadius: 8, height: '100%', width: '100%'},
   classInfoWrapper: {paddingVertical: 17, flexDirection: 'row'},
+  thumbnail: {height: '100%', width: '100%', borderRadius: 8},
   imageBox: {height: 84, width: 84},
   classInfo: {flex: 1, paddingLeft: 12, justifyContent: 'space-between'},
   classTitle: {fontSize: 14},
