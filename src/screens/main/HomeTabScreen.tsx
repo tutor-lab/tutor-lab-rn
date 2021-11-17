@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
-import {View, SafeAreaView, ScrollView, StyleSheet, Text} from 'react-native';
+import {View, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useToggleModal} from '../../hooks/common';
-import {colors, fonts, width, height} from '../../constants';
+import {colors, width, height} from '../../constants';
 import {
   Header,
   Lecture,
@@ -22,9 +21,8 @@ type Props = {
 };
 
 const HomeTabScreen = ({navigation}: Props) => {
-  const [locationModal, onToggleModal] = useToggleModal(false);
   const [search, setSearch] = useState<string>('');
-  const [alert, setAlert] = useState<boolean>(false);
+  const [alert] = useState<boolean>(false);
   const [zone, setZone] = useState('');
   const [lecture, setLecture] = useState<{
     all: boolean;
@@ -38,32 +36,31 @@ const HomeTabScreen = ({navigation}: Props) => {
   };
 
   useEffect(() => {
-    AsyncStorage.getItem('zone', (_err, result) => {
-      const userZone = JSON.parse(result);
-      if (userZone) {
-        setZone(`${userZone.state} ${userZone.siGun} ${userZone.dong}`);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get(`/lectures?zone=${zone}`)
-      .then(function (response) {
-        setLectureList(response.data.content);
-        setLectureCount(response.data.content.length);
-      })
-      .catch(function (error) {
-        console.log(error);
+    const getClass = () => {
+      AsyncStorage.getItem('zone').then(res => {
+        let location;
+        if (res) {
+          const userZone = JSON.parse(res);
+          location = `${userZone.state} ${userZone.siGun} ${userZone.dong}`;
+          setZone(location);
+        } else {
+          location = '';
+        }
+        axios
+          .get(`/lectures?zone=${location}`)
+          .then(function (response) {
+            setLectureList(response.data.content);
+            setLectureCount(response.data.content.length);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       });
+    };
+    getClass();
   }, []);
 
   return (
-    // <View style={{height: '100%'}}>
-    //   <LinearGradient
-    //     colors={['#eff3fe', '#FFFFFF']}
-    //     style={styles.linearGradient}></LinearGradient>
-    // </View>
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.padding}>
