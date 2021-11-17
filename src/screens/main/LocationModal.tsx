@@ -108,6 +108,10 @@ const LocationModal = ({navigation}: Props) => {
     }
   }, [prevSiGun, siGun, state]);
 
+  const onLocationAll = () => {
+    AsyncStorage.removeItem('zone').then(() => navigation.replace('Main'));
+  };
+
   return (
     <View style={styles.container}>
       <View style={{flex: 1}}>
@@ -186,13 +190,23 @@ const LocationModal = ({navigation}: Props) => {
             </View>
           </View>
           <View>
+            <TouchableOpacity
+              style={styles.currentLocationBtn}
+              onPress={onLocationAll}>
+              <WithLocalSvg asset={icons.location} />
+              <Text style={[fonts[700], styles.currentLocationText]}>
+                전체 지역 조회
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* <View>
             <TouchableOpacity style={styles.currentLocationBtn}>
               <WithLocalSvg asset={icons.location} />
               <Text style={[fonts[700], styles.currentLocationText]}>
                 현재 위치로 찾기
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
         <Picker
           title={pickerTitle}
