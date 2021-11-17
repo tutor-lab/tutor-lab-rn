@@ -16,6 +16,8 @@ target 'tutorlab' do
 
   pod 'react-native-viewpager', :path => '../node_modules/@react-native-community/viewpager'
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   target 'tutorlabTests' do
     inherit! :complete
     # Pods for testing
