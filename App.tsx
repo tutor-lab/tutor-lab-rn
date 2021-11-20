@@ -14,6 +14,7 @@ import MyPage from './src/navigation/Mypage';
 import EditProfile from './src/navigation/EditProfile';
 import Chat from './src/screens/chat/ChatScreen';
 import ClassReview from './src/navigation/ClassReview';
+import WishList from './src/screens/mypage/WishListScreen';
 import LocationModal from './src/screens/main/LocationModal';
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +49,7 @@ const App = () => {
         <Stack.Screen name="MyPage" component={MyPage} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="ClassReview" component={ClassReview} />
+        <Stack.Screen name="WishList" component={WishList} />
         <Stack.Screen name="LocationModal" component={LocationModal} />
       </Stack.Navigator>
     </NavigationContainer>

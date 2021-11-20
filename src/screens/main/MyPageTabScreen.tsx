@@ -18,54 +18,40 @@ const MyPageTabScreen = ({navigation}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header.Main title={'마이페이지'} />
-      <View style={styles.padding}>
-        <Profile
-          profile={Data.MypageProfile}
-          onPress={() =>
-            navigation.navigate('MyPage', {screen: 'ChangeProfile'})
-          }
-        />
-        <View style={styles.bigBtnWrapper}>
-          {Data.MypageBtn_BigData.map(item => (
-            <Btn_Big
+      <ScrollView>
+        <View style={styles.padding}>
+          <Profile
+            profile={Data.MypageProfile}
+            onPress={() =>
+              navigation.navigate('MyPage', {screen: 'ChangeProfile'})
+            }
+          />
+          <View style={styles.bigBtnWrapper}>
+            {Data.MypageBtn_BigData.map(item => (
+              <Btn_Big
+                key={item.id}
+                icon={item.icon}
+                title={item.title}
+                onPress={() => navigation.navigate(`${item.navigation}`)}
+              />
+            ))}
+          </View>
+        </View>
+        <Line height={8} />
+        <View style={styles.padding}>
+          <ListTitle title={'TUTOR LAB'} />
+          {Data.MypageListExtraData.map(item => (
+            <List
               key={item.id}
-              icon={item.icon}
-              title={item.title}
+              list={item}
               onPress={() =>
-                navigation.navigate('MyPage', {
-                  screen: `${item.navigation}`,
-                })
+                navigation.navigate('MyPage', {screen: `${item.navigation}`})
               }
             />
           ))}
+          <Version title={'버전정보'} version={`${version}`} />
         </View>
-      </View>
-      <Line height={8} />
-      <View style={styles.padding}>
-        <ListTitle title={'계정정보'} />
-        {Data.MypageListInfoData.map(item => (
-          <List
-            key={item.id}
-            list={item}
-            onPress={() => {
-              item.navigation === 'ClassReview'
-                ? navigation.navigate(item.navigation)
-                : navigation.navigate('MyPage', {screen: `${item.navigation}`});
-            }}
-          />
-        ))}
-        <ListTitle title={'TUTOR LAB'} />
-        {Data.MypageListExtraData.map(item => (
-          <List
-            key={item.id}
-            list={item}
-            onPress={() =>
-              navigation.navigate('MyPage', {screen: `${item.navigation}`})
-            }
-          />
-        ))}
-        <Version title={'버전정보'} version={`${version}`} />
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
