@@ -18,8 +18,6 @@ const Mypage = () => {
       initialRouteName={'EditProfile'}
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="EditProfile" component={EditProfile} />
-      <Stack.Screen name="Purchased" component={PurchasedScreen} />
-      <Stack.Screen name="WishList" component={WishListScreen} />
       <Stack.Screen
         name="DashBoardActivity"
         component={DashBoardActivityScreen}
