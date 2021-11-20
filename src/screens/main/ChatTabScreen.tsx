@@ -30,8 +30,8 @@ const ChatTabScreen = ({navigation}: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Header.Main title={'채팅'} />
       <View style={styles.padding}>
-        <Header.ChatTab />
         <ScrollView contentContainerStyle={styles.scroll}>
           <View style={styles.searchBar}>
             <SearchBar
@@ -60,7 +60,7 @@ export default ChatTabScreen;
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: colors.white, alignItems: 'center'},
-  padding: {paddingHorizontal: width * 20},
+  padding: {paddingHorizontal: width * 20, width: '100%'},
   scroll: {flexGrow: 1},
   headerContainer: {
     paddingVertical: 17,

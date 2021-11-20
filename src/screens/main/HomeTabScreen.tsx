@@ -85,7 +85,7 @@ const HomeTabScreen = ({navigation}: Props) => {
           </View>
           <View style={styles.middle}>
             <Count count={lectureCount} />
-            <Sort />
+            {/* <Sort /> */}
           </View>
           <View style={styles.card}>
             {lectureList.map(data => (

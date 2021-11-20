@@ -17,7 +17,7 @@ const MyPageTabScreen = ({navigation}: Props) => {
   const version = '1.1.0';
   return (
     <SafeAreaView style={styles.container}>
-      <Header.MyPageTab />
+      <Header.Main title={'마이페이지'} />
       <View style={styles.padding}>
         <Profile
           profile={Data.MypageProfile}

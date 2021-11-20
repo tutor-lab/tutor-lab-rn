@@ -334,7 +334,7 @@ export const Setting = [
 ];
 
 export const MypageBtn_BigData = [
-  {id: 0, title: '구매한 강의', icon: icons.purchased, navigation: 'Purchased'},
+  // {id: 0, title: '구매한 강의', icon: icons.purchased, navigation: 'Purchased'},
   {id: 1, title: '위시리스트', icon: icons.wishlist, navigation: 'WishList'},
 ];
 export const MypageListInfoData = [

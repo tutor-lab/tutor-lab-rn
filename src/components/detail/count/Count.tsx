@@ -21,9 +21,8 @@ export default Count;
 
 var styles = StyleSheet.create({
   container: {
-    height: 150,
+    paddingVertical: 25,
     width: '100%',
-    backgroundColor: colors.bg_color,
     alignItems: 'center',
     justifyContent: 'center',
   },

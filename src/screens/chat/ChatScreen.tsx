@@ -30,7 +30,6 @@ const ChatScreen = ({navigation, route}: Props) => {
   const [user, setUser] = useState<any>([]);
   const [sendMsgCnt, setSendMsgCnt] = useState(0);
 
-  console.log('initroute', route.params.params.chatRoomId);
   const ws = new WebSocket(
     `ws://3.35.255.192:8081/ws/chat/${route.params.params.chatRoomId}`,
   );

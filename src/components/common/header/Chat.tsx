@@ -24,7 +24,7 @@ const Chat = ({navigation, title}: Props) => {
           </View>
           <Title title={title} fontSize={16} />
         </View>
-        <View style={styles.right}>
+        {/* <View style={styles.right}>
           <TouchableOpacity
             onPress={() => console.log('search')}
             activeOpacity={1}>
@@ -36,7 +36,7 @@ const Chat = ({navigation, title}: Props) => {
             style={{marginLeft: 20}}>
             <WithLocalSvg asset={icons.more} />
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     </Container>
   );

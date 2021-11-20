@@ -1,7 +1,6 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {WithLocalSvg} from 'react-native-svg/src';
 
 import {fonts, icons, colors} from '../../constants';
 
@@ -13,13 +12,13 @@ const Sort = ({}: Props) => {
       <View>
         <Text style={[fonts[700], styles.title]}>강의 후기</Text>
       </View>
-      <View style={styles.chip}>
+      {/* <View style={styles.chip}>
         <TouchableOpacity activeOpacity={1} style={styles.box}>
           <WithLocalSvg asset={icons.sort} />
           <View style={styles.divider} />
           <Text style={[fonts[500], styles.sort]}>최신순</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -27,7 +26,6 @@ export default Sort;
 
 const styles = StyleSheet.create({
   container: {
-    height: 24,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',

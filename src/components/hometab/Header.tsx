@@ -27,13 +27,13 @@ const Header = ({zone, alert, onPress}: Props) => {
           <WithLocalSvg asset={icons.down} />
         </TouchableOpacity>
       </View>
-      <View style={styles.right}>
+      {/* <View style={styles.right}>
         {alert ? (
           <WithLocalSvg asset={icons.alert_dot} />
         ) : (
           <WithLocalSvg asset={icons.alert} />
         )}
-      </View>
+      </View> */}
     </View>
   );
 };
