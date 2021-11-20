@@ -32,7 +32,7 @@ const ChatScreen = ({navigation, route}: Props) => {
 
   console.log('initroute', route.params.params.chatRoomId);
   const ws = new WebSocket(
-    `ws://192.168.0.10:9090/ws/chat/${route.params.params.chatRoomId}`,
+    `ws://3.35.255.192:8081/ws/chat/${route.params.params.chatRoomId}`,
   );
 
   useEffect(() => {
@@ -59,14 +59,13 @@ const ChatScreen = ({navigation, route}: Props) => {
   const sendMsgEnter = (data: string) => {
     ws.send(
       JSON.stringify({
-        username: user.name,
-        message: data,
-        sessionId: '',
-        // sessionId 어떻게 보낼것인지
         chatroomId: route.params.params.chatRoomId,
-        type: 'message',
+        sender: user.name,
+        receiver: 33,
+        message: data,
       }),
     );
+
     setInput({text: '', height: 40});
     setSendMsgCnt(sendMsgCnt + 1);
   };
@@ -87,6 +86,7 @@ const ChatScreen = ({navigation, route}: Props) => {
       await axios
         .get(`/tutees/my-chatrooms/${route.params.params.chatRoomId}`)
         .then(response => {
+          console.log(response.data);
           setMessageList(response.data);
           return response;
         });
@@ -113,7 +113,7 @@ const ChatScreen = ({navigation, route}: Props) => {
         <View style={styles.padding}>
           {messageList.length > 0 &&
             messageList.map(list =>
-              user.name === list.username ? (
+              user.name === list.senderNickname || user.name === list.sender ? (
                 <View key={JSON.stringify(list.id)}>
                   <ChatMine list={list} />
                 </View>
