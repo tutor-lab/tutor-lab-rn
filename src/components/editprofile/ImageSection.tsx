@@ -1,18 +1,45 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet} from 'react-native';
-import {colors, width, images, icons} from '../../constants';
-import {WithLocalSvg} from 'react-native-svg/src';
+import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {colors, width, icons, images} from '../../constants';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {WithLocalSvg} from 'react-native-svg';
 
-type Props = {};
+type Props = {image: null | string};
 
-const ImageSection = ({}: Props) => {
+const ImageSection = ({image}: Props) => {
+  const addImage = () => {
+    launchImageLibrary({mediaType: 'photo'}, res => {
+      // console.log(res);
+      // axios로 보낸다!
+    });
+  };
+
   return (
     <View style={styles.padding}>
       <View style={styles.imageBox}>
-        <View style={styles.imageWrapper}>
-          <WithLocalSvg asset={images.tutee_profile} />
-        </View>
+        <TouchableOpacity
+          style={styles.imageWrapper}
+          activeOpacity={1}
+          onPress={() => addImage()}>
+          {image ? (
+            <Image
+              source={{
+                uri: `${image}`,
+              }}
+              resizeMode="cover"
+              style={styles.image}
+            />
+          ) : (
+            <View style={styles.nonImage}>
+              <WithLocalSvg
+                asset={images.tutee_profile}
+                height={79}
+                width={79}
+              />
+            </View>
+          )}
+        </TouchableOpacity>
         <View style={styles.editProfile}>
           <WithLocalSvg asset={icons.edit_profile} />
         </View>
@@ -26,6 +53,7 @@ export default ImageSection;
 const styles = StyleSheet.create({
   padding: {paddingHorizontal: width * 20, alignItems: 'center'},
   imageBox: {paddingVertical: 59, position: 'relative'},
+  image: {height: '100%', width: '100%', borderRadius: 50},
   imageWrapper: {
     height: 100,
     width: 100,
@@ -44,4 +72,5 @@ const styles = StyleSheet.create({
     bottom: 30,
   },
   listWrapper: {width: '100%', paddingVertical: 9},
+  nonImage: {left: 4},
 });
