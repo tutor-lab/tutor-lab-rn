@@ -1,17 +1,44 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {colors, width, icons, images} from '../../constants';
+import axios from 'axios';
+import {useDispatch} from 'react-redux';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {WithLocalSvg} from 'react-native-svg';
 
-type Props = {image: null | string};
+import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {colors, width, icons, images} from '../../constants';
+import {getUserInfoRequest} from '../../redux/reducers/user';
 
-const ImageSection = ({image}: Props) => {
+type Props = {
+  profileImage: null | string;
+};
+
+const ImageSection = ({profileImage}: Props) => {
+  const dispatch = useDispatch();
   const addImage = () => {
     launchImageLibrary({mediaType: 'photo'}, res => {
-      // console.log(res);
-      // axios로 보낸다!
+      if (!res.didCancel && res.assets !== undefined) {
+        const fd = new FormData();
+        fd.append('file', {
+          name: res.assets[0].fileName,
+          uri: res.assets[0].uri,
+          type: res.assets[0].type,
+        });
+        axios
+          .post('/uploads/images', fd)
+          .then(res => {
+            axios
+              .put('/users/my-info/image', {image: res.data.url})
+              .then(() => dispatch(getUserInfoRequest()))
+              .catch(err => {
+                console.log(err.message);
+              });
+          })
+          .catch(err => {
+            console.log(err.message);
+          });
+      }
     });
   };
 
@@ -22,10 +49,10 @@ const ImageSection = ({image}: Props) => {
           style={styles.imageWrapper}
           activeOpacity={1}
           onPress={() => addImage()}>
-          {image ? (
+          {profileImage ? (
             <Image
               source={{
-                uri: `${image}`,
+                uri: `${profileImage}`,
               }}
               resizeMode="cover"
               style={styles.image}

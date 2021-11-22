@@ -20,22 +20,9 @@ const MyPageTabScreen = ({navigation}: Props) => {
   const version = '1.1.0';
   const dispatch = useDispatch();
   const {userInfo} = useSelector(state => state.user);
-  /*
-{"bio": null,
-"birthYear": null, 
-"email": null, 
-"gender": "FEMALE", 
-"image": null, 
-"name": "user3",
- "nickname": "user3",
- "phoneNumber": null,
- "role": "TUTEE",
- "userId": 32,
- "username": "user3@email.com",
- "zone": "경상북도 영주시 영주동"}
-*/
+
   useEffect(() => {
-    dispatch(getUserInfoRequest('data들어왔습니다.!'));
+    dispatch(getUserInfoRequest());
   }, []);
 
   return (

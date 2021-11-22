@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,6 +16,7 @@ import {
 type Props = {navigation: any};
 
 const EditProfileListScreen = ({navigation}: Props) => {
+  const [profileImage, setProfileImage] = useState(null);
   const [modal, setModal] = useState<boolean>(false);
   const {userInfo} = useSelector(state => state.user);
 
@@ -25,11 +26,15 @@ const EditProfileListScreen = ({navigation}: Props) => {
     navigation.replace('Login', {screen: 'LoginIntro'});
   };
 
+  useEffect(() => {
+    setProfileImage(userInfo.image);
+  }, [userInfo]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Header.Basic title={'프로필 수정'} navigation={navigation} />
       <ScrollView contentContainerStyle={styles.scroll}>
-        <ImageSection image={userInfo.image} />
+        <ImageSection profileImage={profileImage} />
         <Line height={8} />
         <View style={styles.padding}>
           <View style={styles.listWrapper}>
