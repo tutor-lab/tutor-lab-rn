@@ -27,7 +27,7 @@ export const convertHours = (
 };
 
 const pwdValidator = (value: string) => {
-  if (value.length < 6 || value.length > 14) {
+  if (value.length >= 6 && value.length <= 14) {
     return true;
   } else {
     return false;

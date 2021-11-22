@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import 'react-native-gesture-handler';
 import {SafeAreaView, View, Text, StyleSheet, Keyboard} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
+import axios from 'axios';
 import {
   Commonstyles,
   Header,
@@ -24,22 +24,35 @@ const ChangePwdScreen = ({navigation}: any) => {
 
   const sendChangePwd = () => {
     Keyboard.dismiss();
-    if (
-      true
-      // 1. 비밀번호 확인하기 (api 아직 없음)
-    ) {
-      setPwd({text: '', error: '비밀번호가 일치하지 않습니다.'});
+    if (!utils.pwdValidator(pwd.text)) {
+      console.log('??');
+      setPwd({text: '', error: '비밀번호는 6-14자 이내 이어야 합니다.'});
     } else if (!utils.pwdValidator(newPwd.text)) {
-      //  2. 비밀번호 양식 틀리면
+      setPwd({...pwd, error: ''});
       setNewPwd({text: '', error: '비밀번호는 6-14자 이내 이어야 합니다.'});
       setRetypeNewPwd({text: '', error: ''});
     } else if (!utils.pwdTypoCheck(newPwd.text, retypeNewPwd.text)) {
-      // 3. 새 비밀번호 일치하지 않으면
+      setNewPwd({...newPwd, error: ''});
       setRetypeNewPwd({text: '', error: '새 비밀번호가 일치하지 않습니다.'});
     } else {
-      // 다 일치하면
-      setModal(true);
-      // 토큰 변경하고
+      const data = {
+        newPassword: newPwd.text,
+        newPasswordConfirm: retypeNewPwd.text,
+        password: pwd.text,
+      };
+      axios
+        .put('/users/my-password', data)
+        .then(() => {
+          setModal(true);
+        })
+        .catch(err => {
+          const statusCode = err.response.data.code;
+          if (statusCode === 500) {
+            setPwd({text: '', error: '비밀번호가 일치하지 않습니다.'});
+            setNewPwd({...newPwd, error: ''});
+            setRetypeNewPwd({...retypeNewPwd, error: ''});
+          }
+        });
     }
   };
 
