@@ -108,17 +108,15 @@ const LoginMainScreen = ({route, navigation}: Props) => {
           // console.log(Object.keys(response.headers))
         })
         .catch(function (error) {
-          const statusCode = error.response.data.code;
-          if (statusCode === 401) {
-            setUsername({
-              text: '',
-              error: '아이디 또는 비밀번호를 잘못 입력하셨습니다.',
-            });
-            setPassword({
-              text: '',
-              error: '아이디 또는 비밀번호를 잘못 입력하셨습니다.',
-            });
-          }
+          const errorDetails = error.response.data.errorDetails;
+          setUsername({
+            text: '',
+            error: errorDetails,
+          });
+          setPassword({
+            text: '',
+            error: errorDetails,
+          });
         });
     }
   };
