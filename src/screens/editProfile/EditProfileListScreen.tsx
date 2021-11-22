@@ -22,7 +22,7 @@ const EditProfileListScreen = ({navigation}: Props) => {
 
   const logout = () => {
     setModal(false);
-    AsyncStorage.clear();
+    AsyncStorage.removeItem('accessToken');
     navigation.replace('Login', {screen: 'LoginIntro'});
   };
 

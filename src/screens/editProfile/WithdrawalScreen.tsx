@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import 'react-native-gesture-handler';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text, Keyboard} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 import {
   Header,
   Line,
@@ -10,15 +12,18 @@ import {
   TextInputLabel,
   TextInput,
   Button,
+  ErrorText,
 } from '../../components/common';
-import {CheckBox} from '../../components/editprofile';
-import {colors, width, fonts} from '../../constants';
+import {CheckBox, Modals} from '../../components/editprofile';
+import {colors, width, fonts, utils} from '../../constants';
 
-const WithdrawalScreen = ({navigation}) => {
+const WithdrawalScreen = ({}) => {
+  const navigation = useNavigation();
   const [checkList, setCheckList] = useState(Data.WithdrawalCheckList);
   const [extra, setExtra] = useState<string>('');
+  const [error, setError] = useState('');
   const [password, setPassword] = useState<string>('');
-
+  const [modal, setModal] = useState(false);
   const toggleCheckBox = (id: number) => {
     const checkIdx = checkList.map(item =>
       item.id === id
@@ -26,6 +31,44 @@ const WithdrawalScreen = ({navigation}) => {
         : {...item, isSelected: false},
     );
     setCheckList(checkIdx);
+  };
+
+  const sendButton = () => {
+    Keyboard.dismiss();
+    const findReason = checkList.filter(item => item.isSelected);
+    if (findReason.length === 0) {
+      setError('탈퇴 이유를 체크 해 주세요.');
+    } else if (findReason[0].id === 6 && extra.length === 0) {
+      setError('탈퇴 이유를 입력해주세요(기타)');
+    } else if (!utils.pwdValidator(password)) {
+      setError('비밀번호를 정확히 입력 해 주세요(6 ~ 14자).');
+    } else {
+      setModal(true);
+    }
+  };
+
+  const sendDrawal = () => {
+    setModal(false);
+    const findReason = checkList.filter(item => item.isSelected)[0];
+    const config = {
+      data: {
+        password: password,
+        reason: findReason.id === 6 ? extra : findReason.text,
+        reasonId: findReason.id,
+      },
+    };
+    axios
+      .delete('/users', config)
+      .then(() => {
+        AsyncStorage.removeItem('accessToken');
+        navigation.replace('Login', {screen: 'LoginIntro'});
+      })
+      .catch(err => {
+        const errData = err.response.data;
+        if (errData.code === 500) {
+          setError(errData.errorDetails[0]);
+        }
+      });
   };
 
   return (
@@ -68,12 +111,20 @@ const WithdrawalScreen = ({navigation}) => {
               onChangeText={(e: string) => setPassword(e)}
             />
           </View>
+          {error.length !== 0 && <ErrorText text={error} />}
         </View>
       </KeyboardAwareScrollView>
-      <Button.Button_Bottom
-        title={'탈퇴'}
-        onPress={() => console.log('탈퇴')}
-      />
+      <Button.Button_Bottom title={'탈퇴'} onPress={() => sendButton()} />
+      <Modals.Container visible={modal} setVisible={setModal}>
+        <Modals.Title text={'회원 탈퇴'} />
+        <Modals.Description text={'탈퇴 하시겠습니까?'} />
+        <Modals.TwoBtn
+          onPressCancel={() => setModal(false)}
+          onPressOk={() => sendDrawal()}
+          textCancel={'아니요'}
+          textOk={'예'}
+        />
+      </Modals.Container>
     </SafeAreaView>
   );
 };

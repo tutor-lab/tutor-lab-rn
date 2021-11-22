@@ -25,7 +25,6 @@ const ChangePwdScreen = ({navigation}: any) => {
   const sendChangePwd = () => {
     Keyboard.dismiss();
     if (!utils.pwdValidator(pwd.text)) {
-      console.log('??');
       setPwd({text: '', error: '비밀번호는 6-14자 이내 이어야 합니다.'});
     } else if (!utils.pwdValidator(newPwd.text)) {
       setPwd({...pwd, error: ''});
