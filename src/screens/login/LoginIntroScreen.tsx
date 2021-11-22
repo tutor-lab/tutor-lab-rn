@@ -1,25 +1,30 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-} from 'react-native';
+import React, {useCallback} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import {SafeAreaView, View, StyleSheet, BackHandler} from 'react-native';
 import {WithLocalSvg} from 'react-native-svg/src';
 
 import {Commonstyles, Button} from '../../components/common';
-import {colors, height, fonts, width, icons} from '../../constants';
-import {LoginBtn, TradeMark, SubBtn} from '../../components/login';
+import {colors, height, width, icons} from '../../constants';
+import {TradeMark} from '../../components/login';
 import {LoginStackProp} from '../../types/navigation';
-import {color} from 'react-native-reanimated';
 
 interface Props {
   navigation: LoginStackProp;
 }
 
 const LoginIntroScreen = ({navigation}: Props) => {
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        BackHandler.exitApp();
+        return true;
+      };
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
+
   return (
     <SafeAreaView style={[Commonstyles.container, styles.container]}>
       <View style={styles.padding}>

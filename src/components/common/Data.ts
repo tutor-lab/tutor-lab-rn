@@ -292,27 +292,32 @@ export const WithdrawalDescription = [
 
 export const WithdrawalCheckList = [
   {
-    id: 0,
+    id: 1,
     text: '마음에 드는 강의가 없어서',
     isSelected: false,
   },
   {
-    id: 1,
+    id: 2,
     text: '이용이 불편하고 오류가 많아서',
     isSelected: false,
   },
   {
-    id: 2,
+    id: 3,
     text: '강의 이용료가 부담되서',
     isSelected: false,
   },
   {
-    id: 3,
+    id: 4,
     text: '활용도가 낮아서',
     isSelected: false,
   },
   {
-    id: 4,
+    id: 5,
+    text: '다른 어플이 더 나아서',
+    isSelected: false,
+  },
+  {
+    id: 6,
     text: '기타',
     isSelected: false,
   },

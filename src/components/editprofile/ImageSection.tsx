@@ -1,18 +1,72 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet} from 'react-native';
-import {colors, width, images, icons} from '../../constants';
-import {WithLocalSvg} from 'react-native-svg/src';
+import axios from 'axios';
+import {useDispatch} from 'react-redux';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {WithLocalSvg} from 'react-native-svg';
 
-type Props = {};
+import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {colors, width, icons, images} from '../../constants';
+import {getUserInfoRequest} from '../../redux/reducers/user';
 
-const ImageSection = ({}: Props) => {
+type Props = {
+  profileImage: null | string;
+};
+
+const ImageSection = ({profileImage}: Props) => {
+  const dispatch = useDispatch();
+  const addImage = () => {
+    launchImageLibrary({mediaType: 'photo'}, res => {
+      if (!res.didCancel && res.assets !== undefined) {
+        const fd = new FormData();
+        fd.append('file', {
+          name: res.assets[0].fileName,
+          uri: res.assets[0].uri,
+          type: res.assets[0].type,
+        });
+        axios
+          .post('/uploads/images', fd)
+          .then(res => {
+            axios
+              .put('/users/my-info/image', {image: res.data.url})
+              .then(() => dispatch(getUserInfoRequest()))
+              .catch(err => {
+                console.log(err.message);
+              });
+          })
+          .catch(err => {
+            console.log(err.message);
+          });
+      }
+    });
+  };
+
   return (
     <View style={styles.padding}>
       <View style={styles.imageBox}>
-        <View style={styles.imageWrapper}>
-          <WithLocalSvg asset={images.tutee_profile} />
-        </View>
+        <TouchableOpacity
+          style={styles.imageWrapper}
+          activeOpacity={1}
+          onPress={() => addImage()}>
+          {profileImage ? (
+            <Image
+              source={{
+                uri: `${profileImage}`,
+              }}
+              resizeMode="cover"
+              style={styles.image}
+            />
+          ) : (
+            <View style={styles.nonImage}>
+              <WithLocalSvg
+                asset={images.tutee_profile}
+                height={79}
+                width={79}
+              />
+            </View>
+          )}
+        </TouchableOpacity>
         <View style={styles.editProfile}>
           <WithLocalSvg asset={icons.edit_profile} />
         </View>
@@ -26,6 +80,7 @@ export default ImageSection;
 const styles = StyleSheet.create({
   padding: {paddingHorizontal: width * 20, alignItems: 'center'},
   imageBox: {paddingVertical: 59, position: 'relative'},
+  image: {height: '100%', width: '100%', borderRadius: 50},
   imageWrapper: {
     height: 100,
     width: 100,
@@ -44,4 +99,5 @@ const styles = StyleSheet.create({
     bottom: 30,
   },
   listWrapper: {width: '100%', paddingVertical: 9},
+  nonImage: {left: 4},
 });

@@ -1,24 +1,45 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {fonts, colors} from '../../constants';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {fonts, images, colors} from '../../constants';
 import {TuteeBox} from '../common';
+import {WithLocalSvg} from 'react-native-svg';
 
 type Props = {
-  profile: {name: string; image: null | string};
+  userInfo: any;
   onPress: any;
 };
 
-const Profile = ({profile, onPress}: Props) => {
+const Profile = ({userInfo, onPress}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.left01}>
         <View>
-          <View style={styles.imageWrapper}>{/*이미지 */}</View>
+          <View style={styles.imageWrapper}>
+            {userInfo.image ? (
+              <Image
+                source={{
+                  uri: `${userInfo.image}`,
+                }}
+                resizeMode="cover"
+                style={styles.image}
+              />
+            ) : (
+              <View style={styles.nonImage}>
+                <WithLocalSvg
+                  asset={images.tutee_profile}
+                  height={46}
+                  width={46}
+                />
+              </View>
+            )}
+          </View>
         </View>
         <View style={styles.left02}>
           <TuteeBox />
-          <Text style={[fonts[700], styles.profileName]}>{profile.name}</Text>
+          <Text style={[fonts[700], styles.profileName]}>
+            {userInfo.nickname}
+          </Text>
         </View>
       </View>
       <View style={styles.right}>
@@ -51,6 +72,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.profile,
   },
   profileName: {fontSize: 16, lineHeight: 23.17},
+  image: {height: '100%', width: '100%', borderRadius: 50},
+  nonImage: {
+    top: 7,
+    left: 2,
+    alignItems: 'center',
+  },
   fixBtn: {
     borderRadius: 50,
     paddingHorizontal: 12,

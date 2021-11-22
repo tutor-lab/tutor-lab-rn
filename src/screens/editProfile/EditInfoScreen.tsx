@@ -12,6 +12,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 import EmailValidator from 'aj-email-validator';
 import {WithLocalSvg} from 'react-native-svg/src';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   Header,
   TextInput,
@@ -21,12 +22,16 @@ import {
   Picker,
   Commonstyles,
 } from '../../components/common';
+
 import {Zone} from '../../types/data';
 import {Modals} from '../../components/editprofile';
 import {MyInfo, Gender} from '../../types/data';
 import {colors, width, utils, icons, fonts} from '../../constants';
+import {getUserInfoRequest} from '../../redux/reducers/user';
 
 const EditInfoScreen = ({navigation}: any) => {
+  const dispatch = useDispatch();
+  const {userInfo} = useSelector(state => state.user);
   const [picker, setPicker] = useState<boolean>(false);
   const [pickerTitle, setPickerTitle] = useState<string>('');
   const [pickerItmes, setPickerItems] = useState<Zone[] | undefined>();
@@ -35,7 +40,7 @@ const EditInfoScreen = ({navigation}: any) => {
   const [birth, setBirth] = useState<string>('');
   const [email, setEmail] = useState<string>(''); //이메일
   const [gender, setGender] = useState<Gender>(Data.Gender[0]); //성별
-  const [name, setName] = useState<string>(''); //성명
+  const [nickname, setNickname] = useState<string>(''); //성명
   const [number, setNumber] = useState<string>(''); //성명
   const [states, setSates] = useState<Zone[] | undefined>(); //주소 데이터
   const [siGuns, setSiGuns] = useState<Zone[] | undefined>(); //시/군 데이터
@@ -45,13 +50,17 @@ const EditInfoScreen = ({navigation}: any) => {
   const [state, setState] = useState<string>('');
   const [errorText, setErrorText] = useState<string>('');
 
+  useEffect(() => {
+    dispatch(getUserInfoRequest());
+  }, []);
+
   const getUserInfo = async () => {
     try {
       await axios.get('/users/my-info').then((res: MyInfo) => {
         setBirth(res.data.birth);
         setEmail(res.data.email);
         chkGender(res.data.gender);
-        setName(res.data.name);
+        setNickname(res.data.nickname);
         setNumber(res.data.phoneNumber ? res.data.phoneNumber : '');
         splitZone(res.data.zone);
         return res;
@@ -61,6 +70,17 @@ const EditInfoScreen = ({navigation}: any) => {
     }
   };
 
+  useEffect(() => {
+    const setting = () => {
+      setBirth(userInfo.birthYear);
+      setNickname(userInfo.nickname);
+      setEmail(userInfo.email);
+      chkGender(userInfo.gender);
+      setNumber(userInfo.phoneNumber ? userInfo.phoneNumber : '');
+      splitZone(userInfo.zone);
+    };
+    setting();
+  }, [userInfo]);
   const splitZone = (zone: string) => {
     const arr = zone.split(' ');
     setState(arr[0]);
@@ -125,8 +145,8 @@ const EditInfoScreen = ({navigation}: any) => {
     Keyboard.dismiss();
     if (!EmailValidator(email)) {
       setErrorText('이메일을 정확히 입력해 주세요.');
-    } else if (name.length === 0) {
-      setErrorText('성명을 정확히 입력해 주세요.');
+    } else if (nickname.length === 0) {
+      setErrorText('닉네임을 정확히 입력해 주세요.');
     } else if (!utils.birthValidator(birth)) {
       setErrorText('출생년도를 정확히 입력해 주세요.');
     } else if (number.length === 0) {
@@ -138,26 +158,25 @@ const EditInfoScreen = ({navigation}: any) => {
     } else if (dong.length === 0) {
       setErrorText('동을 선택해 주세요.');
     } else {
+      const data = {
+        bio: userInfo.bio,
+        birthYear: Number(birth),
+        email: email,
+        gender: gender.gender,
+        image: userInfo.image,
+        nickname: nickname,
+        phoneNumber: number,
+        zone: sendZone(),
+      };
       axios
-        .put('/users', {
-          email: email,
-          name: name,
-          gender: gender.gender,
-          birth: birth,
-          phoneNumber: number,
-          zone: sendZone(),
-        })
-        .then(res => {
-          if (res.status === 201) {
-            setErrorText('');
-            setModalDescription('수정이 완료되었습니다.');
-            setModal(true);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          setModalDescription('오류가 발생하였습니다.');
+        .put('/users/my-info', data)
+        .then(() => {
+          setErrorText('');
+          setModalDescription('수정이 완료되었습니다.');
           setModal(true);
+        })
+        .catch(err => {
+          console.log(err.response.data);
         });
     }
   };
@@ -184,12 +203,12 @@ const EditInfoScreen = ({navigation}: any) => {
             </View>
           </View>
           <View style={Commonstyles.textInputContainer}>
-            <TextInputLabel title={'성명'} />
+            <TextInputLabel title={'닉네임'} />
             <View style={Commonstyles.textInputWrapper}>
               <TextInput
-                value={name}
-                onChangeText={(t: string) => setName(t)}
-                placeholder={'성명을 입력해 주세요.'}
+                value={nickname}
+                onChangeText={(t: string) => setNickname(t)}
+                placeholder={'닉네임을 입력해 주세요.'}
               />
             </View>
           </View>
