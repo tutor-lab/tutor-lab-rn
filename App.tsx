@@ -3,8 +3,10 @@ import {BACKEND_URL} from 'react-native-dotenv';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Provider} from 'react-redux';
 import axios from 'axios';
 
+import configureStore from './src/redux/stores/configureStore';
 import Login from './src/navigation/Login';
 import Signup from './src/navigation/Signup';
 import Main from './src/navigation/Main';
@@ -16,7 +18,9 @@ import Chat from './src/screens/chat/ChatScreen';
 import ClassReview from './src/navigation/ClassReview';
 import WishList from './src/screens/mypage/WishListScreen';
 import LocationModal from './src/screens/main/LocationModal';
+
 const Stack = createNativeStackNavigator();
+const store = configureStore();
 
 const App = () => {
   const [isToken, setIsToken] = useState('');
@@ -35,24 +39,26 @@ const App = () => {
   });
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        {/* {isToken?
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          {/* {isToken?
         <Stack.Screen name="Main" component={Main} />
       : <Stack.Screen name="Login" component={Login} />} */}
-        <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
-        <Stack.Screen name="Detail" component={Detail} />
-        <Stack.Screen name="TutorInfo" component={TutorInfo} />
-        <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="MyPage" component={MyPage} />
-        <Stack.Screen name="EditProfile" component={EditProfile} />
-        <Stack.Screen name="ClassReview" component={ClassReview} />
-        <Stack.Screen name="WishList" component={WishList} />
-        <Stack.Screen name="LocationModal" component={LocationModal} />
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Main" component={Main} />
+          <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Detail" component={Detail} />
+          <Stack.Screen name="TutorInfo" component={TutorInfo} />
+          <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="MyPage" component={MyPage} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
+          <Stack.Screen name="ClassReview" component={ClassReview} />
+          <Stack.Screen name="WishList" component={WishList} />
+          <Stack.Screen name="LocationModal" component={LocationModal} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
