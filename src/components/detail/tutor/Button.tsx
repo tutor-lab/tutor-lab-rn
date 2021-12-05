@@ -1,27 +1,26 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
 import {colors, icons} from '../../../constants';
 import {WithLocalSvg} from 'react-native-svg/src';
 
-type Props = {};
-const Button = ({}: Props) => {
+const Button = () => {
   return (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={() => console.log('arrow press')}
-      style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.button}>
         <WithLocalSvg asset={icons.arrow_right_main} />
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 export default Button;
 
 const styles = StyleSheet.create({
-  container: {height: 34, width: 34},
+  container: {
+    height: 34,
+    width: 34,
+  },
   button: {
     height: '100%',
     width: '100%',

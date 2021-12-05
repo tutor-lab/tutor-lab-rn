@@ -1,10 +1,9 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 
-import {width} from '../../../constants';
-
-import {Button, Name, Count, Profile} from './index';
+import {colors, width} from '../../../constants';
+import {Button, Name, Count} from './index';
 import {fonts} from '../../../constants';
 type Props = {
   data: {
@@ -25,14 +24,29 @@ type Props = {
   };
   introduce: string;
   lectureTutor: any;
+  navigation: any;
 };
 
-const Tutor = ({data, introduce, lectureTutor}: Props) => {
+const Tutor = ({navigation, data, introduce, lectureTutor}: Props) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={1}
+      onPress={() => navigation.navigate('Tutor', {id: lectureTutor.tutorId})}>
       <View style={styles.tutor}>
-        <Profile />
-
+        <View style={styles.imageWrapper}>
+          {lectureTutor.image === null || lectureTutor.image === '' ? (
+            <View style={styles.image} />
+          ) : (
+            <Image
+              source={{
+                uri: `${lectureTutor.image}`,
+              }}
+              resizeMode="cover"
+              style={styles.image}
+            />
+          )}
+        </View>
         <View style={styles.textSection}>
           <Name name={lectureTutor.nickname} />
           <Count
@@ -46,7 +60,7 @@ const Tutor = ({data, introduce, lectureTutor}: Props) => {
       <View style={styles.buttonSection}>
         <Button />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 export default Tutor;
@@ -58,6 +72,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: width * 20,
     paddingRight: width * 28,
+  },
+  imageWrapper: {
+    width: 41,
+    height: 41,
+    overflow: 'hidden',
+    borderRadius: 82 / 2,
+  },
+  image: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: colors.profile,
   },
   tutor: {
     flex: 3,

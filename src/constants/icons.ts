@@ -45,6 +45,7 @@ export const review_none = require('../assets/icons/review_none.svg');
 export const location = require('../assets/icons/location.svg');
 export const location_picker = require('../assets/icons/location_picker.svg');
 export const location_arrow = require('../assets/icons/location_arrow.svg');
+export const logo_translucent = require('../assets/icons/logo_translucent.svg');
 
 export default {
   logo,
@@ -94,4 +95,5 @@ export default {
   location,
   location_picker,
   location_arrow,
+  logo_translucent,
 };
