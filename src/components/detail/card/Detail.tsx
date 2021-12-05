@@ -1,9 +1,8 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import {View, Image, StyleSheet} from 'react-native';
-import {WithLocalSvg} from 'react-native-svg/src';
 
-import {colors, width, icons} from '../../../constants';
+import {colors, width, utils} from '../../../constants';
 
 import {
   Remote,
@@ -50,7 +49,6 @@ const Detail = ({
   systemTypes,
   thumbnail,
 }: Props) => {
-
   return (
     <>
       <View style={styles.image}>
@@ -99,7 +97,7 @@ const Detail = ({
               price={
                 lecturePrices[0] === undefined
                   ? ''
-                  : lecturePrices[0].pertimeCost
+                  : utils.numberWithCommas(lecturePrices[0].pertimeCost)
               }
             />
           </View>

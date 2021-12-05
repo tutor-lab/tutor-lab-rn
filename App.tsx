@@ -16,6 +16,7 @@ import MyPage from './src/navigation/Mypage';
 import EditProfile from './src/navigation/EditProfile';
 import Chat from './src/screens/chat/ChatScreen';
 import ClassReview from './src/navigation/ClassReview';
+import Tutor from './src/screens/tutor/TutorScreen';
 import WishList from './src/screens/mypage/WishListScreen';
 import LocationModal from './src/screens/main/LocationModal';
 
@@ -56,6 +57,7 @@ const App = () => {
           <Stack.Screen name="ClassReview" component={ClassReview} />
           <Stack.Screen name="WishList" component={WishList} />
           <Stack.Screen name="LocationModal" component={LocationModal} />
+          <Stack.Screen name="Tutor" component={Tutor} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

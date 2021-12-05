@@ -63,6 +63,7 @@ const ClassDetailScreen = ({navigation, route}: Props) => {
         />
         <Line />
         <Tutor
+          navigation={navigation}
           data={Data.Detail}
           lectureTutor={lectureTutor}
           introduce={introduce}

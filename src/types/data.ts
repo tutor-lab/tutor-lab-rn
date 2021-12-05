@@ -106,3 +106,33 @@ export type ClassDetailType = {
   title: string;
   tutor: string;
 };
+
+export type TutorInfoType = {
+  tutorId: number;
+  user: {
+    email: string | null;
+    userId: number;
+    username: string | null;
+    role: string | null;
+    name: string | null;
+    gender: string | null;
+    birthYear: string | null;
+    phoneNumber: string | null;
+    nickname: string | null;
+    bio: string | null;
+    image: string | null;
+    zone: string | null;
+  };
+  careers: {
+    job: string | null;
+    companyName: string | null;
+    others: string | null;
+    license: string | null;
+  }[];
+  educations: {
+    educationLevel: string | null;
+    schoolName: string | null;
+    major: string | null;
+    others: string | null;
+  }[];
+};
