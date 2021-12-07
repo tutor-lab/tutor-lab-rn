@@ -58,10 +58,11 @@ const ChatScreen = ({navigation, route}: Props) => {
   const sendMsgEnter = (data: string) => {
     ws.send(
       JSON.stringify({
-        chatroomId: route.params.params.chatRoomId,
+        chatroomId: parseInt(route.params.params.chatRoomId),
         sender: user.name,
-        receiver: 33,
+        receiver: parseInt(route.params.params.tutorId),
         message: data,
+        senderId: user.userId,
       }),
     );
 

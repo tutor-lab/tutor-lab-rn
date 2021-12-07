@@ -1,7 +1,9 @@
-import React from 'react';
+import React,{useState} from 'react';
 import 'react-native-gesture-handler';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {fonts, colors} from '../../../constants';
+import PlainModal from "../../../components/common/modal/PlainModal"
+import FilterDetail from "./FilterDetail";
 
 type Props = {
   data: {
@@ -12,13 +14,22 @@ type Props = {
 };
 
 const Chip = ({data}: Props) => {
+  const [modalVisible,setModalVisible] = useState<boolean>(false);
+  const onFilter =  (e: any): void => {
+    console.log(data.text)
+    setModalVisible(!modalVisible);
+  }
+
   return (
+    <>
     <TouchableOpacity
       activeOpacity={1}
       style={[
         styles.container,
         data.isSelected ? styles.selected : styles.unSelected,
-      ]}>
+      ]}
+      onPress={onFilter}
+      >
       <Text
         style={[
           fonts[500],
@@ -27,6 +38,12 @@ const Chip = ({data}: Props) => {
         {data.text}
       </Text>
     </TouchableOpacity>
+    <PlainModal 
+      modalVisible={modalVisible} 
+      setModalVisible={setModalVisible} 
+      body={FilterDetail} 
+    />
+    </>
   );
 };
 export default Chip;

@@ -13,10 +13,12 @@ const ChatList = ({chatLists, navigation}: Props) => {
     navigation.navigate('Chat', {
       params: {
         chatRoomId: chatLists.chatroomId,
+        tutorId:chatLists.tutorId
       },
     });
   };
 
+  console.log('chatLists==',chatLists)
   return (
     <TouchableOpacity style={styles.container} onPress={goToChatRoom}>
       <View style={styles.leftSection}>
