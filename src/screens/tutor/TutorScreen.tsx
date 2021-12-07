@@ -22,10 +22,11 @@ import {width, fonts, images, colors} from '../../constants';
 
 const TutorScreen = () => {
   const route = useRoute();
+  const id = route.params.id;
   const dispatch = useDispatch();
   const {tutorInfo} = useSelector(state => state.tutor);
   useEffect(() => {
-    dispatch(getTutorInfoRequest(route.params.id));
+    dispatch(getTutorInfoRequest(id));
   }, []);
 
   const navigation = useNavigation();
@@ -43,7 +44,7 @@ const TutorScreen = () => {
       case 'first':
         return <TutorInfo tutorInfo={tutorInfo} />;
       case 'second':
-        return <ClassList navigation={navigation} />;
+        return <ClassList navigation={navigation} id={id} />;
       // case 'third':
       //   return <TutorReview navigation={navigation} />;
       default:
