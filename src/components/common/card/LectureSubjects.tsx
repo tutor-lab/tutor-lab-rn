@@ -2,21 +2,27 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {View, StyleSheet, Text} from 'react-native';
 import {colors, fonts} from '../../../constants';
+import {LectureListType} from '../../../types/data';
 
-type Props = {lectureSubjects: {krSubject: string; parent: string}[]};
+type Props = {
+  lectureSubjects: {
+    learningKindId: null | number;
+    learningKind: string;
+    krSubject: string;
+  }[];
+};
 
 const LectureSubjects = ({lectureSubjects}: Props) => {
   return (
     <View style={styles.container}>
-      {lectureSubjects.map(data => (
-        <View key={data.krSubject}>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={[fonts[500], styles.text]}>
-            {data.krSubject}
-          </Text>
-        </View>
+      {lectureSubjects.map((item, index) => (
+        <Text
+          key={index}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={[fonts[500], styles.text]}>
+          {item.krSubject}{' '}
+        </Text>
       ))}
     </View>
   );

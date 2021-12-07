@@ -16,10 +16,10 @@ import {
   LectureSubjects,
 } from './index';
 import {StarRating} from '../';
-import {LectureList} from '../../../types/data';
+import {LectureListType} from '../../../types/data';
 
 type Props = {
-  data: LectureList;
+  data: LectureListType;
   onPress: () => any;
 };
 const Card = ({data, onPress}: Props) => {
@@ -43,7 +43,7 @@ const Card = ({data, onPress}: Props) => {
       <View style={styles.imageSection}>
         <ImageSection
           thumbnail={data.thumbnail}
-          isGroup={data.lecturePrices[0].isGroup}
+          isGroup={data.lecturePrices.map(item => item.isGroup)}
           difficultyType={data.difficultyType}
         />
       </View>
@@ -58,20 +58,19 @@ const Card = ({data, onPress}: Props) => {
           <LectureSubjects lectureSubjects={data.lectureSubjects} />
         </View>
         <View style={styles.tutor}>
-          <Tutor />
+          <Tutor tutor={data.lectureTutor.nickname} />
         </View>
         <View style={styles.count}>
           {/* <View style={styles.heart}>
             <Heart heart={56} />
-          </View> */}
-          {/* <View style={styles.divider}>
+          </View>  <View style={styles.divider}>
             <WithLocalSvg asset={icons.line_vertical} />
           </View> */}
           <View style={styles.star}>
-            <StarRating rating={4.5} size={11} />
+            <StarRating rating={data.scoreAverage} size={11} />
           </View>
           <View style={styles.review}>
-            <Review review={28} />
+            <Review review={data.reviewCount} />
           </View>
         </View>
         <View style={styles.bottom}>
@@ -79,7 +78,7 @@ const Card = ({data, onPress}: Props) => {
             <Percent discount={50} />
           </View> */}
           <View style={styles.lecturePrice}>
-            <LecturePrices lecturePrices={data.lecturePrices[0]} />
+            <LecturePrices lecturePrices={data.lecturePrices} />
           </View>
         </View>
       </View>
@@ -92,7 +91,6 @@ export default Card;
 var styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 310,
     borderRadius: 8,
     backgroundColor: colors.white,
     marginBottom: 16,
@@ -102,7 +100,7 @@ var styles = StyleSheet.create({
     height: 115,
     position: 'relative',
   },
-  detail: {paddingHorizontal: 16.5, height: 195},
+  detail: {paddingHorizontal: 16.5, marginBottom: 23},
   systemTypes: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -110,12 +108,11 @@ var styles = StyleSheet.create({
     marginTop: 16,
   },
   title: {marginTop: 7},
-  tutor: {height: 20, flexDirection: 'row', alignItems: 'center', marginTop: 8},
+  tutor: {flexDirection: 'row', alignItems: 'center', marginTop: 8},
   heart: {flexDirection: 'row', alignItems: 'center'},
   star: {flexDirection: 'row', alignItems: 'center', width: 60},
   review: {flexDirection: 'row', alignItems: 'center', paddingLeft: 4},
   count: {
-    height: 18,
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 10,
@@ -125,7 +122,6 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 8,
-    height: 25,
   },
   percent: {
     flexDirection: 'row',
@@ -133,8 +129,5 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-start',
     width: 40,
   },
-  lecturePrice: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+  lecturePrice: {},
 });
