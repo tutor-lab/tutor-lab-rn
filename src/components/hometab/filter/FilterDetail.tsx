@@ -1,29 +1,46 @@
 import React, { useState } from "react";
-import { Text, StyleSheet,View } from "react-native";
+import { Text, StyleSheet,View,TouchableOpacity } from "react-native";
+import {Data} from '../../../components/hometab';
 
-const FilterDetail = () => {
-  const [titleText, setTitleText] = useState("Bird's Nest");
-  const bodyText = "This is not really a bird nest.";
 
-  const onPressTitle = () => {
-    setTitleText("Bird's Nest [pressed]");
-  };
+interface Props{
+  titleIdx:number
+  touchFilterCategory:(idx: number) => void;
+}
+const FilterDetail = (props:Props) => {
 
   return (
-    <View style={{ marginTop: 120}}>
-      <Text>{bodyText}</Text>
-    </View>
-  );
-};
-
+    <View style={styles.filterList}>
+        {Data.Filter.filter((item)=>item.text!="전체").map((item:any)=>(
+            <TouchableOpacity onPress={()=>props.touchFilterCategory(item.id)}><Text style={[styles.filterText,item.id===props.titleIdx?styles.filterTextHover:styles.filterText]}>{item.text}</Text></TouchableOpacity>
+        ))}
+    </View> 
+  )
+}
 const styles = StyleSheet.create({
-  baseText: {
-    fontFamily: "Cochin"
+  filterList: {
+    flexDirection: 'row',
+    alignItems:'center',
+    marginLeft:10,
   },
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold"
+  filterText:{
+    fontFamily:"Noto Sans KR",
+    color:"#949BAD",
+    fontWeight:"700",
+    fontSize:16,
+    marginLeft:15,
+
+  },
+  filterTextHover:{
+    fontFamily:"Noto Sans KR",
+    color:"#2C343F",
+    fontWeight:"700",
+    fontSize:16,
+    marginLeft:10,
+    borderBottomWidth: 10,
+    borderBottomColor: 'rgba(198,215,251,1)',
   }
+ 
 });
 
-export default FilterDetail;
+export default React.memo(FilterDetail);

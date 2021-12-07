@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import {View, Modal, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import FilterDetail from "../../hometab/filter/FilterDetail";
 
 interface Props {
     modalVisible: boolean;
     setModalVisible: any;
     body: any;
+    titleIdx:number;
+    touchFilterCategory:(idx: number) => void;
   }
 const PlainModal = (props: Props) => {
-    console.log(props)
     return (
         <Modal
         animationType={'slide'}
         transparent={true}
         visible={props.modalVisible}>
-        <View style={styles.container} onTouchEnd={() => props.setModalVisible(false)} >
-            <View
-            style={styles.blankSpace}
-              // 모달 빈 공간을 누르면 창 닫기 
-            >
-            <View style={{marginTop:50}}>
-                {props.body()}
-            </View>
-            </View>
+        <View style={styles.container}  onTouchEnd={() => props.setModalVisible(false)} >
         </View>
+        <View style={styles.blankSpace}>
+              <View style={{marginTop:30}}> 
+                  {/* {props.body()}  */}
+                  <FilterDetail titleIdx={props.titleIdx} touchFilterCategory={props.touchFilterCategory} />
+              </View> 
+            </View>   
         </Modal>
     );
 };

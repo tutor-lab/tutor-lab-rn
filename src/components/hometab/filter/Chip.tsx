@@ -15,11 +15,13 @@ type Props = {
 
 const Chip = ({data}: Props) => {
   const [modalVisible,setModalVisible] = useState<boolean>(false);
+  const [titleIdx,setTitleIdx] = useState<number>(1);
   const onFilter =  (e: any): void => {
-    console.log(data.text)
     setModalVisible(!modalVisible);
   }
-
+  const touchFilterCategory = (idx: number) =>{
+    setTitleIdx(idx)
+  }
   return (
     <>
     <TouchableOpacity
@@ -42,6 +44,8 @@ const Chip = ({data}: Props) => {
       modalVisible={modalVisible} 
       setModalVisible={setModalVisible} 
       body={FilterDetail} 
+      titleIdx={titleIdx}
+      touchFilterCategory={touchFilterCategory}
     />
     </>
   );
