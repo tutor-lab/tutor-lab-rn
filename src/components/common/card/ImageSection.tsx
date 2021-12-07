@@ -7,12 +7,11 @@ import {DifficultyData, GroupData} from '../Data';
 type Props = {
   thumbnail: string;
   difficultyType: string;
-  isGroup: boolean;
+  isGroup: boolean[];
 };
 
 const ImageSection = ({isGroup, difficultyType, thumbnail}: Props) => {
   const [difficulty, setDifficulty] = useState<string>('');
-  const [group, setGroup] = useState<string>('');
 
   const chkDifficult = (text: string) => {
     const findIdx = DifficultyData.findIndex(curr => curr.title === text);
@@ -23,12 +22,12 @@ const ImageSection = ({isGroup, difficultyType, thumbnail}: Props) => {
   const chkGroup = (boolean: boolean) => {
     const findIdx = GroupData.findIndex(curr => curr.boolean === boolean);
     const type = GroupData[findIdx].text;
-    setGroup(type);
+    return type;
   };
 
   useEffect(() => {
     chkDifficult(difficultyType);
-    chkGroup(isGroup);
+    // chkGroup(isGroup);
   }, [difficultyType, isGroup]);
 
   return (
@@ -48,9 +47,13 @@ const ImageSection = ({isGroup, difficultyType, thumbnail}: Props) => {
           <View style={styles.tag}>
             <Text style={[fonts[500], styles.tag_text]}>{difficulty}</Text>
           </View>
-          <View style={styles.tag}>
-            <Text style={[fonts[500], styles.tag_text]}>{group}</Text>
-          </View>
+          {isGroup.map((group, index) => (
+            <View style={styles.tag} key={index}>
+              <Text style={[fonts[500], styles.tag_text]}>
+                {chkGroup(group)}
+              </Text>
+            </View>
+          ))}
         </View>
       </View>
     </View>
@@ -91,7 +94,7 @@ var styles = StyleSheet.create({
     paddingHorizontal: 16,
     position: 'relative',
     zIndex: 3,
-    marginTop: -35,
+    top: -35,
     flexDirection: 'row',
   },
   tag: {

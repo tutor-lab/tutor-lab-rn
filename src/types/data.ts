@@ -1,21 +1,37 @@
-export type LectureList = {
-  content: string;
-  difficultyType: string;
+export type LectureListType = {
   id: number;
-  introduce: string;
-  lecturePrices: {
-    groupNumber: number;
-    isGroup: boolean;
-    pertimeCost: number;
-    pertimeLecture: number;
-    totalCost: number;
-    totalTime: number;
-  }[];
-  lectureSubjects: {krSubject: string; parent: string}[];
-  subTitle: string;
-  systemTypes: {name: string; type: string}[];
   thumbnail: string;
   title: string;
+  subTitle: string;
+  introduce: string;
+  content: string;
+  difficultyType: string;
+  systemTypes: {name: string; type: string}[];
+  lecturePrices: {
+    lecturePriceId: number;
+    isGroup: boolean;
+    groupNumber: number;
+    totalTime: number;
+    pertimeLecture: number;
+    pertimeCost: number;
+    totalCost: number;
+    isGroupStr: string;
+    content: string;
+  }[];
+  lectureSubjects: {
+    learningKindId: null | number;
+    learningKind: string;
+    krSubject: string;
+  }[];
+  reviewCount: number;
+  scoreAverage: number;
+  lectureTutor: {
+    tutorId: number;
+    lectureCount: number;
+    reviewCount: number;
+    nickname: string;
+    image: string;
+  };
 };
 
 export type PaymentList = {
