@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
 import {View, Image, StyleSheet} from 'react-native';
 
@@ -16,90 +16,67 @@ import {
   HashTag,
 } from './index';
 import {StarRating} from '../../common';
+import {LectureListType} from '../../../types/data';
 
 type Props = {
-  data: {
-    tag: string[];
-    remote: string[];
-    title: string;
-    explain: string;
-    tutor: string;
-    hashtag: string[];
-    heart: number;
-    rating: number;
-    review: number;
-    discount: number;
-    price: string;
-    lecture_count: number;
-    review_count: number;
-    store_count: number;
-  };
-  title: string;
-  subTitle: string;
-  lecturePrices: any;
-  systemTypes: any;
-  thumbnail: string;
+  data: LectureListType;
 };
 
-const Detail = ({
-  data,
-  title,
-  subTitle,
-  lecturePrices,
-  systemTypes,
-  thumbnail,
-}: Props) => {
+const Detail = ({data}: Props) => {
+  const [price, setPrice] = useState(0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const selectPrice = () => {
+    const min = data.lecturePrices.reduce((acc, curr) => {
+      return acc.pertimeCost > curr.pertimeCost ? curr : acc;
+    });
+    setPrice(min.pertimeCost);
+  };
+  useEffect(() => {
+    selectPrice();
+  }, [selectPrice]);
+
   return (
     <>
       <View style={styles.image}>
         <Image
-          source={{uri: thumbnail}}
+          source={{uri: `${data.thumbnail}`}}
           resizeMode="contain"
           style={{width: '100%', height: 280, zIndex: 1}}
         />
-        <View style={styles.tag}>
-          <Step tag={data.tag} />
-        </View>
+        <View style={styles.tag}>{/* <Step tag={data.tag} /> */}</View>
       </View>
       <View style={styles.detail}>
         <View style={styles.remote}>
-          <Remote remote={systemTypes} />
+          <Remote remote={data.systemTypes} />
         </View>
         <View style={styles.title}>
-          <Title title={title} />
+          <Title title={data.title} />
         </View>
         <View style={styles.explain}>
-          <Explain title={subTitle} />
+          <Explain title={data.subTitle} />
         </View>
-        {/* <View style={styles.middle}>
+        <View style={styles.middle}>
           <View style={styles.count}>
-            <View style={styles.heart}>
+            {/*  <View style={styles.heart}>
               <Heart heart={data.heart} />
             </View>
             <View style={styles.divider}>
               <WithLocalSvg asset={icons.line_vertical} />
-            </View>
+            </View>*/}
             <View style={styles.star}>
-            <StarRating rating = {5.0} size = {11}/>
-              <Star rating={data.rating} />
+              <StarRating rating={data.scoreAverage} size={11} />
             </View>
             <View style={styles.review}>
-              <Review review={data.review} />
+              <Review review={data.reviewCount} />
             </View>
           </View>
-        </View> */}
+        </View>
         <View style={styles.bottom}>
           {/* <View style={styles.percent}>
             <Percent discount={data.discount} />
           </View> */}
           <View style={styles.price}>
-            <Price
-              price={
-                lecturePrices[0] === undefined
-                  ? ''
-                  : utils.numberWithCommas(lecturePrices[0].pertimeCost)
-              }
-            />
+            <Price price={price} />
           </View>
         </View>
         {/* <View>

@@ -1,14 +1,14 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import {Text, StyleSheet} from 'react-native';
-import {colors, fonts} from '../../../constants';
+import {colors, fonts, utils} from '../../../constants';
 
-type Props = {price: string};
+type Props = {price: number};
 
 const Price = ({price}: Props) => {
   return (
     <>
-      <Text style={styles.price}>{price}</Text>
+      <Text style={styles.price}>{utils.numberWithCommas(price)}</Text>
       <Text style={[fonts[700], styles.text]}> 원</Text>
       <Text style={[fonts[400], styles.divider]}>{'  '}/ 1시간 기준</Text>
     </>

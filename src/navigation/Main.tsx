@@ -1,6 +1,5 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
 import HomeTab from '../screens/main/HomeTabScreen';
 import FreeBoardTab from '../screens/main/FreeBoardTabScreen';
 import MyPageTab from '../screens/main/MyPageTabScreen';
@@ -9,7 +8,6 @@ import {TabBar} from '../components/main';
 
 const Main = () => {
   const Tab = createBottomTabNavigator();
-
   return (
     <Tab.Navigator
       initialRouteName="HomeTab"

@@ -13,6 +13,7 @@ import {
 } from '../../components/detail';
 import {Line, Bottom} from '../../components/common';
 import axios from 'axios';
+import {LectureListType} from '../../types/data';
 
 type Props = {navigation: any; route: {params: {itemId: number}}};
 
@@ -33,79 +34,85 @@ const ClassDetailScreen = ({navigation, route}: Props) => {
   const [thumbnail, setThumbnail] = useState('');
   const [title, setTitle] = useState('');
   const [lectureTutor, setLectureTutor] = useState([]);
+  const [data, setData] = useState<LectureListType>();
 
   useEffect(() => {
     axios.get(`/lectures/${route.params.itemId}`).then(res => {
-      console.log(res.data);
-      setContent(res.data.content);
-      setDifficultyType(res.data.difficultyType);
-      setIntroduce(res.data.introduce);
-      setLecturePrices(res.data.lecturePrices);
-      setLectureSubjects(res.data.lectureSubjects);
-      setSubTitle(res.data.subTitle);
-      setSystemTypes(res.data.systemTypes);
-      setThumbnail(res.data.thumbnail);
-      setTitle(res.data.title);
-      setLectureTutor(res.data.lectureTutor);
+      setData(res.data);
+      // console.log('RESDATA+============================', res.data);
+      // setContent(res.data.content);
+      // setDifficultyType(res.data.difficultyType);
+      // setIntroduce(res.data.introduce);
+      // setLecturePrices(res.data.lecturePrices);
+      // setLectureSubjects(res.data.lectureSubjects);
+      // setSubTitle(res.data.subTitle);
+      // setSystemTypes(res.data.systemTypes);
+      // setThumbnail(res.data.thumbnail);
+      // setTitle(res.data.title);
+      // setLectureTutor(res.data.lectureTutor);
     });
-  }, []);
+  }, [route.params.itemId]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <Detail
-          data={Data.Detail}
-          title={title}
-          subTitle={subTitle}
-          lecturePrices={lecturePrices}
-          systemTypes={systemTypes}
-          thumbnail={thumbnail}
-        />
-        <Line />
-        <Tutor
-          navigation={navigation}
-          data={Data.Detail}
-          lectureTutor={lectureTutor}
-          introduce={introduce}
-        />
-        <Line height={5} />
-        <View style={styles.selection}>
-          <Selection selection={selection} setSelection={setSelection} />
-          {selection.review ? (
-            // 후기
-            <View style={{paddingTop: 32}}>
-              <Count />
-              <View style={{marginVertical: 25}}>
-                <Line />
-              </View>
-              <Sort />
-              {Data.Review.map(data => (
-                <View key={data.id}>
-                  <ReviewCard data={data} />
+      {data && (
+        <>
+          <ScrollView contentContainerStyle={{flexGrow: 1}}>
+            <Detail
+              data={data}
+              // title={title}
+              // subTitle={subTitle}
+              // lecturePrices={lecturePrices}
+              // systemTypes={systemTypes}
+              // thumbnail={thumbnail}
+            />
+            <Line />
+            <Tutor
+              navigation={navigation}
+              data={Data.Detail}
+              lectureTutor={data.lectureTutor}
+              introduce={data.introduce}
+            />
+            <Line height={5} />
+            <View style={styles.selection}>
+              <Selection selection={selection} setSelection={setSelection} />
+              {selection.review ? (
+                // 후기
+                <View style={{paddingTop: 32}}>
+                  <Count />
+                  <View style={{marginVertical: 25}}>
+                    <Line />
+                  </View>
+                  <Sort />
+                  {Data.Review.map(data => (
+                    <View key={data.id}>
+                      <ReviewCard data={data} />
+                    </View>
+                  ))}
                 </View>
-              ))}
+              ) : (
+                // 강의 소개
+                <>
+                  <TutorIntroduction content={data.content} />
+                </>
+              )}
             </View>
-          ) : (
-            // 강의 소개
-            <>
-              <TutorIntroduction content={content} />
-            </>
-          )}
-        </View>
-      </ScrollView>
-      <Bottom.Detail
-        heart={() => console.log('좋아요')}
-        btn={() =>
-          navigation.navigate('Payment', {
-            itemId: route.params.itemId,
-            title: title,
-            lecturePrices: lecturePrices,
-            subject: lectureSubjects,
-            thumbnail: thumbnail,
-            lectureTutor: lectureTutor,
-          })
-        }
-      />
+          </ScrollView>
+          <Bottom.Detail
+            heart={() => console.log('좋아요')}
+            btn={() =>
+              navigation.navigate('Payment', {
+                itemId: route.params.itemId,
+                title: data.title,
+                lecturePrices: data.lecturePrices,
+                subject: data.lectureSubjects,
+                thumbnail: data.thumbnail,
+                lectureTutor: data.lectureTutor,
+              })
+            }
+          />
+        </>
+      )}
     </SafeAreaView>
   );
 };

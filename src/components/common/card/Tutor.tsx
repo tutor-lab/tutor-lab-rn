@@ -4,11 +4,13 @@ import {StyleSheet, Text} from 'react-native';
 
 import {colors, fonts} from '../../../constants';
 
-const Tutor = () => {
+type Props = {tutor: string};
+
+const Tutor = ({tutor}: Props) => {
   return (
     <>
       <Text style={[fonts[400], styles.text]}>튜터{'  '}</Text>
-      <Text style={[fonts[400], styles.text]}>김하나</Text>
+      <Text style={[fonts[400], styles.text]}>{tutor}</Text>
     </>
   );
 };
