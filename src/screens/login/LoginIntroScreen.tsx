@@ -49,7 +49,7 @@ const LoginIntroScreen = ({navigation}: Props) => {
           </View>
           <View style={styles.subWrapper}>
             <Button.Login_Sub
-              onPress={() => navigation.navigate('Signup')}
+              onPress={() => navigation.navigate('TermsOfUse')}
               title={'회원가입'}
             />
           </View>

@@ -19,6 +19,7 @@ import ClassReview from './src/navigation/ClassReview';
 import Tutor from './src/screens/tutor/TutorScreen';
 import WishList from './src/screens/mypage/WishListScreen';
 import LocationModal from './src/screens/main/LocationModal';
+import TermsOfUse from './src/screens/signup/TermsOfUse';
 
 const Stack = createNativeStackNavigator();
 const store = configureStore();
@@ -48,6 +49,7 @@ const App = () => {
       : <Stack.Screen name="Login" component={Login} />} */}
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Main" component={Main} />
+          <Stack.Screen name="TermsOfUse" component={TermsOfUse} />
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="Detail" component={Detail} />
           <Stack.Screen name="TutorInfo" component={TutorInfo} />
