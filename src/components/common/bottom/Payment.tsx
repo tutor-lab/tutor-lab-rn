@@ -27,7 +27,7 @@ const Payment = ({price, onPress}: Props) => {
   );
 };
 
-export default Payment;
+export default React.memo(Payment);
 
 var styles = StyleSheet.create({
   text01: {fontSize: 12, color: colors.light_gray},

@@ -7,19 +7,29 @@ import {colors, fonts, icons} from '../../constants';
 import {WithLocalSvg} from 'react-native-svg/src';
 import {Line} from '../common';
 
-type Props = {checked: boolean; item: any; enrollId: any; setEnrollId: any};
-const PaymentList = ({checked, item, enrollId, setEnrollId}: Props) => {
+type Props = {
+  checked: boolean;
+  item: any;
+  enrollId: any;
+  setEnrollId: any;
+  setTotalPrice: any;
+};
+const PaymentList = ({
+  checked,
+  item,
+  enrollId,
+  setEnrollId,
+  setTotalPrice,
+}: Props) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [checkNumber, setCheckNumber] = useState(0);
-  useEffect(() => {
-    item.checked = toggleCheckBox;
-  }, [toggleCheckBox]);
 
   const handleCheckBox = (value: boolean, Id: number) => {
     if (item.lecturePriceId === Id) {
       setToggleCheckBox(value);
       setEnrollId(Id);
       setCheckNumber(Id);
+      setTotalPrice(item.totalCost);
     }
     if (toggleCheckBox) {
       setEnrollId(0);

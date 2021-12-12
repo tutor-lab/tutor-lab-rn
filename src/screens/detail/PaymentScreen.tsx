@@ -23,6 +23,7 @@ type Props = {
 
 const PaymentScreen = ({navigation, route}: Props) => {
   const [enrollId, setEnrollId] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const onPayment = () => {
     if (enrollId === 0) {
@@ -53,19 +54,20 @@ const PaymentScreen = ({navigation, route}: Props) => {
           <View style={styles.option}>
             <Text style={[fonts[700], styles.text]}>옵션 선택</Text>
           </View>
-          {route.params.lecturePrices.map((item: any) => (
+          {route.params.lecturePrices.map((item: any, index: number) => (
             <PaymentList
               checked={true}
               item={item}
               enrollId={enrollId}
               setEnrollId={setEnrollId}
+              setTotalPrice={setTotalPrice}
             />
           ))}
           {/* <PaymentList checked={true} /> */}
           {/* <PaymentList checked={false} /> */}
         </View>
       </ScrollView>
-      <Bottom.Payment price={179000} onPress={onPayment} />
+      <Bottom.Payment price={totalPrice} onPress={onPayment} />
     </SafeAreaView>
   );
 };
