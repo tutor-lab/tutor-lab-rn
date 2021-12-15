@@ -28,7 +28,6 @@ const TutorScreen = () => {
   useEffect(() => {
     dispatch(getTutorInfoRequest(id));
   }, []);
-
   const navigation = useNavigation();
   const layout = useWindowDimensions();
 
@@ -60,7 +59,8 @@ const TutorScreen = () => {
           <View style={styles.tutorWrapper}>
             <View style={styles.profileWrapper}>
               <View style={styles.imageWrapper}>
-                {tutorInfo.user === null || tutorInfo.user === '' ? (
+                {tutorInfo.user.image === null ||
+                tutorInfo.user.image === '' ? (
                   <WithLocalSvg asset={images.tutor_profile} />
                 ) : (
                   <Image
@@ -129,7 +129,11 @@ const styles = StyleSheet.create({
     borderRadius: (84 + 84) / 2,
     overflow: 'hidden',
   },
-  image: {width: '100%', height: '100%', resizeMode: 'cover'},
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
   tutorName: {fontSize: 16, marginLeft: 9},
   tutorTitle: {},
   tuteeCountWrapper: {},
