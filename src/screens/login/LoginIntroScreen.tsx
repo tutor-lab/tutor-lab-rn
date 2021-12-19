@@ -35,6 +35,12 @@ const LoginIntroScreen = ({navigation}: Props) => {
         <View style={styles.buttonContainer}>
           <View style={styles.buttonWrapper}>
             <Button.Login
+              onPress={() => navigation.navigate('LoginMain', {user: '튜터'})}
+              title={'튜티로 로그인'}
+            />
+          </View>
+          {/* <View style={styles.buttonWrapper}>
+            <Button.Login
               backgroundColor={colors.white}
               textColor={colors.main}
               onPress={() => navigation.navigate('LoginMain', {user: '튜티'})}
@@ -46,7 +52,7 @@ const LoginIntroScreen = ({navigation}: Props) => {
               onPress={() => navigation.navigate('LoginMain', {user: '튜터'})}
               title={'튜터로 로그인'}
             />
-          </View>
+          </View> */}
           <View style={styles.subWrapper}>
             <Button.Login_Sub
               onPress={() => navigation.navigate('TermsOfUse')}
@@ -70,7 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logoContainer: {marginTop: height * 240, alignItems: 'center'},
-  buttonContainer: {paddingVertical: 20},
+  buttonContainer: {paddingTop: 80, paddingBottom: 20},
   buttonWrapper: {marginBottom: 10},
   padding: {
     paddingHorizontal: width * 86,
