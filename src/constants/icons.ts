@@ -11,6 +11,7 @@ export const heart_blank = require('../assets/icons/heart_blank.png');
 export const alert = require('../assets/icons/alert.svg');
 export const alert_dot = require('../assets/icons/alert_dot.svg');
 export const refresh = require('../assets/icons/refresh.svg');
+export const refreshbtn = require('../assets/icons/refreshbtn.svg');
 export const search = require('../assets/icons/search.svg');
 export const search_main = require('../assets/icons/search_main.svg');
 export const star = require('../assets/icons/star.svg');
@@ -96,4 +97,5 @@ export default {
   location_picker,
   location_arrow,
   logo_translucent,
+  refreshbtn,
 };
