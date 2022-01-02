@@ -18,19 +18,21 @@ interface SubjectListType {
 interface Props {
   selectSubjectTitleList: any;
   setSelectSubjectTitleList: any;
+  selectSubjectList: any;
+  setSelectSubjectList: any;
 }
 const SubjectFilter = (props: Props) => {
   const [subjectList, setSubjectList] = useState<SubjectListType[]>([]);
-  const [selectSubjectList, setSelectSubjectList] = useState<SubjectListType[]>(
-    [],
-  );
+  // const [selectSubjectList, setSelectSubjectList] = useState<SubjectListType[]>(
+  //   [],
+  // );
   const getData = () => {};
 
   const initData = async () => {
     const item = await AsyncStorage.getItem('selectSubjectList');
 
     if (item) {
-      setSelectSubjectList(JSON.parse(item));
+      props.setSelectSubjectList(JSON.parse(item));
     } else {
       axios.get('/subjects').then(res => {
         setSubjectList(res.data);
@@ -50,7 +52,7 @@ const SubjectFilter = (props: Props) => {
         item.isSelected = false;
         return {...item};
       });
-      setSelectSubjectList(noselectSubject);
+      props.setSelectSubjectList(noselectSubject);
       AsyncStorage.setItem(
         'selectSubjectList',
         JSON.stringify(noselectSubject),
@@ -61,7 +63,7 @@ const SubjectFilter = (props: Props) => {
     initSelect();
   }, [subjectList]);
   const itemSelect = (krSubject: string, index: number) => {
-    const selectItem = selectSubjectList.map((item, idx) => {
+    const selectItem = props.selectSubjectList.map((item, idx) => {
       if (idx === index) {
         item.isSelected = !item.isSelected;
         if (item.isSelected) {
@@ -80,7 +82,7 @@ const SubjectFilter = (props: Props) => {
       .filter(item => item.isSelected)
       .map(item => item.krSubject);
 
-    setSelectSubjectList(selectItem);
+    props.setSelectSubjectList(selectItem);
     AsyncStorage.setItem('selectSubjectList', JSON.stringify(selectItem));
   };
 
@@ -91,7 +93,7 @@ const SubjectFilter = (props: Props) => {
 
       <ScrollView nestedScrollEnabled={true} style={styles.subjectList}>
         <View style={styles.subjectContainer}>
-          {selectSubjectList.map((item, index) => (
+          {props.selectSubjectList.map((item, index) => (
             <TouchableOpacity onPress={() => itemSelect(item.krSubject, index)}>
               <View
                 style={{

@@ -16,6 +16,7 @@ import {width, height, fonts, icons} from '../../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SingleSidedShadowBox from '../../SearchFilter/SingleSidedShadowBox';
 
+type GenericObject = {[key: string]: any};
 interface Props {
   modalVisible: boolean;
   setModalVisible: any;
@@ -23,11 +24,17 @@ interface Props {
   titleIdx: number;
   touchFilterCategory: (idx: number) => void;
 }
+interface SubjectListType {
+  krSubject: string;
+  isSelected: boolean;
+}
 const PlainModal = (props: Props) => {
   const [selectSubjectTitleList, setSelectSubjectTitleList] = useState<
     string[]
   >([]);
-
+  const [selectSubjectList, setSelectSubjectList] = useState<SubjectListType[]>(
+    [],
+  );
   const cacheSubject = async () => {
     const selectedItem = await AsyncStorage.getItem('selectSubjectTitleList');
     if (!selectedItem) {
@@ -55,6 +62,8 @@ const PlainModal = (props: Props) => {
           <SubjectFilter
             selectSubjectTitleList={selectSubjectTitleList}
             setSelectSubjectTitleList={setSelectSubjectTitleList}
+            selectSubjectList={selectSubjectList}
+            setSelectSubjectList={setSelectSubjectList}
           />
         );
       case 2:
@@ -66,9 +75,21 @@ const PlainModal = (props: Props) => {
   };
 
   const removeSelectSubject = (subject: string) => {
-    setSelectSubjectTitleList(
-      selectSubjectTitleList.filter(item => item !== subject),
-    );
+    const listObj: any = [];
+    const res = selectSubjectTitleList.filter(item => item !== subject);
+
+    setSelectSubjectTitleList(res);
+
+    selectSubjectTitleList.filter(item => item !== subject);
+    selectSubjectList.map(item => {
+      if (item.krSubject === subject) {
+        item.isSelected = false;
+      }
+    });
+    selectSubjectList.filter(item => item.krSubject !== subject);
+
+    setSelectSubjectList(selectSubjectList);
+    // AsyncStorage.setItem('selectSubjectList', JSON.stringify(selectItem));
   };
 
   return (
@@ -108,7 +129,7 @@ const PlainModal = (props: Props) => {
               <View style={styles.selectSubject}>
                 <Text style={styles.selectSubjectText}>{item}</Text>
                 {/* 제거하는 아이콘 */}
-                {/* <TouchableOpacity onPress={() => removeSelectSubject(item)}>
+                <TouchableOpacity onPress={() => removeSelectSubject(item)}>
                   <View
                     style={{
                       position: 'relative',
@@ -118,7 +139,7 @@ const PlainModal = (props: Props) => {
                     }}>
                     <WithLocalSvg asset={icons.exit_btn} />
                   </View>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
               </View>
             ))}
           </View>
