@@ -1,9 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {View, Modal, StyleSheet, Text, ScrollView, Image} from 'react-native';
+import {
+  View,
+  Modal,
+  StyleSheet,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import FilterDetail from '../../hometab/filter/FilterDetail';
 import SubjectFilter from '../../SearchFilter/SubjectFilter';
+import SelectLevel from '../../SearchFilter/SelectLevel';
+import LectureMethod from '../../SearchFilter/LectureMethod';
 import {WithLocalSvg} from 'react-native-svg/src';
 import {width, height, fonts, icons} from '../../../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SingleSidedShadowBox from '../../SearchFilter/SingleSidedShadowBox';
+
 interface Props {
   modalVisible: boolean;
   setModalVisible: any;
@@ -16,7 +28,25 @@ const PlainModal = (props: Props) => {
     string[]
   >([]);
 
-  useEffect(() => {}, [selectSubjectTitleList]);
+  const cacheSubject = async () => {
+    const selectedItem = await AsyncStorage.getItem('selectSubjectTitleList');
+    if (!selectedItem) {
+      await AsyncStorage.setItem(
+        'selectSubjectTitleList',
+        JSON.stringify(selectSubjectTitleList),
+      );
+    }
+  };
+  const initData = async () => {
+    const selectedItem = await AsyncStorage.getItem('selectSubjectTitleList');
+    if (selectedItem) {
+      setSelectSubjectTitleList(JSON.parse(selectedItem));
+    }
+  };
+  useEffect(() => {
+    cacheSubject();
+    initData();
+  }, []);
 
   const renderDetailView = (idx: number) => {
     switch (idx) {
@@ -28,19 +58,17 @@ const PlainModal = (props: Props) => {
           />
         );
       case 2:
-        return (
-          <View>
-            <Text>두번쨰</Text>
-          </View>
-        );
+        return <LectureMethod />;
       case 3:
-        return (
-          <View>
-            <Text>세번쨰</Text>
-          </View>
-        );
+        return <SelectLevel />;
     }
     return <></>;
+  };
+
+  const removeSelectSubject = (subject: string) => {
+    setSelectSubjectTitleList(
+      selectSubjectTitleList.filter(item => item !== subject),
+    );
   };
 
   return (
@@ -60,11 +88,37 @@ const PlainModal = (props: Props) => {
           />
           {renderDetailView(props.titleIdx)}
         </View>
+        {/* <SingleSidedShadowBox style={{width: '100%', height: 40}}>
+          <View
+            style={{
+              backgroundColor: '#fff',
+              width: '100%',
+              height: '100%',
+              shadowColor: '#000',
+              shadowOffset: {width: 1, height: 1},
+              shadowOpacity: 0.4,
+              shadowRadius: 3,
+              elevation: 2,
+            }}
+          />
+        </SingleSidedShadowBox> */}
         <ScrollView horizontal={true}>
           <View style={styles.selectedSubjectContainer}>
             {selectSubjectTitleList.map(item => (
               <View style={styles.selectSubject}>
                 <Text style={styles.selectSubjectText}>{item}</Text>
+                {/* 제거하는 아이콘 */}
+                {/* <TouchableOpacity onPress={() => removeSelectSubject(item)}>
+                  <View
+                    style={{
+                      position: 'relative',
+
+                      paddingTop: height * 5,
+                      paddingLeft: width * 6.5,
+                    }}>
+                    <WithLocalSvg asset={icons.exit_btn} />
+                  </View>
+                </TouchableOpacity> */}
               </View>
             ))}
           </View>
@@ -124,6 +178,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     paddingTop: height * 8,
     borderColor: '#689AFD',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   selectSubjectText: {
     flexDirection: 'row',

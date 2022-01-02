@@ -28,7 +28,7 @@ const SubjectFilter = (props: Props) => {
 
   const initData = async () => {
     const item = await AsyncStorage.getItem('selectSubjectList');
-    console.log('item', item);
+
     if (item) {
       setSelectSubjectList(JSON.parse(item));
     } else {
