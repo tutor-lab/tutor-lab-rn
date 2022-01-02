@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "779338835350",
+    "project_id": "login-77c97",
+    "storage_bucket": "login-77c97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779338835350:android:935f7ce02639c5481a69b7",
+        "android_client_info": {
+          "package_name": "com.tutorlab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779338835350-2i5m24ouhqcb2rlumcu0dmv3dfcelcbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd7eHwQ6P2fALFKLjz_DnvQ2k6Jex_Lkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779338835350-2i5m24ouhqcb2rlumcu0dmv3dfcelcbc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
