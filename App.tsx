@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BACKEND_URL} from 'react-native-dotenv';
+import {DEV_URL} from 'react-native-dotenv';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -31,7 +31,7 @@ const App = () => {
     return result;
   });
 
-  axios.defaults.baseURL = BACKEND_URL;
+  axios.defaults.baseURL = DEV_URL;
   axios.interceptors.request.use(async function (config) {
     const token = await AsyncStorage.getItem('accessToken');
     if (token) {
