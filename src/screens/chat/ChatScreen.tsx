@@ -15,56 +15,52 @@ import {Header} from '../../components/common';
 import {colors, fonts, icons, width} from '../../constants';
 import {ChatMine, TextInput, ChatOther} from '../../components/chat';
 
-// textinput line 최대 몇 줄?
-// 첫 랜더링 때 왜 깜빡거리는지..
-//  나중에 채팅 올때 알람 어떻게? 읽었는지 안읽었는지 표시?
-
-type Props = {navigation: any; route: any};
+type Props = {
+  navigation: any;
+  route: {params: {params: {chatRoomId: string; tutorId: string}}};
+};
 
 const ChatScreen = ({navigation, route}: Props) => {
-  // const chatID = 1; //임시 테스트
   const scrollViewRef = useRef<ElementType>();
-
   const [input, setInput] = useState({text: '', height: 40});
   const [messageList, setMessageList] = useState<MessageList[]>([]);
   const [user, setUser] = useState<any>([]);
   const [sendMsgCnt, setSendMsgCnt] = useState(0);
 
   const ws = new WebSocket(
-    `ws://3.35.255.192:8081/ws/chat/${route.params.params.chatRoomId}`,
+    `ws://3.35.255.192:9099/ws/chat/${route.params.params.chatRoomId}`,
   );
 
   useEffect(() => {
     // 에러 발생시
     ws.onerror = e => {
-      console.log(e.message);
+      console.log('e.message ===', e.message);
     };
     // 소켓 연결 해제
     ws.onclose = e => {
-      console.log(e.code, e.reason);
+      console.log(`e.code ==== ${e.code}, e,reson ==== ${e.reason}`);
     };
   }, []);
 
   useEffect(() => {
     // 메세지 수신
     ws.onmessage = evt => {
-      // console.log('edata',e.data)
       const data = JSON.parse(evt.data);
       setMessageList((prevItems: any) => [...prevItems, data]);
-      // sendMessage(e.data.message)
     };
   }, []);
 
-  const sendMsgEnter = (data: string) => {
-    ws.send(
-      JSON.stringify({
-        chatroomId: parseInt(route.params.params.chatRoomId),
-        sender: user.name,
-        receiver: parseInt(route.params.params.tutorId),
-        message: data,
-        senderId: user.userId,
-      }),
-    );
+  const sendMsgEnter = (value: string) => {
+    const data = JSON.stringify({
+      chatroomId: parseInt(route.params.params.chatRoomId),
+      senderNickname: user.name,
+      receiverId: route.params.params.tutorId,
+      message: value,
+    });
+
+    try {
+      ws.send(data);
+    } catch (error) {}
 
     setInput({text: '', height: 40});
     setSendMsgCnt(sendMsgCnt + 1);
@@ -86,7 +82,6 @@ const ChatScreen = ({navigation, route}: Props) => {
       await axios
         .get(`/tutees/my-chatrooms/${route.params.params.chatRoomId}`)
         .then(response => {
-          console.log(response.data);
           setMessageList(response.data);
           return response;
         });

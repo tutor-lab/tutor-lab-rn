@@ -32,9 +32,9 @@ const WriteCard = ({data, navigation}: Props) => {
               {data.item.title}
             </Text>
             <View style={{flexDirection: 'row'}}>
-              {data.item.systemTypes.map((list: any) => (
+              {data.item.systemTypes.map((list: any, index: number) => (
                 <Text
-                  key={list}
+                  key={index}
                   style={[fonts[400], styles.text, {color: colors.light_gray}]}>
                   {list.name}{' '}
                 </Text>

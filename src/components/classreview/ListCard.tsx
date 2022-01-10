@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-
-import {fonts, colors} from '../../constants';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {Commonstyles, Line, StarRating} from '../../components/common';
+import {Modals} from '../../components/editprofile';
+import {fonts, colors} from '../../constants';
 
 type Props = {
   setModalText: React.Dispatch<
@@ -15,7 +15,13 @@ type Props = {
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ListCard = ({setModalText, setIsModalVisible}) => {
+const ListCard = ({}) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalText, setModalText] = useState({
+    title: '',
+    describe: '',
+  });
+
   return (
     <View>
       <View style={[Commonstyles.padding, styles.padding, styles.row]}>
@@ -82,6 +88,23 @@ const ListCard = ({setModalText, setIsModalVisible}) => {
         </View>
       </View>
       <Line height={8} />
+      {isModalVisible && (
+        <Modals.Container
+          visible={isModalVisible}
+          setVisible={setIsModalVisible}>
+          <Modals.Title text={modalText.title} />
+          <Modals.Description text={modalText.describe} />
+          <Modals.TwoBtn
+            textCancel={'아니요'}
+            textOk={'예'}
+            onPressCancel={() => setIsModalVisible(false)}
+            onPressOk={() => {
+              setIsModalVisible(false);
+              navigation.navigate('ReviewWrite');
+            }}
+          />
+        </Modals.Container>
+      )}
     </View>
   );
 };

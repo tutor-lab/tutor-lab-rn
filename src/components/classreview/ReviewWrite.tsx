@@ -46,7 +46,7 @@ const ReviewWrite = ({navigation}) => {
     <FlatList
       data={reviewData}
       renderItem={(data: any) => renderItem(data)}
-      keyExtractor={item => item.id}
+      keyExtractor={item => item.key}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.8}
     />
