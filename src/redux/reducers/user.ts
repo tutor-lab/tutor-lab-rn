@@ -4,6 +4,9 @@ import {
   USER_INFO_REQUEST,
   USER_INFO_SUCCESS,
   USER_INFO_FAILURE,
+  USER_REVIEW_REQUEST,
+  USER_REVIEW_SUCCESS,
+  USER_REVIEW_FAILURE,
 } from '../actions/user';
 
 export const initialState = {
@@ -11,6 +14,10 @@ export const initialState = {
   userInfoLodaing: false,
   userInfoError: null,
   userInfo: {},
+  userReviewSuccess: false,
+  userReviewLoading: false,
+  userReviewError: null,
+  userReviewList: [],
 };
 
 export const getUserInfoRequest = () => {
@@ -19,10 +26,17 @@ export const getUserInfoRequest = () => {
   };
 };
 
+export const getUserReviewRequest = (page: number) => {
+  return {
+    type: USER_REVIEW_REQUEST,
+    payload: {page: page},
+  };
+};
+
 const userReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case USER_INFO_REQUEST: // 요청
+      case USER_INFO_REQUEST:
         draft.userInfoLodaing = true;
         draft.userInfoError = null;
         break;
@@ -34,6 +48,30 @@ const userReducer = (state = initialState, action) =>
       case USER_INFO_FAILURE:
         draft.userInfoLodaing = false;
         draft.userInfoError = action.payload.message;
+        break;
+      case USER_REVIEW_REQUEST:
+        const reviewListInit =
+          action.payload.page === 1 ? [] : draft.userReviewList;
+        draft.userReviewLoading = true;
+        draft.userReviewError = null;
+        draft.userReviewList = reviewListInit;
+        break;
+      case USER_REVIEW_SUCCESS:
+        draft.userReviewLoading = false;
+        draft.userReviewSuccess = true;
+        if (action.payload.content[0]) {
+          const reviewList = state.userReviewList.concat(
+            action.payload.content,
+          );
+          draft.userReviewList = reviewList;
+        }
+
+        // action.payload.content[0] &&
+        //   draft.userReviewList.push(action.payload.content);
+        break;
+      case USER_REVIEW_FAILURE:
+        draft.userReviewLoading = false;
+        draft.userReviewError = action.payload.message;
         break;
       default:
         break;
