@@ -81,7 +81,7 @@ export const Setting = [
 
 export const MypageBtn_BigData = [
   {id: 0, title: '강의 내역', icon: icons.purchased, navigation: 'ClassReview'},
-  {id: 1, title: '위시리스트', icon: icons.wishlist, navigation: 'WishList'},
+  // {id: 1, title: '위시리스트', icon: icons.wishlist, navigation: 'WishList'},
 ];
 export const MypageListInfoData = [
   // {id: 0, title: '강의 요청', navigation: 'RequireClass', lastIdx: false},

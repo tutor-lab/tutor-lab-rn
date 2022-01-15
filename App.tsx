@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {DEV_URL} from 'react-native-dotenv';
+import {DEV_URL, BACKEND_URL} from 'react-native-dotenv';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -31,7 +31,7 @@ const App = () => {
     return result;
   });
 
-  axios.defaults.baseURL = DEV_URL;
+  axios.defaults.baseURL = BACKEND_URL;
   axios.interceptors.request.use(async function (config) {
     const token = await AsyncStorage.getItem('accessToken');
     if (token) {
@@ -47,7 +47,6 @@ const App = () => {
           {/* {isToken?
         <Stack.Screen name="Main" component={Main} />
       : <Stack.Screen name="Login" component={Login} />} */}
-          <Stack.Screen name="ClassReview" component={ClassReview} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Main" component={Main} />
           <Stack.Screen name="TermsOfUse" component={TermsOfUse} />
@@ -60,6 +59,7 @@ const App = () => {
           <Stack.Screen name="WishList" component={WishList} />
           <Stack.Screen name="LocationModal" component={LocationModal} />
           <Stack.Screen name="Tutor" component={Tutor} />
+          <Stack.Screen name="ClassReview" component={ClassReview} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
