@@ -65,9 +65,6 @@ const userReducer = (state = initialState, action) =>
           );
           draft.userReviewList = reviewList;
         }
-
-        // action.payload.content[0] &&
-        //   draft.userReviewList.push(action.payload.content);
         break;
       case USER_REVIEW_FAILURE:
         draft.userReviewLoading = false;

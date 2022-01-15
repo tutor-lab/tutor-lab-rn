@@ -47,6 +47,7 @@ const App = () => {
           {/* {isToken?
         <Stack.Screen name="Main" component={Main} />
       : <Stack.Screen name="Login" component={Login} />} */}
+          <Stack.Screen name="ClassReview" component={ClassReview} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Main" component={Main} />
           <Stack.Screen name="TermsOfUse" component={TermsOfUse} />
@@ -56,7 +57,6 @@ const App = () => {
           <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="MyPage" component={MyPage} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
-          <Stack.Screen name="ClassReview" component={ClassReview} />
           <Stack.Screen name="WishList" component={WishList} />
           <Stack.Screen name="LocationModal" component={LocationModal} />
           <Stack.Screen name="Tutor" component={Tutor} />
