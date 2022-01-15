@@ -141,9 +141,16 @@ const ListCard = ({data, navigation}: Props) => {
             onPressCancel={() => setIsModalVisible(false)}
             onPressOk={() => {
               setIsModalVisible(false);
-              console.log(modalText.title);
               if (modalText.title === '리뷰 수정') {
-                // navigation.navigate('ReviewWrite');
+                navigation.navigate('ReviewWrite', {
+                  id: data.item.lecture.id,
+                  thumbnail: data.item.lecture.thumbnail,
+                  title: data.item.lecture.title,
+                  nickname: data.item.child.userNickname,
+                  systemTypes: data.item.lecture.systemTypes[0],
+                  lecturePrices: data.item.lecture.lecturePrices[0],
+                  lectureSubjects: data.item.lecture.lectureSubjects,
+                });
               } else {
                 deleteReview();
               }
