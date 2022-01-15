@@ -65,11 +65,13 @@ const ReviewWriteScreen = ({route}: Props) => {
           score: rating,
         })
         .then(function (response) {
+          console.log('ress====', response);
           if (response.status === 201) {
             setIsModal(true);
           }
         })
         .catch(function (error) {
+          console.log('error====', error);
           Keyboard.dismiss();
           console.log(error.message);
         });
@@ -167,7 +169,7 @@ const ReviewWriteScreen = ({route}: Props) => {
           <Modals.OneBtn
             onPress={() => {
               setIsModal(false);
-              navigation.navigate('ReviewList');
+              navigation.replace('Main', {screen: 'MyPageTab'});
             }}
             text={'확인'}
           />
