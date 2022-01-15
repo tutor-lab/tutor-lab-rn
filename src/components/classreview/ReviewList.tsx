@@ -29,6 +29,7 @@ const ReviewList = ({navigation}) => {
   const renderItem = (data: any) => (
     <ListCard
       data={data}
+      navigation={navigation}
       setIsModalVisible={setIsModalVisible}
       setModalText={setModalText}
     />

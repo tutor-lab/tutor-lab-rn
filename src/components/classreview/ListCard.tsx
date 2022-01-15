@@ -1,12 +1,21 @@
 import React, {useState} from 'react';
 import 'react-native-gesture-handler';
-import {StyleSheet, Image, View, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  ToastAndroid,
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {Commonstyles, Line, StarRating} from '../../components/common';
 import {Modals} from '../../components/editprofile';
 import {fonts, colors} from '../../constants';
+import axios from 'axios';
 
 type Props = {
   data: any;
+  navigation: any;
   setModalText: React.Dispatch<
     React.SetStateAction<{
       title: string;
@@ -16,12 +25,32 @@ type Props = {
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ListCard = ({data}: Props) => {
+const ListCard = ({data, navigation}: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalText, setModalText] = useState({
     title: '',
     describe: '',
   });
+
+  const deleteReview = async () => {
+    try {
+      await axios
+        .delete(
+          `/tutees/my-lectures/${data.item.lecture.id}/reviews/${data.item.reviewId}`,
+        )
+        .then(res => {
+          ToastAndroid.showWithGravity(
+            '삭제되었습니다.',
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER,
+          );
+        });
+    } catch (err) {
+      console.log('ERR!!!', err);
+      return err;
+    }
+  };
+
   return (
     <View>
       <View style={[Commonstyles.padding, styles.padding, styles.row]}>
@@ -112,7 +141,12 @@ const ListCard = ({data}: Props) => {
             onPressCancel={() => setIsModalVisible(false)}
             onPressOk={() => {
               setIsModalVisible(false);
-              navigation.navigate('ReviewWrite');
+              console.log(modalText.title);
+              if (modalText.title === '리뷰 수정') {
+                // navigation.navigate('ReviewWrite');
+              } else {
+                deleteReview();
+              }
             }}
           />
         </Modals.Container>
