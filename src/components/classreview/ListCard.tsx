@@ -1,11 +1,21 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import 'react-native-gesture-handler';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  ToastAndroid,
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {Commonstyles, Line, StarRating} from '../../components/common';
 import {Modals} from '../../components/editprofile';
 import {fonts, colors} from '../../constants';
+import axios from 'axios';
 
 type Props = {
+  data: any;
+  navigation: any;
   setModalText: React.Dispatch<
     React.SetStateAction<{
       title: string;
@@ -15,31 +25,65 @@ type Props = {
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ListCard = ({}) => {
+const ListCard = ({data, navigation}: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalText, setModalText] = useState({
     title: '',
     describe: '',
   });
 
+  const deleteReview = async () => {
+    try {
+      await axios
+        .delete(
+          `/tutees/my-lectures/${data.item.lecture.id}/reviews/${data.item.reviewId}`,
+        )
+        .then(res => {
+          ToastAndroid.showWithGravity(
+            '삭제되었습니다.',
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER,
+          );
+        });
+    } catch (err) {
+      console.log('ERR!!!', err);
+      return err;
+    }
+  };
+
   return (
     <View>
       <View style={[Commonstyles.padding, styles.padding, styles.row]}>
         <View style={styles.leftSection}>
-          <View style={styles.imageWrapper}>
+          <TouchableOpacity activeOpacity={1} style={styles.imageWrapper}>
+            <Image
+              source={{uri: `${data.item.lecture.thumbnail}`}}
+              resizeMode={'cover'}
+              style={styles.image}
+            />
             {/* 이미지  누르면 해당 강의로 넘어가기*/}
-          </View>
+          </TouchableOpacity>
           <View style={styles.textSection}>
-            <Text style={[fonts[400], styles.text]}>[SQR, R, Python]</Text>
+            <Text style={[fonts[400], styles.text]}>
+              {data.item.lecture.lectureSubjects.map((item, index) => (
+                <Text style={[fonts[400], styles.text]} key={index}>
+                  {item.krSubject}{' '}
+                </Text>
+              ))}
+            </Text>
             <Text
               style={[fonts[400], styles.text]}
               numberOfLines={1}
               ellipsizeMode="tail">
-              금융권 취업을 위한 데이터 분석 및 모델링
+              {data.item.lecture.title}
             </Text>
-            <Text style={[fonts[400], styles.text, {color: colors.light_gray}]}>
-              온라인 / 그룹
-            </Text>
+            {data.item.lecture.systemTypes.map((item, index) => (
+              <Text
+                style={[fonts[400], styles.text, {color: colors.light_gray}]}
+                key={index}>
+                {item.name}{' '}
+              </Text>
+            ))}
           </View>
         </View>
         <View style={styles.rightSection}>
@@ -74,17 +118,14 @@ const ListCard = ({}) => {
       <View style={[Commonstyles.padding, styles.padding]}>
         <View style={styles.row}>
           <View style={styles.star}>
-            <StarRating rating={3.5} size={10} />
+            <StarRating rating={data.item.score} size={10} />
           </View>
           <View>
-            <Text style={styles.date}>2021.07.01</Text>
+            <Text style={styles.date}>{data.item.createdAt.slice(0, 10)}</Text>
           </View>
         </View>
         <View style={{marginTop: 6}}>
-          <Text style={[fonts[400], styles.text]}>
-            질문이 많았는데도 친절하게 잘 설명해주시고, 초보자인 저도 커리큘럼을
-            잘 따라갈 수 있었습니다. 정말 감사드려요
-          </Text>
+          <Text style={[fonts[400], styles.text]}>{data.item.content}</Text>
         </View>
       </View>
       <Line height={8} />
@@ -100,7 +141,19 @@ const ListCard = ({}) => {
             onPressCancel={() => setIsModalVisible(false)}
             onPressOk={() => {
               setIsModalVisible(false);
-              navigation.navigate('ReviewWrite');
+              if (modalText.title === '리뷰 수정') {
+                navigation.navigate('ReviewWrite', {
+                  id: data.item.lecture.id,
+                  thumbnail: data.item.lecture.thumbnail,
+                  title: data.item.lecture.title,
+                  nickname: data.item.child.userNickname,
+                  systemTypes: data.item.lecture.systemTypes[0],
+                  lecturePrices: data.item.lecture.lecturePrices[0],
+                  lectureSubjects: data.item.lecture.lectureSubjects,
+                });
+              } else {
+                deleteReview();
+              }
             }}
           />
         </Modals.Container>
@@ -126,6 +179,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.skyBlue,
     borderRadius: 6,
   },
+  image: {height: '100%', width: '100%', borderRadius: 6},
   text: {fontSize: 12},
   leftSection: {flex: 3, flexDirection: 'row'},
   textSection: {marginLeft: 12, flex: 1},

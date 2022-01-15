@@ -5,19 +5,17 @@ import axios from 'axios';
 import {Empty, WriteCard} from '../../components/classreview';
 
 const ReviewWrite = ({navigation}) => {
-  const [apiCount, setApiCount] = useState(1);
+  const [page, setPage] = useState(1);
   const [reviewData, setReviewData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const getTakenClass = async () => {
     setLoading(true);
     try {
-      await axios
-        .get(`/tutees/my-lectures?page=${apiCount}`)
-        .then((res: any) => {
-          setReviewData(res.data.content);
-          return res;
-        });
+      await axios.get(`/tutees/my-lectures?page=${page}`).then((res: any) => {
+        setReviewData(res.data.content);
+        return res;
+      });
       setLoading(false);
     } catch (err) {
       console.log('ERR!!!', err);
@@ -30,7 +28,7 @@ const ReviewWrite = ({navigation}) => {
   }, []);
 
   const onEndReached = () => {
-    setApiCount(apiCount + 1);
+    setPage(page + 1);
     if (loading) {
       return;
     } else {

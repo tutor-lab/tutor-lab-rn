@@ -13,7 +13,7 @@ type Props = {
 const Detail = ({heart, btn}: Props) => {
   return (
     <Container>
-      <Button.Heart onPress={heart} />
+      {/* <Button.Heart onPress={heart} /> */}
       <Button.Container divider={10} maxWidth={279}>
         <Button.Button_48 text={'강의 신청'} onPress={btn} />
       </Button.Container>
